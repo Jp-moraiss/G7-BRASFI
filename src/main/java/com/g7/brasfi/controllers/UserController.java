@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.g7.brasfi.dto.UserDTO;
 import com.g7.brasfi.entities.User;
 import com.g7.brasfi.services.UserService;
-
 import jakarta.validation.Valid;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping(value = "/users")	
 public class UserController {
