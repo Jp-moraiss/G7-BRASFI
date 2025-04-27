@@ -19,6 +19,8 @@ import com.g7.brasfi.dto.UserDTO;
 import com.g7.brasfi.entities.User;
 import com.g7.brasfi.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/users")	
 public class UserController {
@@ -39,7 +41,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> insert(@RequestBody UserDTO userDTO) {
+	public ResponseEntity<User> insert(@RequestBody @Valid UserDTO userDTO) {
 	    User user = service.convertToEntity(userDTO);
 	    user = service.insert(user);
 	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -54,8 +56,8 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user){
-		user = service.update(user, id);
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto){
+		User user = service.update(dto, id);
 		return ResponseEntity.ok().body(user);
 	}
 }

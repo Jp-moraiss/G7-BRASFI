@@ -18,28 +18,28 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 
-@Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private String phone;
-	private String email;
-	private String password;
-	private String cpf;
-	private LocalDate dataNascimento;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant dataCriacao;
-	private String genero;
-	private String biografia;
-
-	public User() {
-	}
+	@Entity
+	@Table(name = "tb_user")
+	public class User implements Serializable {
+		private static final long serialVersionUID = 1L;
 	
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Long id;
+		private String name;
+		private String phone;
+		private String email;
+		private String password;
+		private String cpf;
+		private LocalDate dataNascimento;
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+		private Instant dataCriacao;
+		private String genero;
+		private String biografia;
+	
+		public User() {
+		}
+		
 	public User(Long id, String name, String phone, String email, String password, String cpf, LocalDate dataNascimento,
 			Instant dataCriacao, String genero) {
 		super();
