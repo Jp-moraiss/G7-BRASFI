@@ -1,5 +1,7 @@
 package com.g7.brasfi.services;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,8 +71,8 @@ public class UserService {
 	@Transactional
 	public User update(UserDTO userDTO, Long id) {
 	    try {
-	        User entity = repository.getReferenceById(id); // pega uma referência
-	        updateData(entity, userDTO); // atualiza com base no DTO
+	        User entity = repository.getReferenceById(id);
+	        updateData(entity, userDTO);
 	        return repository.save(entity);
 	    } catch (EntityNotFoundException e) {
 	        throw new ResourceNotFoundException(id);
@@ -106,4 +108,10 @@ public class UserService {
 
         return user;
     }
+	
+	private boolean isUnderage(LocalDate dataNascimento) {
+	    LocalDate hoje = LocalDate.now();
+	    Period idade = Period.between(dataNascimento, hoje);
+	    return idade.getYears() < 18;
+	}
 }
