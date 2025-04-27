@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_chat")
 public class Chat {
@@ -15,15 +17,11 @@ public class Chat {
     private String nome;
 
     @ManyToMany
-    @JoinTable(
-        name = "tb_chat_participantes",
-        joinColumns = @JoinColumn(name = "chat_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @JsonIgnore
     private List<User> participantes = new ArrayList<>();
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> mensagens = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     public Chat() {
     }
@@ -52,8 +50,8 @@ public class Chat {
         this.participantes = participantes;
     }
 
-    public List<Message> getMensagens() {
-        return mensagens;
+    public List<Message> getMessages() {
+        return messages;
     }
 
 }
