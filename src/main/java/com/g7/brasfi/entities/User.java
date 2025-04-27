@@ -1,47 +1,45 @@
 package com.g7.brasfi.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+@Entity
+@Table(name = "tb_user")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	private String phone;
+	private String email;
+	private String password;
+	private String cpf;
+	private LocalDate dataNascimento;
 
-@AllArgsConstructor
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant dataCriacao;
+	private String genero;
+	private String biografia;
 
-	@Entity
-	@Table(name = "tb_user")
-	public class User implements Serializable {
-		private static final long serialVersionUID = 1L;
-	
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long id;
-		private String name;
-		private String phone;
-		private String email;
-		private String password;
-		private String cpf;
-		private LocalDate dataNascimento;
-		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-		private Instant dataCriacao;
-		private String genero;
-		private String biografia;
-	
-		public User() {
-		}
-		
+	@ManyToMany(mappedBy = "participantes")
+	private List<Chat> chats = new ArrayList<>();
+
+	@OneToMany(mappedBy = "autor")
+	private List<Message> mensagensEnviadas = new ArrayList<>();
+
+	public User() {
+	}
+
 	public User(Long id, String name, String phone, String email, String password, String cpf, LocalDate dataNascimento,
-			Instant dataCriacao, String genero) {
+				Instant dataCriacao, String genero) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -54,6 +52,8 @@ import lombok.AllArgsConstructor;
 		this.genero = genero;
 		this.biografia = null;
 	}
+
+	// Getters e Setters
 
 	public Long getId() {
 		return id;
@@ -78,7 +78,7 @@ import lombok.AllArgsConstructor;
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPhone() {
 		return phone;
 	}
@@ -131,6 +131,22 @@ import lombok.AllArgsConstructor;
 		this.biografia = biografia;
 	}
 
+	public List<Chat> getChats() {
+		return chats;
+	}
+
+	public void setChats(List<Chat> chats) {
+		this.chats = chats;
+	}
+
+	public List<Message> getMensagensEnviadas() {
+		return mensagensEnviadas;
+	}
+
+	public void setMensagensEnviadas(List<Message> mensagensEnviadas) {
+		this.mensagensEnviadas = mensagensEnviadas;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -145,22 +161,4 @@ import lombok.AllArgsConstructor;
 			this.dataCriacao = Instant.now();
 		}
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(cpf, id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
-	}
-	
 }
