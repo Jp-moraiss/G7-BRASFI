@@ -1,5 +1,7 @@
 package com.g7.brasfi.services;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,7 @@ import com.g7.brasfi.services.exceptions.DatabaseException;
 import com.g7.brasfi.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -43,6 +46,12 @@ public class UserService {
     }
     
 	public User insert(User user) {
+		if (repository.existsByCpf(user.getCpf())) {
+			throw new DatabaseException("CPF já cadastrado: " + user.getCpf());
+		}
+	    if (isUnderage(user.getDataNascimento())) {
+	        throw new DatabaseException("A idade mínima para cadastro é 18 anos.");
+	    }
 		return repository.save(user);
 	}
 	
@@ -59,24 +68,27 @@ public class UserService {
 		}
 	}
 	
-	public User update(User user, Long id) {
-		try {
-			User entity = repository.getReferenceById(id);
-			updateData(entity, user);
-			return repository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
+	@Transactional
+	public User update(UserDTO userDTO, Long id) {
+	    try {
+	        User entity = repository.getReferenceById(id);
+	        updateData(entity, userDTO);
+	        return repository.save(entity);
+	    } catch (EntityNotFoundException e) {
+	        throw new ResourceNotFoundException(id);
+	    }
 	}
+
 	
-	private void updateData(User entity, User obj) {
-		entity.setName(obj.getName());
-		entity.setPhone(obj.getPhone());
-		entity.setEmail(obj.getEmail());
-		entity.setDataNascimento(obj.getDataNascimento());
-		entity.setGenero(obj.getGenero());
-		entity.setBiografia(obj.getBiografia());
+	private void updateData(User entity, UserDTO dto) {
+	    entity.setName(dto.getName());
+	    entity.setPhone(dto.getPhone());
+	    entity.setEmail(dto.getEmail());
+	    entity.setDataNascimento(dto.getDataNascimento());
+	    entity.setGenero(dto.getGenero());
+	    entity.setBiografia(dto.getBiografia());
 	}
+
 	
 	public User convertToEntity(UserDTO userDTO) {
         User user = new User();
@@ -96,4 +108,10 @@ public class UserService {
 
         return user;
     }
+	
+	private boolean isUnderage(LocalDate dataNascimento) {
+	    LocalDate hoje = LocalDate.now();
+	    Period idade = Period.between(dataNascimento, hoje);
+	    return idade.getYears() < 18;
+	}
 }

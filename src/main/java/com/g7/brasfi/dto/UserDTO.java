@@ -2,18 +2,39 @@ package com.g7.brasfi.dto;
 
 import java.time.LocalDate;
 
+import com.g7.brasfi.validation.AdultValidator;
+import com.g7.brasfi.validation.CPFValidator;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+
 public class UserDTO {
 
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
-    private String phone;
-    private String email;
-    private String password;
-    private String cpf;
-    private LocalDate dataNascimento;
-    private String genero;
-    private String biografia;
 
-    // Getters e setters
+    @NotBlank(message = "Telefone é obrigatório")
+    private String phone;
+
+    @NotBlank(message = "Email é obrigatório")
+    private String email;
+
+    @NotBlank(message = "Senha é obrigatória")
+    private String password;
+
+    @NotBlank(message = "CPF é obrigatório")
+    @CPFValidator
+    private String cpf;
+
+    @NotNull(message = "Data de nascimento é obrigatória")
+    @Past(message = "Data de nascimento deve ser no passado")
+    @AdultValidator
+    private LocalDate dataNascimento;
+
+    private String genero;
+
+    private String biografia;
 
     public String getName() {
         return name;
