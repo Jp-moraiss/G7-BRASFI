@@ -16,6 +16,7 @@ import com.g7.brasfi.domain.user.RegisterDTO;
 import com.g7.brasfi.domain.user.User;
 import com.g7.brasfi.infra.security.TokenService;
 import com.g7.brasfi.repositories.UserRepository;
+import com.g7.brasfi.services.exceptions.DatabaseException;
 
 import jakarta.validation.Valid;
 
@@ -44,24 +45,32 @@ public class AuthenticationController {
 	
 	@PostMapping("/register")
 	public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
-		if (this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
-		
-		String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-		
+	    if (userRepository.findByLogin(data.login()) != null) {
+	        throw new DatabaseException("Login já está em uso.");
+	    }
+
+	    if (userRepository.findByCpf(data.cpf()) != null) {
+	        throw new DatabaseException("CPF já está em uso.");
+	    }
+
+	    String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+
 	    User newUser = new User(
-	            data.login(),
-	            encryptedPassword,
-	            data.role(),
-	            data.name(),
-	            data.phone(),
-	            data.cpf(),
-	            data.dataNascimento(),
-	            data.genero(),
-	            data.biografia()
-	        );
-		
-		this.userRepository.save(newUser);
-		
-		return ResponseEntity.ok().build();
+	        data.login(),
+	        encryptedPassword,
+	        data.role(),
+	        data.name(),
+	        data.phone(),
+	        data.cpf(),
+	        data.dataNascimento(),
+	        data.genero(),
+	        data.biografia()
+	    );
+
+	    userRepository.save(newUser);
+
+	    return ResponseEntity.ok().build();
 	}
+
+
 }

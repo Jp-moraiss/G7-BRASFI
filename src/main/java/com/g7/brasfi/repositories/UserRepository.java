@@ -7,4 +7,8 @@ import com.g7.brasfi.domain.user.User;
 
 public interface UserRepository extends JpaRepository<User, String>{
 	UserDetails findByLogin(String Login);
+	
+	UserDetails findByCpf(String cpf);
+	
+
 }
