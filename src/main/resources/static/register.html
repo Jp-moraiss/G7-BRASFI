@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registro</title>
+</head>
+<body>
+  <h1>Registro</h1>
+  <form id="registerForm">
+    <input type="email" name="login" placeholder="Email" required><br>
+    <input type="password" name="password" placeholder="Senha" required><br>
+    <input type="text" name="name" placeholder="Nome" required><br>
+    <input type="text" name="phone" placeholder="Telefone" required><br>
+    <input type="text" name="cpf" placeholder="CPF" required><br>
+    <input type="date" name="dataNascimento" placeholder="Data de Nascimento" required><br>
+    <input type="text" name="genero" placeholder="Gênero (opcional)"><br>
+    <input type="text" name="biografia" placeholder="Biografia (opcional)"><br>
+    <select name="role">
+      <option value="USER">Usuário</option>
+      <option value="ADMIN">Administrador</option>
+    </select><br>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <div id="mensagem" style="color: red; margin-top: 10px;"></div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const mensagemDiv = document.getElementById('mensagem');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      mensagemDiv.textContent = ''; // limpa mensagens anteriores
+
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+      
+      // Converte dataNascimento para formato ISO 8601 (yyyy-MM-dd)
+      if (data.dataNascimento) {
+        const [ano, mes, dia] = data.dataNascimento.split('-');
+        data.dataNascimento = `${ano}-${mes}-${dia}`;
+      }
+
+      try {
+        const response = await fetch('/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          mensagemDiv.style.color = 'green';
+          mensagemDiv.textContent = 'Usuário registrado com sucesso!';
+          form.reset();
+        } else {
+          const error = await response.json();
+          mensagemDiv.style.color = 'red';
+
+          if (typeof error === 'object') {
+            const mensagens = Object.entries(error).map(([campo, msg]) => `${campo}: ${msg}`);
+            mensagemDiv.innerHTML = mensagens.join('<br>');
+          } else {
+            mensagemDiv.textContent = error.error || 'Erro ao registrar.';
+          }
+        }
+      } catch (err) {
+        mensagemDiv.style.color = 'red';
+        mensagemDiv.textContent = 'Erro inesperado. Tente novamente.';
+      }
+    });
+  </script>
+</body>
+</html>

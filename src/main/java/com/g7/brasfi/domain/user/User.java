@@ -49,7 +49,6 @@ public class User implements UserDetails {
     private String genero;
     private String biografia;
 
-    // Exemplo de método getIdade()
     public Integer getIdade() {
         if (dataNascimento == null) return null;
         return Period.between(this.dataNascimento, LocalDate.now()).getYears();
