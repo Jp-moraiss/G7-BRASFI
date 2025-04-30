@@ -1,5 +1,8 @@
 package com.g7.brasfi.domain.user;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import java.util.List;
 
@@ -7,10 +10,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,15 +38,44 @@ public class User implements UserDetails {
 	private String login;
 	private String password;
 	private UserRole role;
+    private String name;
+    private String phone;
+    private String cpf;
+    private LocalDate dataNascimento;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant dataCriacao;
+
+    private String genero;
+    private String biografia;
+
+    // Exemplo de método getIdade()
+    public Integer getIdade() {
+        if (dataNascimento == null) return null;
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = Instant.now();
+    }
 
 	public User() {
 	}
-	
-	public User(String login, String password, UserRole role) {
-		this.login = login;
-		this.password = password;
-		this.role = role;
-	}
+
+	public User(String login, String password, UserRole role, String name, String phone, String cpf,
+            LocalDate dataNascimento, String genero, String biografia) {
+    this.login = login;
+    this.password = password;
+    this.role = role;
+    this.name = name;
+    this.phone = phone;
+    this.cpf = cpf;
+    this.dataNascimento = dataNascimento;
+    this.genero = genero;
+    this.biografia = biografia;
+}
+
 
 	public String getId() {
 		return id;
@@ -76,8 +111,10 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-		else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+		if (this.role == UserRole.ADMIN)
+			return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+		else
+			return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
 	@Override
