@@ -1,16 +1,10 @@
 package com.g7.brasfi.repositories;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import com.g7.brasfi.entities.User;
+import com.g7.brasfi.domain.user.User;
 
-public interface UserRepository extends JpaRepository<User, Long>{
-	
-	boolean existsByCpf(String cpf);
-	
-    Optional<User> findByEmail(String email);
-
-    Optional<User> findByCpf(String cpf);
+public interface UserRepository extends JpaRepository<User, String>{
+	UserDetails findByLogin(String Login);
 }
