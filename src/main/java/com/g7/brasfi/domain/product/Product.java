@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "product")
 @Entity(name = "product")
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Product {
