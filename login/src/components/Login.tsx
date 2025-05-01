@@ -71,6 +71,7 @@ const Login: React.FC = () => {
     password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
   });
 
+
   const handleClickLogin = async (values: { email: string; password: string }) => {
     setLoading(true);
     setError('');
