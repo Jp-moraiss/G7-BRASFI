@@ -31,19 +31,18 @@
     const form = document.getElementById('registerForm');
     const mensagemDiv = document.getElementById('mensagem');
 
-	const roleSelect = form.querySelector('select[name="role"]');
-	const adminSecretContainer = document.getElementById('adminSecretContainer');
+    const roleSelect = form.querySelector('select[name="role"]');
+    const adminSecretContainer = document.getElementById('adminSecretContainer');
 
-	roleSelect.addEventListener('change', () => {
-	  if (roleSelect.value === 'ADMIN') {
-	    adminSecretContainer.style.display = 'block';
-	  } else {
-	    adminSecretContainer.style.display = 'none';
-	    form.querySelector('input[name="adminSecret"]').value = ''; // limpa o campo se esconder
-	  }
-	});
+    roleSelect.addEventListener('change', () => {
+      if (roleSelect.value === 'ADMIN') {
+        adminSecretContainer.style.display = 'block';
+      } else {
+        adminSecretContainer.style.display = 'none';
+        form.querySelector('input[name="adminSecret"]').value = '';
+      }
+    });
 
-	
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       mensagemDiv.textContent = ''; // limpa mensagens anteriores
@@ -51,7 +50,7 @@
       const formData = new FormData(form);
       const data = {};
       formData.forEach((value, key) => data[key] = value);
-      
+
       // Converte dataNascimento para formato ISO 8601 (yyyy-MM-dd)
       if (data.dataNascimento) {
         const [ano, mes, dia] = data.dataNascimento.split('-');
@@ -69,16 +68,39 @@
           mensagemDiv.style.color = 'green';
           mensagemDiv.textContent = 'Usuário registrado com sucesso!';
           form.reset();
+          adminSecretContainer.style.display = 'none';
         } else {
-          const error = await response.json();
-          mensagemDiv.style.color = 'red';
+          let errorText = 'Erro ao registrar.';
+          try {
+            const error = await response.json();
 
-          if (typeof error === 'object') {
-            const mensagens = Object.entries(error).map(([campo, msg]) => `${campo}: ${msg}`);
-            mensagemDiv.innerHTML = mensagens.join('<br>');
-          } else {
-            mensagemDiv.textContent = error.error || 'Erro ao registrar.';
+            if (typeof error === 'object' && error !== null) {
+              if (error === 'Senha de admin inválida.' || error.error === 'Senha de admin inválida.') {
+                errorText = 'Senha de administrador incorreta.';
+              } else if (error.error) {
+                errorText = error.error;
+              } else {
+                const mensagens = Object.entries(error).map(([campo, msg]) => `${campo}: ${msg}`);
+                errorText = mensagens.join('<br>');
+              }
+            } else if (typeof error === 'string') {
+              if (error.includes('Senha de admin inválida')) {
+                errorText = 'Senha de administrador incorreta.';
+              } else {
+                errorText = error;
+              }
+            }
+          } catch (jsonErr) {
+            const rawText = await response.text();
+            if (rawText.includes('Senha de admin inválida')) {
+              errorText = 'Senha de administrador incorreta.';
+            } else {
+              errorText = rawText || 'Erro inesperado.';
+            }
           }
+
+          mensagemDiv.style.color = 'red';
+          mensagemDiv.innerHTML = errorText;
         }
       } catch (err) {
         mensagemDiv.style.color = 'red';
@@ -86,5 +108,7 @@
       }
     });
   </script>
+
+
 </body>
 </html>

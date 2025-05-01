@@ -1,5 +1,7 @@
 package com.g7.brasfi.controllers;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -62,7 +64,8 @@ public class AuthenticationController {
 	    // Se tentou se cadastrar como ADMIN, verificar o segredo
 	    if (data.role() == UserRole.ADMIN) {
 	        if (data.adminSecret() == null || !data.adminSecret().equals(adminSecret)) {
-	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Senha de admin inválida.");
+	        	return ResponseEntity.status(HttpStatus.FORBIDDEN)
+	                     .body(Collections.singletonMap("error", "Senha de admin inválida."));
 	        }
 	    }
 
