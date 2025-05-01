@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 // URL da API para o Railway
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_URL = "http://localhost:8080";
 
 // Definição de tipos
 interface User {
@@ -71,26 +71,30 @@ const Login: React.FC = () => {
     password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
   });
 
-  const validationRegister = yup.object().shape({
-    email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
-    confirmPassword: yup.string().oneOf([yup.ref("password"), null], "As senhas devem ser iguais").required("Campo obrigatório"),
-  });
-
   const handleClickLogin = async (values: { email: string; password: string }) => {
     setLoading(true);
     setError('');
-
+  
     try {
-      const response = await Axios.post(`${API_URL}/auth/login`, values);
-      
+      const response = await Axios.post(`${API_URL}/auth/login`, {
+        login: values.email,
+        password: values.password,
+      });
+  
       if (response.data) {
-        // Garantir que o usuário tenha a propriedade authenticated
+        const token = response.data.token;
+        const decoded = decodeJwtPayload(token);
+        const role = decoded?.role || "USER"; // <- extraído do token, se existir
+  
         const userData = {
-          ...response.data,
-          authenticated: true
+          id: response.data.id,
+          email: response.data.email,
+          name: response.data.name,
+          token: token,
+          role: role, // <- agora incluído
+          authenticated: true,
         };
-        
+  
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
         return true;
@@ -104,21 +108,14 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleClickRegister = async (values: { email: string; password: string; confirmPassword: string }) => {
+  const decodeJwtPayload = (token: string) => {
     try {
-      const response = await Axios.post(`${API_URL}/register`, {
-        email: values.email,
-        password: values.password
-      });
-      
-      alert(response.data.msg || "Registro realizado com sucesso!");
-      
-      if (response.data.success) {
-        document.getElementById("register-form")!.style.display = "none";
-      }
-    } catch (error: any) {
-      console.error("Erro ao registrar:", error);
-      alert("Erro ao registrar usuário: " + (error.response?.data?.msg || error.message));
+      const payloadBase64 = token.split('.')[1];
+      const decodedPayload = atob(payloadBase64);
+      return JSON.parse(decodedPayload);
+    } catch (e) {
+      console.error("Erro ao decodificar o token JWT:", e);
+      return null;
     }
   };
 
