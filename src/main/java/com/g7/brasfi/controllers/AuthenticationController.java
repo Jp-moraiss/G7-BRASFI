@@ -1,6 +1,8 @@
 package com.g7.brasfi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +16,7 @@ import com.g7.brasfi.domain.user.AuthenticationDTO;
 import com.g7.brasfi.domain.user.LoginResponseDTO;
 import com.g7.brasfi.domain.user.RegisterDTO;
 import com.g7.brasfi.domain.user.User;
+import com.g7.brasfi.domain.user.UserRole;
 import com.g7.brasfi.infra.security.TokenService;
 import com.g7.brasfi.repositories.UserRepository;
 import com.g7.brasfi.services.exceptions.DatabaseException;
@@ -43,6 +46,9 @@ public class AuthenticationController {
 		return ResponseEntity.ok(new LoginResponseDTO(token));
 	}
 	
+	@Value("${admin.secret}")
+	private String adminSecret;
+
 	@PostMapping("/register")
 	public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
 	    if (userRepository.findByLogin(data.login()) != null) {
@@ -51,6 +57,13 @@ public class AuthenticationController {
 
 	    if (userRepository.findByCpf(data.cpf()) != null) {
 	        throw new DatabaseException("CPF já está em uso.");
+	    }
+
+	    // Se tentou se cadastrar como ADMIN, verificar o segredo
+	    if (data.role() == UserRole.ADMIN) {
+	        if (data.adminSecret() == null || !data.adminSecret().equals(adminSecret)) {
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Senha de admin inválida.");
+	        }
 	    }
 
 	    String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
@@ -71,6 +84,7 @@ public class AuthenticationController {
 
 	    return ResponseEntity.ok().build();
 	}
+
 
 
 }

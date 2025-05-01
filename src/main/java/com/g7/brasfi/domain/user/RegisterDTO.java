@@ -40,6 +40,8 @@ public record RegisterDTO(
 
     String genero, // opcional
 
-    String biografia // opcional
+    String biografia, // opcional
+    
+    String adminSecret // novo campo opcional
 ) {}
 

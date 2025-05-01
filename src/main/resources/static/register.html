@@ -19,6 +19,9 @@
       <option value="USER">Usuário</option>
       <option value="ADMIN">Administrador</option>
     </select><br>
+	<div id="adminSecretContainer" style="display: none;">
+	  <input type="password" name="adminSecret" placeholder="Senha de admin">
+	</div>
     <button type="submit">Registrar</button>
   </form>
 
@@ -28,6 +31,19 @@
     const form = document.getElementById('registerForm');
     const mensagemDiv = document.getElementById('mensagem');
 
+	const roleSelect = form.querySelector('select[name="role"]');
+	const adminSecretContainer = document.getElementById('adminSecretContainer');
+
+	roleSelect.addEventListener('change', () => {
+	  if (roleSelect.value === 'ADMIN') {
+	    adminSecretContainer.style.display = 'block';
+	  } else {
+	    adminSecretContainer.style.display = 'none';
+	    form.querySelector('input[name="adminSecret"]').value = ''; // limpa o campo se esconder
+	  }
+	});
+
+	
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       mensagemDiv.textContent = ''; // limpa mensagens anteriores
