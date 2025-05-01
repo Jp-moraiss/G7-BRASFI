@@ -34,7 +34,7 @@ public class SecurityConfiguration {
 	                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 	                        .requestMatchers("/register.html", "/login.html", "/**.html", "/**.css", "/**.js").permitAll()
 	                        .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
-	                        .anyRequest().authenticated()
+	                        .anyRequest().permitAll()
 	                )
 	                .exceptionHandling(ex -> ex
 	                        .authenticationEntryPoint(authenticationEntryPoint)
