@@ -24,15 +24,31 @@ public class Resposta {
     private String respostaTexto;
 
     // Getters e Setters
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public UUID getId() { 
+    	return id; 
+    	}
+    public void setId(UUID id) { 
+    	this.id = id; 
+    	}
 
-    public Empresa getEmpresa() { return empresa; }
-    public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+    public Empresa getEmpresa() { 
+    	return empresa; 
+    	}
+    public void setEmpresa(Empresa empresa) {
+    	this.empresa = empresa; 
+    	}
 
-    public Pergunta getPergunta() { return pergunta; }
-    public void setPergunta(Pergunta pergunta) { this.pergunta = pergunta; }
+    public Pergunta getPergunta() { 
+    	return pergunta; 
+    	}
+    public void setPergunta(Pergunta pergunta) { 
+    	this.pergunta = pergunta; 
+    	}
 
-    public String getRespostaTexto() { return respostaTexto; }
-    public void setRespostaTexto(String respostaTexto) { this.respostaTexto = respostaTexto; }
+    public String getRespostaTexto() { 
+    	return respostaTexto; 
+    	}
+    public void setRespostaTexto(String respostaTexto) { 
+    	this.respostaTexto = respostaTexto; 
+    	}
 }

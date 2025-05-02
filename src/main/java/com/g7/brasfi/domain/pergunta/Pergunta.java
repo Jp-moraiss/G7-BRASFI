@@ -29,21 +29,45 @@ public class Pergunta {
     private String publicoAlvo; // ex: "MICRO", "GRANDE", etc.
 
     // Getters e Setters
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public UUID getId() { 
+    	return id; 
+    	}
+    public void setId(UUID id) { 
+    	this.id = id; 
+    	}
 
-    public String getTexto() { return texto; }
-    public void setTexto(String texto) { this.texto = texto; }
+    public String getTexto() { 
+    	return texto; 
+    	}
+    public void setTexto(String texto) { 
+    	this.texto = texto; 
+    	}
 
-    public CategoriaESG getCategoria() { return categoria; }
-    public void setCategoria(CategoriaESG categoria) { this.categoria = categoria; }
+    public CategoriaESG getCategoria() { 
+    	return categoria; 
+    	}
+    public void setCategoria(CategoriaESG categoria) { 
+    	this.categoria = categoria; 
+    	}
 
-    public int getPeso() { return peso; }
-    public void setPeso(int peso) { this.peso = peso; }
+    public int getPeso() { 
+    	return peso; 
+    	}
+    public void setPeso(int peso) { 
+    	this.peso = peso; 
+    	}
 
-    public Set<TamanhoEmpresa> getTamanhosPermitidos() { return tamanhosPermitidos; }
-    public void setTamanhosPermitidos(Set<TamanhoEmpresa> tamanhosPermitidos) { this.tamanhosPermitidos = tamanhosPermitidos; }
+    public Set<TamanhoEmpresa> getTamanhosPermitidos() { 
+    	return tamanhosPermitidos; 
+    	}
+    public void setTamanhosPermitidos(Set<TamanhoEmpresa> tamanhosPermitidos) {
+    	this.tamanhosPermitidos = tamanhosPermitidos; 
+    	}
 
-    public String getPublicoAlvo() { return publicoAlvo; }
-    public void setPublicoAlvo(String publicoAlvo) { this.publicoAlvo = publicoAlvo; }
+    public String getPublicoAlvo() {
+    	return publicoAlvo; 
+    	}
+    public void setPublicoAlvo(String publicoAlvo) {
+    	this.publicoAlvo = publicoAlvo; 
+    	}
 }
