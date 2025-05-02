@@ -40,6 +40,8 @@ const Profile = () => {
                     <h2>Perfil do Usuário</h2>
                     <p><strong>Email:</strong> {userEmail}</p>
                     <p><strong>Status:</strong> Autenticado</p>
+                    <p><strong>Tipo:</strong> {isAdmin ? "ADMIN" : "USER"}</p>
+
                 </div>
             </div>
 

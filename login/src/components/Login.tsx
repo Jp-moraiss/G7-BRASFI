@@ -4,7 +4,8 @@ import * as yup from "yup";
 import Axios from "axios";
 import Profile from "./Profile";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import logo  from "../../image/logoBRASFI.png";
+import icon from "../../image/icon.png";
 
 // URL da API para o Railway
 const API_URL = "http://localhost:8080";
@@ -146,12 +147,16 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container">
+      <div className="cabecalho-img">
+            <img src={logo} alt="" />
+      </div>
       <div className="login-box">
         <div className="cabecalho-login">
           <div className="cabecalho-text">
             <h1>Seja Bem Vindo!</h1>
-            <p>Preencha seus dados para acessar a plataforma</p>
+            <p>Preencha seus dados para acessar a plataforma</p> 
           </div>
+          
         </div>
 
         {error && <p className="error-message">{error}</p>}

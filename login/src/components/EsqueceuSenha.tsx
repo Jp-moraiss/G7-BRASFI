@@ -4,6 +4,7 @@ import * as yup from "yup";
 import Axios from "axios";
 import Profile from "./Profile";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import logo  from "../../image/logoBRASFI.png";
 
 
 // URL da API para o Railway
@@ -150,6 +151,9 @@ const EsqueceuSenha: React.FC = () => {
     <div className="password-container">
       <div className="password-box">
         <div className="cabecalho-login">
+          <div className="cabecalho-img">
+            <img src={logo} alt="" />
+          </div>
           <div className="cabecalho-text">
             <h1>Esqueceu sua senha?</h1>
             <p>Preencha seus dados para recuperar sua senha</p>
