@@ -5,6 +5,7 @@ import Profile from './components/Profile';
 import Home from './components/Home';
 import Register from './components/Register';
 import EsqueceuSenha from './components/EsqueceuSenha';
+import Questionario from './components/Questionario';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/EsqueceuSenha" element={<EsqueceuSenha />} />
+        <Route path="/Questionario" element={<Questionario />} />
       </Routes>
   
     </div>
