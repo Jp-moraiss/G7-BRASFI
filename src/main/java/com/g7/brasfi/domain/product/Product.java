@@ -9,10 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "product")
 @Entity(name = "product")
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Product {
@@ -23,36 +26,10 @@ public class Product {
     private String name;
 
     private Integer price;
-
-    public Product() {
-    }
     
     public Product(ProductRequestDTO data){
         this.setPrice(data.price());
         this.setName(data.name());
     }
     
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 }
