@@ -19,6 +19,7 @@ const App = () => {
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/EsqueceuSenha" element={<EsqueceuSenha />} />
+        <Route path="/Questionario" element={<EsqueceuSenha />} />
       </Routes>
   
     </div>
