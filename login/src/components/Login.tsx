@@ -69,7 +69,7 @@ const Login: React.FC = () => {
 
   const validationLogin = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
+    password: yup.string().min(6, "Mínimo 6 caracteres").required("Campo obrigatório"),
   });
 
 
