@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.g7.brasfi.chat.entities.Room;
 import com.g7.brasfi.chat.entities.Message;
+import com.g7.brasfi.chat.entities.Room;
 import com.g7.brasfi.chat.repositories.RoomRepository;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
-@CrossOrigin("http:localhost:3000")
+@CrossOrigin("http:localhost:5173")
 public class RoomController {
 
 	@Autowired
