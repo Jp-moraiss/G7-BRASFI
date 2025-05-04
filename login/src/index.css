@@ -568,3 +568,263 @@ input[type="radio"]:checked {
   margin-top: 20px;
 }
 
+/* Chat */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Container centralizado na tela */
+.chat-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111827; /* equivalente a bg-gray-900 */
+}
+
+/* Caixa principal */
+.chat-box {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Conteúdo da caixa */
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Imagem centralizada */
+.chat-image img {
+  width: 96px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Título */
+.chat-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+}
+
+/* Grupo de inputs */
+.chat-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-input-group label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.chat-input-group input {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  outline: none;
+  background-color: #4b5563;
+  color: white;
+  transition: box-shadow 0.2s;
+}
+
+.chat-input-group input:focus {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* Botões */
+.chat-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.chat-buttons button {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.join-btn {
+  background-color: #3b82f6;
+}
+
+.join-btn:hover {
+  background-color: #1e40af;
+}
+
+.create-btn {
+  background-color: #f97316;
+}
+
+.create-btn:hover {
+  background-color: #c2410c;
+}
+
+/* Layout base */
+.chatpage-container {
+  background-color: #1e293b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.chat-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #111827;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #374151;
+}
+
+.chat-header-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.leave-button {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: #ef4444;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.leave-button:hover {
+  background-color: #b91c1c;
+}
+
+/* Main Chat */
+.chat-main {
+  padding: 6rem 2rem 6rem;
+  max-width: 66%;
+  margin: 0 auto;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #475569;
+}
+
+/* Message box */
+.message-row {
+  display: flex;
+  margin: 0.5rem 0;
+}
+
+.align-right {
+  justify-content: flex-end;
+}
+
+.align-left {
+  justify-content: flex-start;
+}
+
+.message-box {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  max-width: 300px;
+}
+
+.own-message {
+  background-color: #16a34a;
+}
+
+.other-message {
+  background-color: #1f2937;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+}
+
+.message-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sender-name {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Input Area */
+.chat-input-container {
+  position: fixed;
+  bottom: 0.5rem;
+  width: 100%;
+}
+
+.chat-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 4rem;
+  background-color: #111827;
+  border-radius: 9999px;
+  gap: 1rem;
+}
+
+.chat-input {
+  flex-grow: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: #334155;
+  color: white;
+  height: 100%;
+  outline: none;
+}
+
+.chat-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  
+  border-radius: 9999px;
+  
+}
+
+.icon-button.purple {
+  background-color: #9333ea;
+}
+
+.icon-button.green {
+  background-color: #22c55e;
+}
+
+
+
