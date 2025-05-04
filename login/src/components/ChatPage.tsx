@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MdAttachFile, MdSend } from 'react-icons/md';
+import Profile from './Profile';
 
 
 
@@ -48,6 +49,13 @@ const ChatPage = () => {
       console.log("Nenhum usuário encontrado no localStorage");
     }
   }, []);
+
+  if (!isAuthenticated) {
+    return (
+        <Profile />
+    );
+}
+
   
 
   return (
