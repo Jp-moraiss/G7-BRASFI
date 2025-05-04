@@ -15,8 +15,10 @@ interface User {
   name?: string;
   email: string;
   authenticated?: boolean;
-  role?: string;
+  role?: string; // <-- adicionado
+
 }
+
 
 interface AuthContextType {
   user: User | null;
@@ -26,7 +28,7 @@ interface AuthContextType {
   signOut: () => void;
 }
 
-// Contexto de autenticação
+
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 // Provedor de autenticação
@@ -75,12 +77,12 @@ const validationRegisterFull = yup.object().shape({
   })
 });
 
+
 // Componente de registro
 const Register: React.FC = () => {
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-
   const authContext = useContext(AuthContext);
   const user = authContext?.user || localUser;
   const setUser = authContext?.setUser || setLocalUser;
@@ -103,14 +105,12 @@ const Register: React.FC = () => {
         genero: values.gender,
         biografia: ""
       };
-
       // Adicionar adminSecret apenas se for admin
       if (values.role === "0") {
         requestData.adminSecret = values.adminSecret;
       }
-
+      
       const response = await Axios.post(`${API_URL}/auth/register`, requestData);
-
       alert("Registro realizado com sucesso!");
 
       if (response.status === 200) {
@@ -119,11 +119,11 @@ const Register: React.FC = () => {
           authenticated: true,
           role: values.role === "0" ? "ADMIN" : "USER"
         };
-
+      
         localStorage.setItem('user', JSON.stringify(savedUser));
         setUser(savedUser);
       }
-
+      
     } catch (error: any) {
       console.error("Erro ao registrar:", error);
       setError("Erro ao registrar usuário: " + (error.response?.data?.error || error.message));
@@ -149,6 +149,7 @@ const Register: React.FC = () => {
     }
   }, [setUser]);
 
+
   // Se o usuário já está autenticado, redireciona para o perfil
   if (user && user.authenticated) {
     return <Profile />;
@@ -169,6 +170,7 @@ const Register: React.FC = () => {
 
         {error && <p className="error-message">{error}</p>}
 
+
         <Formik
           initialValues={{
             fullName: '',
@@ -187,6 +189,7 @@ const Register: React.FC = () => {
         >
           {({ values }) => (
             <Form className="registration-form">
+
               {/* Campo Nome Completo */}
               <div className="form-row">
                 <div className="form-column">
@@ -198,6 +201,7 @@ const Register: React.FC = () => {
                     <ErrorMessage component="span" name="fullName" className="form-error" />
                   </div>
                 </div>
+
                 {/* Campo Telefone */}
                 <div className="form-column">
                   <div className="form-group">
@@ -287,6 +291,42 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
+              
+              <div className="form-row">
+                <div className="form-column">
+                  <div className="form-group">
+                    <label htmlFor="role">
+                      <p>Tipo de Conta</p> <span className="required">*</span>
+                    </label>
+                    <Field as="select" id="role" name="role" className="form-field">
+                      <option value="1">Usuário</option>
+                      <option value="0">Administrador</option>
+                    </Field>
+                    <ErrorMessage component="span" name="role" className="form-error" />
+                  </div>
+                </div>
+              </div>
+
+              {values.role === '0' && (
+                <div className="form-row">
+                  <div className="form-column">
+                    <div className="form-group">
+                      <label htmlFor="adminSecret">
+                        <p>Senha Secreta do Admin</p> <span className="required">*</span>
+                      </label>
+                      <Field
+                        type="password"
+                        id="adminSecret"
+                        name="adminSecret"
+                        className="form-field"
+                        placeholder="Digite 'supersecreta'"
+                      />
+                      <small className="form-hint">Dica: A senha é 'supersecreta'</small>
+                      <ErrorMessage component="span" name="adminSecret" className="form-error" />
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Tipo de conta */}
               <div className="form-row">

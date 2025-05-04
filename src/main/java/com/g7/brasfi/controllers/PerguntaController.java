@@ -1,5 +1,10 @@
 package com.g7.brasfi.controllers;
 
+import com.g7.brasfi.domain.pergunta.Pergunta;
+import com.g7.brasfi.services.PerguntaService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,7 @@ public class PerguntaController {
         Pergunta salva = perguntaService.salvar(pergunta);
         return ResponseEntity.ok(salva);
     }
+
 
     @GetMapping("/primeira")
     public ResponseEntity<Pergunta> buscarPrimeiraPergunta() {

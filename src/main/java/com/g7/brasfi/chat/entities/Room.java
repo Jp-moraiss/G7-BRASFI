@@ -1,9 +1,14 @@
-package com.g7.brasfi.domain.product;
+package com.g7.brasfi.chat.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -11,25 +16,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "product")
-@Entity(name = "product")
+
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "rooms")
 @EqualsAndHashCode(of = "id")
-public class Product {
+public class Room {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
-    private String name;
-
-    private Integer price;
     
-    public Product(ProductRequestDTO data){
-        this.setPrice(data.price());
-        this.setName(data.name());
-    }
+    private String roomId;
     
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
 }

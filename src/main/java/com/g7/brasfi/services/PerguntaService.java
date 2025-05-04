@@ -1,5 +1,6 @@
 package com.g7.brasfi.services;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.g7.brasfi.domain.pergunta.Pergunta;
 import com.g7.brasfi.repositories.PerguntaRepository;
-
 
 @Service
 public class PerguntaService {
@@ -29,4 +29,5 @@ public class PerguntaService {
         return perguntaRepository.findAll();
     }
     
+
 }
