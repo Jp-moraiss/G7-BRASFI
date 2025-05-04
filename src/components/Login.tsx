@@ -5,9 +5,9 @@ import Axios from "axios";
 
 import Profile from "./Profile";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import logo  from "../../image/logoBRASFI.png";
-import icon from "../../image/icon.png";
+import logo from "../../image/logoBRASFI.png";
 
+// URL da API
 const API_URL = "http://localhost:8080";
 
 // Tipos
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
   // Validação com Yup
   const validationLogin = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(6, "Mínimo 6 caracteres").required("Campo obrigatório"),
+    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
   });
 
   // Lógica de login
@@ -153,7 +153,6 @@ const Login: React.FC = () => {
             <h1>Seja Bem-Vindo!</h1>
             <p>Preencha seus dados para acessar a plataforma</p>
           </div>
-          
         </div>
 
         {error && <p className="error-message">{error}</p>}
