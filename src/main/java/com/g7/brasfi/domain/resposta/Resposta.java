@@ -1,5 +1,6 @@
 package com.g7.brasfi.domain.resposta;
 
+
 import java.util.UUID;
 
 import com.g7.brasfi.domain.empresa.Empresa;
@@ -33,7 +34,7 @@ public class Resposta {
     public UUID getId() { 
     	return id; 
     	}
-        
+
     public void setId(UUID id) { 
     	this.id = id; 
     	}
