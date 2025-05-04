@@ -15,6 +15,7 @@ interface User {
   id?: string;
   name?: string;
   email: string;
+  role?: string;
   authenticated?: boolean;
 }
 
@@ -72,7 +73,7 @@ const Login: React.FC = () => {
   });
 
   // Lógica de login
-  const handleClickLogin = async (values: { email: string; password: string }) => {
+  const handleClickLogin = async (values: { email: string; password: string; role: string}) => {
     setLoading(true);
     setError("");
 
@@ -80,6 +81,7 @@ const Login: React.FC = () => {
       const response = await Axios.post(`${API_URL}/auth/login`, {
         login: values.email,
         password: values.password,
+        role: values.role
       });
 
       if (response.data) {
@@ -91,6 +93,7 @@ const Login: React.FC = () => {
           id: response.data.id,
           email: response.data.email,
           name: response.data.name,
+          role: role,
           authenticated: true,
         };
 
@@ -158,7 +161,7 @@ const Login: React.FC = () => {
         {error && <p className="error-message">{error}</p>}
 
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: "", password: "", role: "" }}
           onSubmit={handleClickLogin}
           validationSchema={validationLogin}
         >
