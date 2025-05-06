@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.g7.brasfi.domain.empresa.TamanhoEmpresa;
 import com.g7.brasfi.domain.pergunta.Pergunta;
 import com.g7.brasfi.repositories.PerguntaRepository;
 
@@ -27,6 +28,10 @@ public class PerguntaService {
 
     public List<Pergunta> buscarTodas() {
         return perguntaRepository.findAll();
+    }
+    
+    public List<Pergunta> buscarPorTamanho(TamanhoEmpresa tamanho){
+    	return perguntaRepository.findByTamanhosPermitidosContaining(tamanho);
     }
     
 

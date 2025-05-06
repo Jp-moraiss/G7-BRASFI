@@ -1,5 +1,6 @@
 package com.g7.brasfi.controllers;
 
+import com.g7.brasfi.domain.empresa.TamanhoEmpresa;
 import com.g7.brasfi.domain.pergunta.Pergunta;
 import com.g7.brasfi.services.PerguntaService;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,12 @@ public class PerguntaController {
     public ResponseEntity<List<Pergunta>> listarPerguntas() {
         List<Pergunta> perguntas = perguntaService.buscarTodas();
         return perguntas.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(perguntas);
+    }
+    
+    @GetMapping("/por-tamanho/{tamanho}")
+    	public ResponseEntity<List<Pergunta>> buscarPorTamanho(@PathVariable TamanhoEmpresa tamanho){
+    		List<Pergunta> perguntasTamanho = perguntaService.buscarPorTamanho(tamanho);
+    		return ResponseEntity.ok(perguntasTamanho);
     }
 
 
