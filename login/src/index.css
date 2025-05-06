@@ -25,6 +25,9 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+a:hover {
+  color: #535bf2;
+}
 
 /* Reset */
 /* Seletor Universal */
@@ -64,6 +67,9 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
   }
   button {
     background-color: #f9f9f9;
@@ -113,6 +119,7 @@ button:focus-visible {
   min-width: 500px;
   max-width: 90%; 
   height: 700px; 
+
   padding: 40px;
   color: #333; 
   box-sizing: border-box; 
@@ -705,6 +712,17 @@ input[type="radio"]:checked {
   transition: background-color 0.3s;
 }
 
+.home-button {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: #4463ef;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 .leave-button:hover {
   background-color: #b91c1c;
 }
@@ -820,58 +838,17 @@ input[type="radio"]:checked {
   background-color: #22c55e;
 }
 
-/* Header */
-.site-header {
-  background: linear-gradient(135deg, #ffffff, #a2a3e2);
-  color: white;
-  padding: 1rem 0;
+.chat-image {
+  max-width: 200px;
+  border-radius: 8px;
+  margin-top: 5px;
 }
 
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  margin: 0 auto;
-  display: flex;
-  justify-content: start;
-  align-items: start;
-}
-
-.container .logo img{
-  width: 120px;
-}
-
-.logo {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 1rem;
-}
-
-
-.menu a {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: bold;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  transition: 0.2s all ease-in-out;
-  
-}
-
-.menu a:hover {
-  border-bottom: 1px solid gray;
+.chat-file {
+  color: #2b6cb0;
+  text-decoration: underline;
+  margin-top: 5px;
+  display: inline-block;
 }
 
 
