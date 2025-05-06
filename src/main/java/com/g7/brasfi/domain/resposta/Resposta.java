@@ -1,10 +1,17 @@
 package com.g7.brasfi.domain.resposta;
 
-import com.g7.brasfi.domain.empresa.Empresa;
-import com.g7.brasfi.domain.pergunta.Pergunta;
-import jakarta.persistence.*;
 
 import java.util.UUID;
+
+import com.g7.brasfi.domain.empresa.Empresa;
+import com.g7.brasfi.domain.pergunta.Pergunta;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Resposta {
@@ -27,6 +34,7 @@ public class Resposta {
     public UUID getId() { 
     	return id; 
     	}
+
     public void setId(UUID id) { 
     	this.id = id; 
     	}

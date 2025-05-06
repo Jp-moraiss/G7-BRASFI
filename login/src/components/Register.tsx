@@ -15,9 +15,8 @@ interface User {
   name?: string;
   email: string;
   authenticated?: boolean;
-  role?: string; // <-- adicionado
+  role?: string;
 }
-
 
 interface AuthContextType {
   user: User | null;
@@ -27,9 +26,10 @@ interface AuthContextType {
   signOut: () => void;
 }
 
-// Contexto
+// Contexto de autenticação
 export const AuthContext = createContext<AuthContextType | null>(null);
 
+// Provedor de autenticação
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -53,6 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
+// Validação do formulário de registro
 const validationRegisterFull = yup.object().shape({
   fullName: yup.string().required('Campo obrigatório'),
   phone: yup.string().required('Campo obrigatório'),
@@ -74,40 +75,42 @@ const validationRegisterFull = yup.object().shape({
   })
 });
 
+// Componente de registro
 const Register: React.FC = () => {
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  
+
   const authContext = useContext(AuthContext);
   const user = authContext?.user || localUser;
   const setUser = authContext?.setUser || setLocalUser;
   const loading = authContext?.loading || localLoading;
   const setLoading = authContext?.setLoading || setLocalLoading;
 
-  // Registro
+  // Função para o registro do usuário
   const handleClickRegister = async (values: any) => {
     setLoading(true);
     try {
-      const requestData: any = {
+      const requestData = {
         login: values.email,
         password: values.password,
         role: values.role === "0" ? "ADMIN" : "USER", // Converter para ADMIN/USER
         name: values.fullName,
         phone: values.phone,
         cpf: values.cpf,
+        adminSecret: values.adminSecret,
         dataNascimento: values.birthDate,
         genero: values.gender,
         biografia: ""
       };
-      
+
       // Adicionar adminSecret apenas se for admin
       if (values.role === "0") {
         requestData.adminSecret = values.adminSecret;
       }
-      
+
       const response = await Axios.post(`${API_URL}/auth/register`, requestData);
-      
+
       alert("Registro realizado com sucesso!");
 
       if (response.status === 200) {
@@ -116,11 +119,11 @@ const Register: React.FC = () => {
           authenticated: true,
           role: values.role === "0" ? "ADMIN" : "USER"
         };
-      
+
         localStorage.setItem('user', JSON.stringify(savedUser));
         setUser(savedUser);
       }
-      
+
     } catch (error: any) {
       console.error("Erro ao registrar:", error);
       setError("Erro ao registrar usuário: " + (error.response?.data?.error || error.message));
@@ -128,8 +131,8 @@ const Register: React.FC = () => {
       setLoading(false);
     }
   };
-  
-  // Verifica usuário autenticado
+
+  // Verificação do usuário autenticado
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -146,6 +149,7 @@ const Register: React.FC = () => {
     }
   }, [setUser]);
 
+  // Se o usuário já está autenticado, redireciona para o perfil
   if (user && user.authenticated) {
     return <Profile />;
   }
@@ -155,7 +159,7 @@ const Register: React.FC = () => {
       <div className="register-box">
         <div className="cabecalho-register">
           <div className="cabecalho-icon">
-            <img src={icon} alt="" />
+            <img src={icon} alt="Ícone de logo" />
           </div>
           <div className="cabecalho-text-register">
             <h1>Cadastre-se!</h1>
@@ -165,7 +169,7 @@ const Register: React.FC = () => {
 
         {error && <p className="error-message">{error}</p>}
 
-                  <Formik
+        <Formik
           initialValues={{
             fullName: '',
             phone: '',
@@ -183,6 +187,7 @@ const Register: React.FC = () => {
         >
           {({ values }) => (
             <Form className="registration-form">
+              {/* Campo Nome Completo */}
               <div className="form-row">
                 <div className="form-column">
                   <div className="form-group">
@@ -193,7 +198,7 @@ const Register: React.FC = () => {
                     <ErrorMessage component="span" name="fullName" className="form-error" />
                   </div>
                 </div>
-
+                {/* Campo Telefone */}
                 <div className="form-column">
                   <div className="form-group">
                     <label htmlFor="phone">
@@ -205,6 +210,7 @@ const Register: React.FC = () => {
                 </div>
               </div>
 
+              {/* Demais campos do formulário */}
               <div className="form-row">
                 <div className="form-column">
                   <div className="form-group">
@@ -215,7 +221,6 @@ const Register: React.FC = () => {
                     <ErrorMessage component="span" name="cpf" className="form-error" />
                   </div>
                 </div>
-
                 <div className="form-column">
                   <div className="form-group">
                     <label>
@@ -240,6 +245,7 @@ const Register: React.FC = () => {
                 </div>
               </div>
 
+              {/* Campos adicionais para o formulário */}
               <div className="form-row">
                 <div className="form-column">
                   <div className="form-group">
@@ -250,7 +256,6 @@ const Register: React.FC = () => {
                     <ErrorMessage component="span" name="birthDate" className="form-error" />
                   </div>
                 </div>
-
                 <div className="form-column">
                   <div className="form-group">
                     <label htmlFor="password">
@@ -272,7 +277,6 @@ const Register: React.FC = () => {
                     <ErrorMessage component="span" name="email" className="form-error" />
                   </div>
                 </div>
-
                 <div className="form-column">
                   <div className="form-group">
                     <label htmlFor="confirmPassword">
@@ -283,7 +287,8 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
-              
+
+              {/* Tipo de conta */}
               <div className="form-row">
                 <div className="form-column">
                   <div className="form-group">
@@ -299,6 +304,7 @@ const Register: React.FC = () => {
                 </div>
               </div>
 
+              {/* Senha secreta para admin */}
               {values.role === '0' && (
                 <div className="form-row">
                   <div className="form-column">
@@ -323,6 +329,7 @@ const Register: React.FC = () => {
               <button className="register-button" type="submit">
                 REGISTRAR
               </button>
+
               {error && (
                 <div className="form-error-box">
                   {error}
