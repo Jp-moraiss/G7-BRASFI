@@ -17,6 +17,7 @@ interface User {
   email: string;
   role?: string;
   authenticated?: boolean;
+  role?: string;
 }
 
 interface AuthContextType {
@@ -95,6 +96,7 @@ const Login: React.FC = () => {
           name: response.data.name,
           role: role,
           authenticated: true,
+          role: role
         };
 
         setUser(userData);

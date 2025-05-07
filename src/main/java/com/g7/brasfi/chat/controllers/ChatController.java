@@ -58,4 +58,5 @@ public class ChatController {
         messagingTemplate.convertAndSend("/topic/public/" + roomId, message);
         System.out.println("✅ Mensagem enviada para o tópico: /topic/public/" + roomId);
     }
+
 }

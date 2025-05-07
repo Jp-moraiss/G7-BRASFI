@@ -15,10 +15,8 @@ interface User {
   name?: string;
   email: string;
   authenticated?: boolean;
-  role?: string; // <-- adicionado
-
+  role?: string;
 }
-
 
 interface AuthContextType {
   user: User | null;
@@ -28,7 +26,7 @@ interface AuthContextType {
   signOut: () => void;
 }
 
-
+// Contexto de autenticação
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 // Provedor de autenticação
@@ -77,12 +75,12 @@ const validationRegisterFull = yup.object().shape({
   })
 });
 
-
 // Componente de registro
 const Register: React.FC = () => {
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+
   const authContext = useContext(AuthContext);
   const user = authContext?.user || localUser;
   const setUser = authContext?.setUser || setLocalUser;
@@ -105,12 +103,14 @@ const Register: React.FC = () => {
         genero: values.gender,
         biografia: ""
       };
+
       // Adicionar adminSecret apenas se for admin
       if (values.role === "0") {
         requestData.adminSecret = values.adminSecret;
       }
-      
+
       const response = await Axios.post(`${API_URL}/auth/register`, requestData);
+
       alert("Registro realizado com sucesso!");
 
       if (response.status === 200) {
@@ -119,11 +119,11 @@ const Register: React.FC = () => {
           authenticated: true,
           role: values.role === "0" ? "ADMIN" : "USER"
         };
-      
+
         localStorage.setItem('user', JSON.stringify(savedUser));
         setUser(savedUser);
       }
-      
+
     } catch (error: any) {
       console.error("Erro ao registrar:", error);
       setError("Erro ao registrar usuário: " + (error.response?.data?.error || error.message));
@@ -149,7 +149,6 @@ const Register: React.FC = () => {
     }
   }, [setUser]);
 
-
   // Se o usuário já está autenticado, redireciona para o perfil
   if (user && user.authenticated) {
     return <Profile />;
@@ -170,7 +169,6 @@ const Register: React.FC = () => {
 
         {error && <p className="error-message">{error}</p>}
 
-
         <Formik
           initialValues={{
             fullName: '',
@@ -189,7 +187,6 @@ const Register: React.FC = () => {
         >
           {({ values }) => (
             <Form className="registration-form">
-
               {/* Campo Nome Completo */}
               <div className="form-row">
                 <div className="form-column">
@@ -201,7 +198,6 @@ const Register: React.FC = () => {
                     <ErrorMessage component="span" name="fullName" className="form-error" />
                   </div>
                 </div>
-
                 {/* Campo Telefone */}
                 <div className="form-column">
                   <div className="form-group">

@@ -12,3 +12,4 @@ public interface MessageRepository extends JpaRepository<Message, String> {
     void deleteByRoom(Room room);
 
 }
+

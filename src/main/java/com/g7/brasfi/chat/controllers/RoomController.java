@@ -19,7 +19,9 @@ import com.g7.brasfi.chat.repositories.RoomRepository;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
+
 @CrossOrigin("http://localhost:5173")
+
 public class RoomController {
 
     private RoomRepository roomRepository;

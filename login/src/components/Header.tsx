@@ -33,7 +33,7 @@ const Header = () => {
                     <li><a href="#inicio">Início</a></li>
                     {isAuthenticated && (
                     <>
-                        <li><a href="/Perfil">Perfil</a></li>
+                        <li><a href="/Profile">Perfil</a></li>
                         <li><a href="/Chat">Chat</a></li>
                     </>
                     )}
