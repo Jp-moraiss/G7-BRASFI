@@ -8,6 +8,7 @@ import EsqueceuSenha from './components/EsqueceuSenha';
 import Questionario from './components/Questionario';
 import JoinCreateChat from './components/JoinCreateChat';
 import ChatPage from './components/ChatPage';
+import { ChatProvider } from './context/ChatContext.jsx'
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <div>
+      <ChatProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
@@ -27,6 +29,7 @@ const App = () => {
         <Route path="/about" element={<h1>This is bout page</h1>} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>
+      </ChatProvider>
   
     </div>
   );

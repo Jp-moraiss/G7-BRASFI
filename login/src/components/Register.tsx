@@ -292,20 +292,7 @@ const Register: React.FC = () => {
                 </div>
               </div>
               
-              <div className="form-row">
-                <div className="form-column">
-                  <div className="form-group">
-                    <label htmlFor="role">
-                      <p>Tipo de Conta</p> <span className="required">*</span>
-                    </label>
-                    <Field as="select" id="role" name="role" className="form-field">
-                      <option value="1">Usuário</option>
-                      <option value="0">Administrador</option>
-                    </Field>
-                    <ErrorMessage component="span" name="role" className="form-error" />
-                  </div>
-                </div>
-              </div>
+  
 
               {values.role === '0' && (
                 <div className="form-row">

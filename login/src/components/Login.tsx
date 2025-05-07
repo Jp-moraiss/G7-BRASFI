@@ -5,9 +5,9 @@ import Axios from "axios";
 
 import Profile from "./Profile";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import logo  from "../../image/logoBRASFI.png";
-import icon from "../../image/icon.png";
+import logo from "../../image/logoBRASFI.png";
 
+// URL da API
 const API_URL = "http://localhost:8080";
 
 // Tipos
@@ -15,6 +15,7 @@ interface User {
   id?: string;
   name?: string;
   email: string;
+  role?: string;
   authenticated?: boolean;
 }
 
@@ -68,11 +69,11 @@ const Login: React.FC = () => {
   // Validação com Yup
   const validationLogin = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(6, "Mínimo 6 caracteres").required("Campo obrigatório"),
+    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
   });
 
   // Lógica de login
-  const handleClickLogin = async (values: { email: string; password: string }) => {
+  const handleClickLogin = async (values: { email: string; password: string; role: string}) => {
     setLoading(true);
     setError("");
 
@@ -80,6 +81,7 @@ const Login: React.FC = () => {
       const response = await Axios.post(`${API_URL}/auth/login`, {
         login: values.email,
         password: values.password,
+        role: values.role
       });
 
       if (response.data) {
@@ -91,6 +93,7 @@ const Login: React.FC = () => {
           id: response.data.id,
           email: response.data.email,
           name: response.data.name,
+          role: role,
           authenticated: true,
         };
 
@@ -153,13 +156,12 @@ const Login: React.FC = () => {
             <h1>Seja Bem-Vindo!</h1>
             <p>Preencha seus dados para acessar a plataforma</p>
           </div>
-          
         </div>
 
         {error && <p className="error-message">{error}</p>}
 
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: "", password: "", role: "" }}
           onSubmit={handleClickLogin}
           validationSchema={validationLogin}
         >

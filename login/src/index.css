@@ -712,6 +712,17 @@ input[type="radio"]:checked {
   transition: background-color 0.3s;
 }
 
+.home-button {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: #4463ef;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 .leave-button:hover {
   background-color: #b91c1c;
 }
@@ -825,6 +836,19 @@ input[type="radio"]:checked {
 
 .icon-button.green {
   background-color: #22c55e;
+}
+
+.chat-image {
+  max-width: 200px;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.chat-file {
+  color: #2b6cb0;
+  text-decoration: underline;
+  margin-top: 5px;
+  display: inline-block;
 }
 
 
