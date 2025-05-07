@@ -16,6 +16,7 @@ interface User {
   name?: string;
   email: string;
   authenticated?: boolean;
+  role?: string;
 }
 
 interface AuthContextType {
@@ -68,7 +69,7 @@ const Login: React.FC = () => {
   // Validação com Yup
   const validationLogin = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
+    password: yup.string().min(6, "Mínimo 6 caracteres").required("Campo obrigatório"),
   });
 
   // Lógica de login
@@ -92,6 +93,7 @@ const Login: React.FC = () => {
           email: response.data.email,
           name: response.data.name,
           authenticated: true,
+          role: role
         };
 
         setUser(userData);
