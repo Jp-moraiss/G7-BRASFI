@@ -2,22 +2,20 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import Axios from "axios";
-
 import Profile from "./Profile";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import logo from "../../image/logoBRASFI.png";
+import logo  from "../../image/logoBRASFI.png";
 
-// URL da API
-const API_URL = "http://localhost:8080";
 
-// Tipos
+// URL da API para o Railway
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
+// Definição de tipos
 interface User {
   id?: string;
   name?: string;
   email: string;
-  role?: string;
   authenticated?: boolean;
-  role?: string;
 }
 
 interface AuthContextType {
@@ -54,82 +52,84 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-const Login: React.FC = () => {
+const EsqueceuSenha: React.FC = () => {
+  // Estado local para controle do usuário
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-
-  // Contexto de autenticação
+  const [error, setError] = useState<string>('');
+  
+  // Tenta usar o contexto se disponível
   const authContext = useContext(AuthContext);
-
+  
+  // Determina quais funções usar (do contexto ou locais)
   const user = authContext?.user || localUser;
   const setUser = authContext?.setUser || setLocalUser;
   const loading = authContext?.loading || localLoading;
   const setLoading = authContext?.setLoading || setLocalLoading;
 
-  // Validação com Yup
   const validationLogin = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
     password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
   });
 
-  // Lógica de login
-  const handleClickLogin = async (values: { email: string; password: string; role: string}) => {
+  const validationRegister = yup.object().shape({
+    email: yup.string().email("Email inválido").required("Campo obrigatório"),
+    password: yup.string().min(8, "Mínimo 8 caracteres").required("Campo obrigatório"),
+    confirmPassword: yup.string().oneOf([yup.ref("password"), null], "As senhas devem ser iguais").required("Campo obrigatório"),
+  });
+
+  const handleClickLogin = async (values: { email: string; password: string }) => {
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      const response = await Axios.post(`${API_URL}/auth/login`, {
-        login: values.email,
-        password: values.password,
-        role: values.role
-      });
-
+      const response = await Axios.post(`${API_URL}/auth/login`, values);
+      
       if (response.data) {
-        const token = response.data.token;
-        const decoded = decodeJwtPayload(token);
-        const role = decoded?.role || "USER";
-
-        const userData: User = {
-          id: response.data.id,
-          email: response.data.email,
-          name: response.data.name,
-          role: role,
-          authenticated: true,
-          role: role
+        // Garantir que o usuário tenha a propriedade authenticated
+        const userData = {
+          ...response.data,
+          authenticated: true
         };
-
+        
         setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem('user', JSON.stringify(userData));
         return true;
       }
     } catch (error: any) {
       console.error("Erro ao fazer login:", error);
-      setError(error.response?.data?.message || "Credenciais inválidas");
+      setError(error.response?.data?.message || 'Credenciais inválidas');
       return false;
     } finally {
       setLoading(false);
     }
   };
 
-  // Decodifica payload do JWT
-  const decodeJwtPayload = (token: string) => {
+  const handleClickRegister = async (values: { email: string; password: string; confirmPassword: string }) => {
     try {
-      const payloadBase64 = token.split(".")[1];
-      const decodedPayload = atob(payloadBase64);
-      return JSON.parse(decodedPayload);
-    } catch (e) {
-      console.error("Erro ao decodificar o token JWT:", e);
-      return null;
+      const response = await Axios.post(`${API_URL}/register`, {
+        email: values.email,
+        password: values.password
+      });
+      
+      alert(response.data.msg || "Registro realizado com sucesso!");
+      
+      if (response.data.success) {
+        document.getElementById("register-form")!.style.display = "none";
+      }
+    } catch (error: any) {
+      console.error("Erro ao registrar:", error);
+      alert("Erro ao registrar usuário: " + (error.response?.data?.msg || error.message));
     }
   };
 
-  // Recupera usuário do localStorage
+  // Verifica se o usuário já está autenticado
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
+        // Garantir que tenha a propriedade authenticated
         if (!parsedUser.authenticated) {
           parsedUser.authenticated = true;
         }
@@ -141,29 +141,29 @@ const Login: React.FC = () => {
     }
   }, [setUser]);
 
-  // Redireciona para perfil se autenticado
+ 
+  // Renderiza o componente de perfil se o usuário estiver autenticado
   if (user && user.authenticated) {
     return <Profile />;
   }
 
   return (
-    <div className="login-container">
-      <div className="cabecalho-img">
-        <img src={logo} alt="Logo" />
-      </div>
-
-      <div className="login-box">
+    <div className="password-container">
+      <div className="password-box">
         <div className="cabecalho-login">
+          <div className="cabecalho-img">
+            <img src={logo} alt="" />
+          </div>
           <div className="cabecalho-text">
-            <h1>Seja Bem-Vindo!</h1>
-            <p>Preencha seus dados para acessar a plataforma</p>
+            <h1>Esqueceu sua senha?</h1>
+            <p>Preencha seus dados para recuperar sua senha</p>
           </div>
         </div>
 
         {error && <p className="error-message">{error}</p>}
 
         <Formik
-          initialValues={{ email: "", password: "", role: "" }}
+          initialValues={{ email: "", password: "" }}
           onSubmit={handleClickLogin}
           validationSchema={validationLogin}
         >
@@ -174,53 +174,21 @@ const Login: React.FC = () => {
               <ErrorMessage component="span" name="email" className="form-error" />
             </div>
 
-            <div className="login-form-group">
-              <p>Senha *</p>
-              <Field type="password" name="password" className="form-field" />
-              <ErrorMessage component="span" name="password" className="form-error" />
-            </div>
-
-            <div className="options-login">
-              <label>
-                <input type="checkbox" name="remember" />
-                Lembre de mim
-              </label>
-              <a href="/EsqueceuSenha">
-                <p>Esqueceu a senha?</p>
-              </a>
-            </div>
-
             <button className="register-button" type="submit" disabled={loading}>
-              {loading ? "Carregando..." : "LOGIN"}
+              {loading ? 'Carregando...' : 'LOGIN'}
             </button>
 
-            <div className="divider">
-              <span>ou</span>
-            </div>
           </Form>
         </Formik>
 
-        <div className="google">
-          <button className="google-button">
-            <img
-              src="https://developers.google.com/identity/images/g-logo.png"
-              alt="Google"
-              style={{ width: "20px", marginRight: "38px" }}
-            />
-            Entre com Google
-          </button>
-        </div>
 
-        <div className="register-link">
-          <a href="/Register">
-            <p>
-              Não tem conta ainda? <strong>Registre-se</strong>
-            </p>
-          </a>
-        </div>
+      <div className="register-link">
+        <a href="/Register"><p>Não Tem conta ainda ? <strong>Registre-se</strong> </p></a>
+      </div>
+
       </div>
     </div>
   );
 };
 
-export default Login;
+export default EsqueceuSenha;

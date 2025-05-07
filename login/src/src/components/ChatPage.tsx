@@ -9,7 +9,7 @@ const ChatPage = () => {
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
   const chatBoxRef = useRef(null);
-  const stompClientRef = useRef(null);
+  const [stompClient, setStompClient] = useState(null);
   const [roomId, setRoomId] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,8 +17,9 @@ const ChatPage = () => {
   const navigate = useNavigate();
 
   const [messages, setMessages] = useState([]);
-
+  
   useEffect(() => {
+    // Load user data from localStorage
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
@@ -27,23 +28,29 @@ const ChatPage = () => {
         setUserEmail(email);
         setIsAuthenticated(true);
         setIsAdmin(parsedUser.role === "ADMIN");
+        console.log("Dados do usuário carregados:", parsedUser);
       } catch (error) {
         console.error("Erro ao carregar dados do usuário:", error);
       }
+    } else {
+      console.log("Nenhum usuário encontrado no localStorage");
     }
 
+    // Load roomId from localStorage
     const storedRoomId = localStorage.getItem("roomId");
     if (storedRoomId) {
       setRoomId(storedRoomId);
       fetchMessages(storedRoomId);
       connectToWebsocket(storedRoomId);
     } else {
-      navigate('/join');
+      console.log("roomId está vazio!");
+      navigate('/join'); // Redirect to join page if no roomId is found
     }
 
     return () => {
-      if (stompClientRef.current) {
-        stompClientRef.current.disconnect();
+      // Cleanup WebSocket connection when component unmounts
+      if (stompClient) {
+        stompClient.disconnect();
       }
     };
   }, [navigate]);
@@ -51,14 +58,15 @@ const ChatPage = () => {
   const connectToWebsocket = (roomId) => {
     const socket = new SockJS('http://localhost:8080/ws');
     const client = Stomp.over(socket);
-
-    client.debug = (msg) => console.log('[STOMP]', msg);
-
+    
     client.connect({}, () => {
-      stompClientRef.current = client;
+      console.log("Connected to WebSocket");
+      setStompClient(client);
+      
+      // Subscribe to the room's message topic
       client.subscribe(`/topic/public/${roomId}`, onMessageReceived);
     }, error => {
-      console.error("Erro ao conectar no WebSocket:", error);
+      console.error("WebSocket connection error:", error);
     });
   };
 
@@ -70,31 +78,20 @@ const ChatPage = () => {
         setMessages(data);
         scrollToBottom();
       } else {
-        console.error("Erro ao buscar mensagens:", response.status);
+        console.error("Failed to fetch messages:", response.status);
       }
     } catch (error) {
-      console.error("Erro ao buscar mensagens:", error);
+      console.error("Error fetching messages:", error);
     }
   };
 
   const onMessageReceived = (payload) => {
     const message = JSON.parse(payload.body);
-
-    setMessages(prevMessages => {
-      const last = prevMessages[prevMessages.length - 1];
-      const same = last &&
-        last.sender === message.sender &&
-        last.content === message.content &&
-        new Date(last.timeStamp).getTime() === new Date(message.timeStamp).getTime();
-
-      return same ? prevMessages : [...prevMessages, message];
-    });
-
+    setMessages(prevMessages => [...prevMessages, message]);
     scrollToBottom();
   };
 
   const sendMessage = () => {
-    const stompClient = stompClientRef.current;
     if (stompClient && input.trim() !== "" && roomId) {
       const chatMessage = {
         sender: userEmail.split('@')[0],
@@ -107,7 +104,9 @@ const ChatPage = () => {
     }
   };
 
-  const handleInputChange = (e) => setInput(e.target.value);
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -122,39 +121,11 @@ const ChatPage = () => {
   };
 
   const leaveRoom = () => {
-    if (stompClientRef.current) {
-      stompClientRef.current.disconnect();
+    if (stompClient) {
+      stompClient.disconnect();
     }
     localStorage.removeItem("roomId");
     navigate('/chatmain');
-  };
-
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || !stompClient || !connected) return;
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const base64Data = reader.result;
-      const isImage = file.type.startsWith("image/");
-      const message = {
-        sender: userEmail.split("@")[0],
-        content: base64Data as string,
-        fileName: file.name,
-        type: isImage ? "image" : "file",
-        roomId: roomId,
-      };
-
-      stompClient.publish({
-        destination: `/app/sendMessage/${roomId}`,
-        body: JSON.stringify(message),
-      });
-
-      setMessages((prev) => [...prev, message]);
-    };
-
-    reader.readAsDataURL(file);
   };
 
   if (!isAuthenticated) {
@@ -163,6 +134,7 @@ const ChatPage = () => {
 
   return (
     <div className="chatpage-container">
+      {/* Header */}
       <header className="chat-header">
         <div>
           <h1 className="chat-header-title">Room: <span>{roomId || "..."}</span></h1>
@@ -175,6 +147,7 @@ const ChatPage = () => {
         </div>
       </header>
 
+      {/* Messages */}
       <main className="chat-main" ref={chatBoxRef}>
         {messages.map((message, index) => (
           <div key={index} className={`message-row ${message.sender === userEmail.split('@')[0] ? 'align-right' : 'align-left'}`}>
@@ -191,6 +164,7 @@ const ChatPage = () => {
         ))}
       </main>
 
+      {/* Input */}
       <div className="chat-input-container">
         <div className="chat-input-wrapper">
           <input 
@@ -203,7 +177,7 @@ const ChatPage = () => {
             ref={inputRef}
           />
           <div className="chat-actions">
-            <button className="icon-button purple"onClick={handleFileChange}><MdAttachFile size={20} /></button>
+            <button className="icon-button purple"><MdAttachFile size={20} /></button>
             <button className="icon-button green" onClick={sendMessage}><MdSend size={20} /></button>
           </div>
         </div>
