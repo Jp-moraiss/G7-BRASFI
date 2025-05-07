@@ -291,29 +291,6 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
-              
-  
-
-              {values.role === '0' && (
-                <div className="form-row">
-                  <div className="form-column">
-                    <div className="form-group">
-                      <label htmlFor="adminSecret">
-                        <p>Senha Secreta do Admin</p> <span className="required">*</span>
-                      </label>
-                      <Field
-                        type="password"
-                        id="adminSecret"
-                        name="adminSecret"
-                        className="form-field"
-                        placeholder="Digite 'supersecreta'"
-                      />
-                      <small className="form-hint">Dica: A senha é 'supersecreta'</small>
-                      <ErrorMessage component="span" name="adminSecret" className="form-error" />
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {/* Tipo de conta */}
               <div className="form-row">
