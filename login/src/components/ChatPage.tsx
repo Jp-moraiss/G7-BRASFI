@@ -129,6 +129,34 @@ const ChatPage = () => {
     navigate('/chatmain');
   };
 
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !stompClient || !connected) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const base64Data = reader.result;
+      const isImage = file.type.startsWith("image/");
+      const message = {
+        sender: userEmail.split("@")[0],
+        content: base64Data as string,
+        fileName: file.name,
+        type: isImage ? "image" : "file",
+        roomId: roomId,
+      };
+
+      stompClient.publish({
+        destination: `/app/sendMessage/${roomId}`,
+        body: JSON.stringify(message),
+      });
+
+      setMessages((prev) => [...prev, message]);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   if (!isAuthenticated) {
     return <Profile />;
   }
@@ -175,7 +203,7 @@ const ChatPage = () => {
             ref={inputRef}
           />
           <div className="chat-actions">
-            <button className="icon-button purple"><MdAttachFile size={20} /></button>
+            <button className="icon-button purple"onClick={handleFileChange}><MdAttachFile size={20} /></button>
             <button className="icon-button green" onClick={sendMessage}><MdSend size={20} /></button>
           </div>
         </div>
