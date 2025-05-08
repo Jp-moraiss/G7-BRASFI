@@ -844,6 +844,7 @@ input[type="radio"]:checked {
   margin-top: 5px;
   display: inline-block;
   
+}
 /* Header */
 .site-header {
   background: linear-gradient(135deg, #ffffff, #a2a3e2);
@@ -896,8 +897,5 @@ input[type="radio"]:checked {
 
 .menu a:hover {
   border-bottom: 1px solid gray;
-
 }
-
-
 
