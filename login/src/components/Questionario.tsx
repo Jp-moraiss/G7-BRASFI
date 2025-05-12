@@ -69,44 +69,6 @@ const Questionario = () => {
               </div>
             ))}
 
-            <div className="login-form-group">
-              <p>Pergunta {perguntas.length + 1}: Qual seu Gênero?</p>
-              <div className="options-login">
-                <label>
-                  <Field
-                    type="radio"
-                    name="gender"
-                    value="Homem"
-                    className="radio-input"
-                  />
-                  Homem
-                </label>
-                <label className="radio-label">
-                  <Field
-                    type="radio"
-                    name="gender"
-                    value="Mulher"
-                    className="radio-input"
-                  />
-                  Mulher
-                </label>
-                <label className="radio-label">
-                  <Field
-                    type="radio"
-                    name="gender"
-                    value="Outro"
-                    className="radio-input"
-                  />
-                  Outro
-                </label>
-              </div>
-              <ErrorMessage
-                component="span"
-                name="gender"
-                className="form-error"
-              />
-            </div>
-
             <button className="register-button" type="submit">
               ENVIAR
             </button>
