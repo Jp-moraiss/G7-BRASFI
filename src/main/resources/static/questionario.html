@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionário ESG</title>
+    <script>
+        let empresaSalva = null;
+
+        async function cadastrarEmpresa() {
+            const nome = document.getElementById("nome").value;
+            const tamanho = document.getElementById("tamanho").value;
+
+            const response = await fetch("http://localhost:8080/empresas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome, tamanho })
+            });
+
+            empresaSalva = await response.json();
+            document.getElementById("empresaStatus").innerText = "Empresa cadastrada!";
+            buscarPerguntas(empresaSalva.tamanho);
+        }
+
+        async function buscarPerguntas(tamanho) {
+            const response = await fetch(`http://localhost:8080/perguntas/por-tamanho/${tamanho}`);
+            const perguntas = await response.json();
+            const container = document.getElementById("perguntasContainer");
+            container.innerHTML = "";
+
+            perguntas.forEach(p => {
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    <label><strong>${p.texto}</strong> (Categoria: ${p.categoria}, Peso: ${p.peso})</label><br>
+                    <input type="text" name="resposta-${p.id}" placeholder="Sua resposta"><br><br>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById("responderBtn").style.display = "block";
+        }
+
+        async function enviarRespostas() {
+            const inputs = document.querySelectorAll("#perguntasContainer input");
+            for (const input of inputs) {
+                const perguntaId = input.name.replace("resposta-", "");
+                const texto = input.value;
+
+                await fetch("http://localhost:8080/respostas", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        empresa: { id: empresaSalva.id },
+                        pergunta: { id: perguntaId },
+                        respostaTexto: texto
+                    })
+                });
+            }
+
+            alert("Respostas enviadas com sucesso!");
+        }
+    </script>
+</head>
+<body>
+    <h1>Questionário ESG</h1>
+
+    <h2>1. Cadastrar Empresa</h2>
+    <label>Nome: <input type="text" id="nome"></label><br>
+    <label>Tamanho:
+        <select id="tamanho">
+            <option value="MICRO">MICRO</option>
+            <option value="PEQUENA">PEQUENA</option>
+            <option value="MEDIA">MÉDIA</option>
+            <option value="GRANDE">GRANDE</option>
+        </select>
+    </label><br>
+    <button onclick="cadastrarEmpresa()">Cadastrar</button>
+    <p id="empresaStatus"></p>
+
+    <h2>2. Responder Perguntas</h2>
+    <div id="perguntasContainer"></div>
+    <button id="responderBtn" onclick="enviarRespostas()" style="display:none;">Enviar Respostas</button>
+</body>
+</html>
