@@ -845,10 +845,14 @@ input[type="radio"]:checked {
   display: inline-block;
   
 }
+
 /* Header */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Signika:wght@300..700&display=swap');
+
 .site-header {
-  background: linear-gradient(135deg, #ffffff, #a2a3e2);
-  color: white;
+  background-color: white;
+  color: rgb(0, 0, 0);
   padding: 1rem 0;
 }
 
@@ -882,20 +886,38 @@ input[type="radio"]:checked {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
-
 
 .menu a {
   color: rgb(0, 0, 0);
   text-decoration: none;
-  font-weight: bold;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  transition: 0.2s all ease-in-out;
-  
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  transition: 0.2s all ease-in-out; 
 }
 
 .menu a:hover {
   border-bottom: 1px solid gray;
+}
+
+.submenu {
+  display: none;
+}
+
+.menu-item.open .submenu {
+  display: block;
+}
+
+.menu-item .arrow {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.avatar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
