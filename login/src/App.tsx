@@ -26,6 +26,7 @@ const App = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/EsqueceuSenha" element={<EsqueceuSenha />} />
         <Route path="/Questionario" element={<Questionario />} />
+        <Route path="/QuestionarioESG" element={<QuestionarioESG />} />
         <Route path="/Chatmain" element={<JoinCreateChat/>} />
         <Route path="/Chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
