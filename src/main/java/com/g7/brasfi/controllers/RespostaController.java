@@ -32,4 +32,10 @@ public class RespostaController {
     	        return ResponseEntity.ok(respostas);
     	    }
     }
+    
+    @DeleteMapping
+    public ResponseEntity<Void> excluirTudo(){
+    	respostaService.excluirTodas();
+    	return ResponseEntity.noContent().build();
+    }
 }

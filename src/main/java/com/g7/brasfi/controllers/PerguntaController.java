@@ -41,6 +41,12 @@ public class PerguntaController {
     		List<Pergunta> perguntasTamanho = perguntaService.buscarPorTamanho(tamanho);
     		return ResponseEntity.ok(perguntasTamanho);
     }
+    
+    @DeleteMapping
+    public ResponseEntity<Void> excluirTudo(){
+    	perguntaService.excluirTodas();
+    	return ResponseEntity.noContent().build();
+    }
 
 
 }

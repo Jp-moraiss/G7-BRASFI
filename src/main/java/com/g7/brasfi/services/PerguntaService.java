@@ -34,5 +34,9 @@ public class PerguntaService {
     	return perguntaRepository.findByTamanhosPermitidosContaining(tamanho);
     }
     
+    public void excluirTodas() {
+    	perguntaRepository.deleteAll();
+    }
+    
 
 }

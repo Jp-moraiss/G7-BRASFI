@@ -21,4 +21,8 @@ public class RespostaService {
     public List<Resposta> buscarTodas(){
     	return respostaRepository.findAll();
     }
+    
+    public void excluirTodas() {
+    	respostaRepository.deleteAll();
+    }
 }
