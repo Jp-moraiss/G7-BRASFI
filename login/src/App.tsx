@@ -6,10 +6,12 @@ import Home from './components/Home';
 import Register from './components/Register';
 import EsqueceuSenha from './components/EsqueceuSenha';
 import Questionario from './components/Questionario';
+import QuestionarioESG from './components/QuestionarioESG.js';
 import JoinCreateChat from './components/JoinCreateChat';
 import ChatPage from './components/ChatPage';
 import { ChatProvider } from './context/ChatContext.jsx'
 import Header from './components/Header';
+import { CursoPagina } from './components/CursoPagina.js';
 
 
 const App = () => {
@@ -29,6 +31,7 @@ const App = () => {
         <Route path="/QuestionarioESG" element={<QuestionarioESG />} />
         <Route path="/Chatmain" element={<JoinCreateChat/>} />
         <Route path="/Chat" element={<ChatPage />} />
+        <Route path="/Curso" element={<CursoPagina />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>
       </ChatProvider>

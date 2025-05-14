@@ -2,11 +2,9 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -33,12 +31,8 @@ a {
   margin: 0;
   box-sizing: border-box;
   text-decoration: none;
+  list-style: none;
   border: none;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 
@@ -995,5 +989,100 @@ button:hover {
 #perguntasContainer label {
   font-weight: bold;
   color: #2c3e50;
+}
+
+/* Plataforma Curso */
+
+.container-curso {
+  width: 200px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-top: 1px solid black;
+}
+
+.box-texts-curso{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.box-texts-curso ul li {
+  margin-top: 10px;
+  border-bottom: 1px solid rgb(116, 116, 116);
+}
+
+.box-texts-curso ul li a{
+  color: gray;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.box-texts-curso h1{
+  font-size: 15px;
+}
+
+.body-curso {
+  display: flex;
+  background-color: #81d4be;
+}
+
+.conteudo-principal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 50px;
+}
+
+.box-video {         
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 900px;
+  height: 500px;
+  margin-left: 100px;
+  background-color: #c4c4c4;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.video-container {
+  display: flex;
+  flex-direction: column;       /* Alinha os elementos em coluna */
+  align-items: center;          /* Centraliza na horizontal */
+  justify-content: center;      /* Centraliza na vertical */
+  width: 850px;
+  height: 450px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.video-options{
+  display: flex;
+  gap: 40px;
+  margin-top: auto;
+  justify-content: right;
+  margin-left: 500px;
+}
+
+.descricao-curso {
+  display: flex;
+  flex-direction: column; 
+  text-align:justify;
+  margin-left: 100px;
+  gap: 10px;
+}
+
+.descricao-curso h1 {
+  font-size: 15px;
+  margin-top: 25px;
+  
+}
+
+.descricao-curso p {
+  font-size: 12px;
+  width: 600px;
+  
 }
 
