@@ -29,17 +29,28 @@ public class Resposta {
     private Pergunta pergunta;
 
     private String respostaTexto;
+    
+    // Construtor vazio obrigatório para JPA
+    public Resposta() {
+    }
 
+    // Construtor útil para instanciar no código
+    public Resposta(UUID id, Empresa empresa, Pergunta pergunta, String respostaTexto) {
+		super();
+		this.id = id;
+		this.empresa = empresa;
+		this.pergunta = pergunta;
+		this.respostaTexto = respostaTexto;
+	}
+
+    
+    
     // Getters e Setters
     public UUID getId() { 
     	return id; 
     	}
 
-    public void setId(UUID id) { 
-    	this.id = id; 
-    	}
-
-    public Empresa getEmpresa() { 
+	public Empresa getEmpresa() { 
     	return empresa; 
     	}
     public void setEmpresa(Empresa empresa) {

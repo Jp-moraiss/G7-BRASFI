@@ -18,14 +18,20 @@ public class Empresa {
 
     @Enumerated(EnumType.STRING)
     private TamanhoEmpresa tamanho;
+    
+    // Construtor vazio obrigatório para JPA
+    public Empresa() {
+    }
+
+    // Construtor útil para instanciar no código
+    public Empresa(String nome, TamanhoEmpresa tamanho) {
+        this.nome = nome;
+        this.tamanho = tamanho;
+    }
 
     // Getters e Setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {

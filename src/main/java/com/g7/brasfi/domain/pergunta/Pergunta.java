@@ -27,16 +27,31 @@ public class Pergunta {
     private Set<TamanhoEmpresa> tamanhosPermitidos;
 
     private String publicoAlvo; // ex: "MICRO", "GRANDE", etc.
+    
+    // Construtor vazio obrigatório para JPA
+    public Pergunta() {
+    }
 
+    // Construtor útil para instanciar no código
+
+    public Pergunta(UUID id, String texto, CategoriaESG categoria, int peso, Set<TamanhoEmpresa> tamanhosPermitidos,
+			String publicoAlvo) {
+		super();
+		this.id = id;
+		this.texto = texto;
+		this.categoria = categoria;
+		this.peso = peso;
+		this.tamanhosPermitidos = tamanhosPermitidos;
+		this.publicoAlvo = publicoAlvo;
+	}
+
+    
     // Getters e Setters
     public UUID getId() { 
     	return id; 
     	}
-    public void setId(UUID id) { 
-    	this.id = id; 
-    	}
-
-    public String getTexto() { 
+    
+	public String getTexto() { 
     	return texto; 
     	}
     public void setTexto(String texto) { 
