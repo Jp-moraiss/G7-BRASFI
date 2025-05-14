@@ -41,24 +41,6 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -93,9 +75,8 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin-right: 150px;
+ 
 }
-
 
 .password-container {
   display: flex;
@@ -103,7 +84,6 @@ button:focus-visible {
   align-items: center;
   height: 100vh;
 }
-
 
 .login-box {
   background-color: rgba(255, 255, 255, 0.8);
@@ -919,5 +899,101 @@ input[type="radio"]:checked {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Questionario ESG */
+
+.questionary-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+h2 {
+  color: #2c3e50;
+}
+
+/* Caixa do questionário */
+.box-questionario {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Títulos */
+.box-questionario h1 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.box-questionario h2 {
+  font-size: 22px;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+/* Labels e inputs */
+label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #68987a;
+}
+
+/* Botão de cadastro */
+.button-questionary {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.button-questionary button,
+button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #27ae60;
+}
+
+/* Perguntas */
+#perguntasContainer {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+#perguntasContainer label {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
