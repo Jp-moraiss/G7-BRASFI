@@ -8,9 +8,12 @@ import EsqueceuSenha from './components/EsqueceuSenha';
 import Questionario from './components/Questionario';
 import JoinCreateChat from './components/JoinCreateChat';
 import ChatPage from './components/ChatPage';
-import { ChatProvider } from './context/ChatContext.jsx'
+import { ChatProvider } from './context/ChatContext';
 import Header from './components/Header';
 import QuestionarioESG from './components/QuestionarioESG.js';
+
+import { CursoPagina } from './components/CursoPagina.js';
+import CoursesPage from './components/CoursesPage.js';
 
 
 const App = () => {
@@ -29,6 +32,8 @@ const App = () => {
         <Route path="/Questionario" element={<Questionario />} />
         <Route path="/QuestionarioESG" element={<QuestionarioESG />} />
         <Route path="/Chatmain" element={<JoinCreateChat/>} />
+        <Route path="/Curso" element={<CursoPagina/>} />
+        <Route path="/Cursos" element={<CoursesPage />} />
         <Route path="/Chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>

@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,7 +14,7 @@
 }
 
 body {
-  background-image: url('../../image/background.jpg'); /* Caminho da imagem */
+  /* background-image: url('../../image/background.jpg'); /* Caminho da imagem */
   background-size: cover;       /* A imagem cobre toda a tela */
   background-position: center;  /* Centraliza a imagem */
   background-repeat: no-repeat; /* Não repete a imagem */
@@ -1066,4 +1066,183 @@ button:hover {
   font-weight: bold;
   color: #2c3e50;
 }
+
+/* Plataforma Curso */
+
+.container-curso {
+  width: 200px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-top: 1px solid black;
+}
+
+.box-texts-curso{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.box-texts-curso ul li {
+  margin-top: 10px;
+  border-bottom: 1px solid rgb(116, 116, 116);
+}
+
+.box-texts-curso ul li a{
+  color: gray;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.box-texts-curso h1{
+  font-size: 15px;
+  color: #000;
+  cursor: pointer;
+}
+
+.body-curso {
+  display: flex;
+  background-color: #81d4be;
+}
+
+.conteudo-principal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 50px;
+}
+
+.box-video {         
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 900px;
+  height: 500px;
+  margin-left: 100px;
+  background-color: #c4c4c4;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.video-container {
+  display: flex;
+  flex-direction: column;       /* Alinha os elementos em coluna */
+  align-items: center;          /* Centraliza na horizontal */
+  justify-content: center;      /* Centraliza na vertical */
+  width: 850px;
+  height: 450px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.video-options{
+  display: flex;
+  gap: 40px;
+  margin-top: auto;
+  justify-content: right;
+  margin-left: 500px;
+  color: #000;
+}
+
+.descricao-curso {
+  display: flex;
+  flex-direction: column; 
+  text-align:justify;
+  margin-left: 100px;
+  color: #000;
+  gap: 10px;
+}
+
+.descricao-curso h1 {
+  color: #000;
+  font-size: 15px;
+  margin-top: 25px;
+  
+}
+
+.descricao-curso p {
+  font-size: 12px;
+  width: 600px;
+  
+}
+
+/* Paginas de Cursos */
+
+.cursos-serach {
+  display: flex;
+  align-items: center;
+  color: #000;
+  padding: 80px;
+  gap: 20px;
+}
+
+.cursos-serach h1 {
+  font-size: 35px;
+  
+}
+
+input[type="text"],
+.cursos-bar select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 16px;
+  background-color: #9bada2;
+}
+
+input[placeholder="Pesquisar..."],
+.cursos-bar select {
+ padding: 10px;
+ font-weight: bold;
+}
+
+.course-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 600px;
+  margin-left: 80px;
+  border-radius: 20px;
+  background-color: #709E3E3D;
+  border: 2px solid #02440e ;
+}
+
+
+.image-course img{
+  width: 100%;
+  border-radius: 20px;
+  margin-bottom: 100px;
+}
+
+.descricao-course {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px ;
+}
+
+.descricao-course p {
+  color: #000;
+  font-size: 12px;
+  width: 260px;
+  text-align: center;
+}
+
+.button-curso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-curso button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+}
+
 
