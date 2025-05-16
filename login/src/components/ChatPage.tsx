@@ -12,11 +12,15 @@ const ChatPage = () => {
   const stompClientRef = useRef(null);
   const [roomId, setRoomId] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState();
+  const [isAdmin, setIsAdmin] = useState();
   const navigate = useNavigate();
-
   const [messages, setMessages] = useState([]);
+  const [openSubmenu, setOpenSubmenu] = useState(null); // novo estado
+  
+  const toggleSubmenu = (menuName: string | null) => {
+      setOpenSubmenu(prev => (prev === menuName ? null : menuName));
+  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -38,7 +42,7 @@ const ChatPage = () => {
       fetchMessages(storedRoomId);
       connectToWebsocket(storedRoomId);
     } else {
-      navigate('/join');
+      navigate('/chatmain');
     }
 
     return () => {
@@ -78,28 +82,30 @@ const ChatPage = () => {
   };
 
   const onMessageReceived = (payload) => {
-    const message = JSON.parse(payload.body);
+  const message = JSON.parse(payload.body);
 
-    setMessages(prevMessages => {
-      const last = prevMessages[prevMessages.length - 1];
-      const same = last &&
-        last.sender === message.sender &&
-        last.content === message.content &&
-        new Date(last.timeStamp).getTime() === new Date(message.timeStamp).getTime();
+  setMessages(prevMessages => {
+    const last = prevMessages[prevMessages.length - 1];
+    const same = last &&
+      last.sender === message.sender &&
+      last.content === message.content &&
+      new Date(last.timeStamp).getTime() === new Date(message.timeStamp).getTime();
 
-      return same ? prevMessages : [...prevMessages, message];
-    });
+    return same ? prevMessages : [...prevMessages, message];
+  });
 
-    scrollToBottom();
-  };
+  scrollToBottom();
+};
+
 
   const sendMessage = () => {
-    const stompClient = stompClientRef.current;
-    if (stompClient && input.trim() !== "" && roomId) {
+      const stompClient = stompClientRef.current;
+      if (stompClient && input.trim() !== "" && roomId) {
       const chatMessage = {
         sender: userEmail.split('@')[0],
         content: input.trim(),
-        timeStamp: new Date()
+        timeStamp: new Date(),
+        role: isAdmin ? "ADMIN" : "USER" // <- adicionado
       };
 
       stompClient.send(`/app/sendMessage/${roomId}`, {}, JSON.stringify(chatMessage));
@@ -163,18 +169,6 @@ const ChatPage = () => {
 
   return (
     <div className="chatpage-container">
-      <header className="chat-header">
-        <div>
-          <h1 className="chat-header-title">Room: <span>{roomId || "..."}</span></h1>
-        </div>
-        <div>
-          <h1 className="chat-header-title">User: <span>{userEmail.split('@')[0] || "..."}</span></h1>
-        </div>
-        <div>
-          <button className="leave-button" onClick={leaveRoom}>Leave Room</button>
-        </div>
-      </header>
-
       <div className="chat-wrapper">
           <div className="roomslist">
             <div className="roombox">
@@ -183,8 +177,42 @@ const ChatPage = () => {
             <div className="roombox">
               <h1>{roomId}</h1>
             </div>
-            <div className="roombox-logout">
-              <h1>{roomId}</h1>
+            <div className="roombox-logout" onClick={leaveRoom}>
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+          </div>
+
+          <div className="optionslist">
+            <div className="box-textos-chat">
+              <h1>Sala: {roomId}</h1>
+              <h1>ADMINISTRADORES <i class="fa-solid fa-angle-right"></i></h1>
+               <div className="divider-admin">
+               </div>
+
+              <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
+                <h1 onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }} className="menu-title">
+                  Reuniões <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
+                </h1>
+                {openSubmenu === 'aulas' && (
+                  <ul className="submenu">
+                    <li><a href="">Geral <i className="fa-solid fa-phone-volume"></i></a></li>
+                    <li><a href="">Dúvidas 1 <i className="fa-solid fa-phone-volume"></i></a></li>
+                  </ul>
+                )}
+              </li>
+
+               <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
+                <h1 onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }} className="menu-title">
+                  Bate-Papos <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
+                </h1>
+                {openSubmenu === 'aulas' && (
+                  <ul className="submenu">
+                    <li><a href="">Duvidas <i class="fa-solid fa-message"></i></a></li>
+                    <li><a href="">Documentos 1 <i class="fa-solid fa-message"></i></a></li>
+                  </ul>
+                )}
+              </li>
+
             </div>
           </div>
       <main className="chat-main" ref={chatBoxRef}>
@@ -194,9 +222,12 @@ const ChatPage = () => {
               <div className="message-content">
                 <img className="avatar" src={`https://avatar.iran.liara.run/public/${(index + message.sender.length) % 30}`} alt="" />
                 <div className="message-text">
-                  <p className="sender-name">{message.sender}</p>
-                  <p>{message.content}</p>
-                </div>
+                <p className="sender-name">
+                  {message.sender} - {message.role === "ADMIN" ? "Admin" : "Estudante"}
+                </p>
+
+                <p>{message.content}</p>
+              </div>
               </div>
             </div>
           </div>
@@ -216,8 +247,8 @@ const ChatPage = () => {
             ref={inputRef}
           />
           <div className="chat-actions">
-            <button className="icon-button purple"onClick={handleFileChange}><MdAttachFile size={20} /></button>
-            <button className="icon-button green" onClick={sendMessage}><MdSend size={20} /></button>
+            <button className='action-chat-button' onClick={handleFileChange}><i className="fa-solid fa-paperclip"></i></button>
+            <button className='action-chat-button' onClick={sendMessage}><i className="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
       </div>
