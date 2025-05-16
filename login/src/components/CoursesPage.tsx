@@ -13,6 +13,9 @@ const CoursesPage = () => {
         <div className="image-course">
             <img src="./public/images/image.png" alt="" />
         </div>
+        <div className="title-course">
+            <h1>Curso 1: Finanças Solidárias e Sustentáveis para Projetos Sociais</h1>
+        </div>
         <div className="descricao-course">
             <p>Fortaleça projetos sociais com ferramentas como cooperativas, fundos solidários, parcerias e redes de troca. Este curso mostra caminhos acessíveis para gerar renda, captar recursos e gerir finanças de forma transparente.</p>
         </div>

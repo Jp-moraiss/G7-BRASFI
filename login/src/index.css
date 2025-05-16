@@ -1216,7 +1216,20 @@ input[placeholder="Pesquisar..."],
 .image-course img{
   width: 100%;
   border-radius: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
+}
+
+.title-course {
+  display: flex;
+  align-items: center;
+  justify-content: center;display: flex;
+  margin-bottom: 20px;
+}
+
+.title-course h1 {
+  font-size: 20px;
+  text-align: center;
+  color: #000;
 }
 
 .descricao-course {
