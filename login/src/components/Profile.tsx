@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ModulesBox from "./ModulesBox";
+import BoxAchievements from "./BoxAchievementsProfile";
 
 const Profile = () => {
     const [userEmail, setUserEmail] = useState("");
@@ -34,44 +36,57 @@ const Profile = () => {
     }
 
     return (
-        <div className="profile-container">
-            <div className="profile-header">
-                <div className="profile-info">
-                    <h2>Perfil do Usuário</h2>
-                    <p><strong>Email:</strong> {userEmail}</p>
-                    <p><strong>Status:</strong> Autenticado</p>
-                    <p><strong>Tipo:</strong> {isAdmin ? "ADMIN" : "USER"}</p>
+        <div className="main-profile">
+            <div className="profile-layout">
+                <div className="profile-container">
+                    <div className="profile-informations">
+                        <div className="profile-avatar">
+                        <img src="https://avatar.iran.liara.run/public/28" alt="" />
+                        </div>
+                        <div className="profile-informacoes">
+                        <h1>{userEmail}</h1>
+                        <p>Nivel 1</p>
+                        </div>
+                        <BoxAchievements />
+                    </div>
+                    <div className="buttons-profile">
+                        <div className="button-logout">
+                            <button onClick={() => {localStorage.removeItem("user"); window.location.href = "/login";}}><i className="fa-solid fa-right-from-bracket"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="achievements-container">
+                    <div className="achivements-header">
+                        <h1>Conquistas</h1>
+                    </div>
+                    <div className="achievements-box">
+                        <div className="achivimens-informations">
+                        <h1>0</h1>
+                        <p>Emblemas</p>
+                        </div>
+                        <div className="achivimens-informations">
+                        <h1>0</h1>
+                        <p>Badgets</p>
+                        </div>
+                        <div className="achivimens-informations">
+                        <h1>0</h1>
+                        <p>Geral</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div className="profile-details">
-                <h3>Detalhes da Conta</h3>
-                <p>Bem-vindo ao seu perfil, {userEmail.split('@')[0]}!</p>
-                <p>Aqui você pode gerenciar suas informações e preferências.</p>
-
-                <div className="profile-actions">
-                    <button
-                        className="btn btn-logout"
-                        onClick={() => {
-                            localStorage.removeItem("user");
-                            window.location.href = "/login";
-                        }}
-                    >
-                        Sair da Conta
-                    </button>
-
-                    <button className="btn btn-edit">
-                        <a href="/EditarPerfil">Editar Perfil</a>
-                    </button>
-
-                    {isAdmin && (
-                        <button className="btn btn-edit">
-                            <a href="/admin">Admin</a>
-                        </button>
-                    )}
+          
+                <div className="modulos-section">
+                    <ModulesBox />
+                    <ModulesBox />
+                    <ModulesBox />
                 </div>
-            </div>
-        </div>
+     
+                
+        
+</div>
+
     );
 };
 
