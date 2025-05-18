@@ -5,6 +5,7 @@ import BoxAchievements from "./BoxAchievementsProfile";
 
 const Profile = () => {
     const [userEmail, setUserEmail] = useState("");
+    const [user, setUser] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -14,6 +15,7 @@ const Profile = () => {
             try {
                 const parsedUser = JSON.parse(storedUser);
                 setUserEmail(parsedUser.email || parsedUser.login || "");
+                setUser(parsedUser.name)
                 setIsAuthenticated(true);
                 setIsAdmin(parsedUser.role === "ADMIN");
                 console.log("Dados do usuário carregados:", parsedUser);
@@ -44,7 +46,7 @@ const Profile = () => {
                         <img src="https://avatar.iran.liara.run/public/28" alt="" />
                         </div>
                         <div className="profile-informacoes">
-                        <h1>{userEmail}</h1>
+                        <h1>{user}</h1>
                         <p>Nivel 1</p>
                         </div>
                         <BoxAchievements />
@@ -52,6 +54,9 @@ const Profile = () => {
                     <div className="buttons-profile">
                         <div className="button-logout">
                             <button onClick={() => {localStorage.removeItem("user"); window.location.href = "/login";}}><i className="fa-solid fa-right-from-bracket"></i></button>
+                        </div>
+                        <div className="button-edit">
+                           <a href="/EditProfile"><button><i className="fa-solid fa-pen-to-square"></i></button></a>
                         </div>
                     </div>
                 </div>

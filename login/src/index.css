@@ -149,7 +149,6 @@ h1 {
   text-align: center;
 }
 
-
 .genero_text{
   color: #000;
   font-weight: bold;
@@ -162,13 +161,20 @@ h1 {
   font-weight: bold;
 }
 
-
 .cabecalho-text {
   margin-bottom: 15px;
 }
 
 .cabecalho-text-register h1 {
   font-size: 30px;
+}
+
+.cabecalho-edit-text {
+  margin-bottom: 15px;
+}
+
+.cabecalho-edit-text h1 {
+  font-size: 20px;
 }
 
 .cabecalho-icon {
@@ -189,13 +195,21 @@ h1 {
   align-items: center;
   justify-content: center;
   margin: auto;
-  padding-right: 200px;
-  
+  padding-right: 200px; 
 }
 
 .cabecalho-img img {
   width: 500px;
-  
+}
+
+.cabecalho-edit-img {
+  display: flex;
+  justify-content: right;
+  margin: auto;
+}
+
+.cabecalho-edit-img img {
+  width: 100px;
 }
 
 .form-input {
@@ -357,7 +371,19 @@ input[type="radio"]:checked {
   margin-bottom: 20px;
   text-align: left;  
 }
+
+.edit-form-group {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;  
+}
+
 .form-group label p {
+  display: inline;
+  font-weight: bold;
+}
+
+.edit-form-group p {
   display: inline;
   font-weight: bold;
 }
@@ -367,6 +393,22 @@ input[type="radio"]:checked {
   left: 10px;
   top: 12px;
   color: #777;
+}
+
+
+.edit-form-group input[type="text"] {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+
+}
+
+.edit-form-group input[placeholder]{
+  font-size: 12px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.input-edit{
+  padding-left: 10px;
 }
 
 .form-field {
@@ -625,6 +667,11 @@ input[type="radio"]:checked {
   margin-top: 80px;
 }
 
+.buttons-profile {
+  display: flex;
+  gap: 20px;
+}
+
 .button-logout button{
   width: 50px;
   height: 50px;
@@ -636,6 +683,16 @@ input[type="radio"]:checked {
   background-color: rgb(255, 109, 109);
 }
 
+.button-edit button{
+  width: 50px;
+  height: 50px;
+  background-color: rgb(31, 46, 255);
+  transition: 0.4s all ease-in-out;
+}
+
+.button-edit button:hover{
+  background-color: rgb(100, 111, 255);
+}
 
 
 /* Course Box */

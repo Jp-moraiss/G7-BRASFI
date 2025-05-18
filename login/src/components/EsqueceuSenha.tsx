@@ -105,24 +105,7 @@ const EsqueceuSenha: React.FC = () => {
     }
   };
 
-  const handleClickRegister = async (values: { email: string; password: string; confirmPassword: string }) => {
-    try {
-      const response = await Axios.post(`${API_URL}/register`, {
-        email: values.email,
-        password: values.password
-      });
-      
-      alert(response.data.msg || "Registro realizado com sucesso!");
-      
-      if (response.data.success) {
-        document.getElementById("register-form")!.style.display = "none";
-      }
-    } catch (error: any) {
-      console.error("Erro ao registrar:", error);
-      alert("Erro ao registrar usuário: " + (error.response?.data?.msg || error.message));
-    }
-  };
-
+  
   // Verifica se o usuário já está autenticado
   useEffect(() => {
     const storedUser = localStorage.getItem("user");

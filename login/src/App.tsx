@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import Register from './components/Register';
-import EsqueceuSenha from './components/EsqueceuSenha';
+import EsqueceuSenha from './components/EsqueceuSenha.js';
 import Questionario from './components/Questionario';
 import JoinCreateChat from './components/JoinCreateChat';
 import ChatPage from './components/ChatPage';
@@ -14,6 +14,7 @@ import QuestionarioESG from './components/QuestionarioESG.js';
 
 import { CursoPagina } from './components/CursoPagina.js';
 import CoursesPage from './components/CoursesPage.js';
+import EditProfile from './components/EditProfile.js';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/EditProfile" element={<EditProfile />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/EsqueceuSenha" element={<EsqueceuSenha />} />
         <Route path="/Questionario" element={<Questionario />} />
