@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Vídeos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .video-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            max-width: 560px;
+        }
+        iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+        h2 {
+            margin: 0 0 10px;
+        }
+    </style>
+    <script>
+        async function carregarVideos() {
+            const response = await fetch('http://localhost:8080/videos');
+            const videos = await response.json();
+
+            const container = document.getElementById('videosContainer');
+            container.innerHTML = '';
+
+            videos.forEach(video => {
+                const div = document.createElement('div');
+                div.className = 'video-card';
+                div.innerHTML = `
+                    <h2>${video.titulo}</h2>
+                    <iframe src="${video.url}" allowfullscreen></iframe>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        window.onload = carregarVideos;
+    </script>
+</head>
+<body>
+    <h1>Vídeos Disponíveis</h1>
+    <div id="videosContainer">
+        <!-- Os vídeos vão aparecer aqui -->
+    </div>
+</body>
+</html>
