@@ -15,6 +15,7 @@ import QuestionarioESG from './components/QuestionarioESG.js';
 import { CursoPagina } from './components/CursoPagina.js';
 import CoursesPage from './components/CoursesPage.js';
 import EditProfile from './components/EditProfile.js';
+import AdicionarCurso from './components/AdicionarCurso.js';
 
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/Chatmain" element={<JoinCreateChat/>} />
         <Route path="/Curso" element={<CursoPagina/>} />
         <Route path="/Cursos" element={<CoursesPage />} />
+        <Route path="/AdicionarCurso" element={<AdicionarCurso />} />
         <Route path="/Chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>

@@ -5,6 +5,7 @@ const CoursesPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [user, setUser] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     fetch('http://localhost:8080/Curso')
@@ -42,10 +43,12 @@ const CoursesPage = () => {
         <i className="fa-solid fa-magnifying-glass"></i>
       </div>
 
+    if ({isAdmin}) {
       <div className="botaoAdicionar">
-        <button>Adicionar Curso</button>
+        <a href="/AdicionarCurso"><button>Adicionar Curso</button></a>
       </div>
-
+    }
+      
       <div className="course-container">
         {cursos.map((curso, i) => (
           <div key={curso.id} className="course-card">
