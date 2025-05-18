@@ -46,7 +46,7 @@ public class AuthenticationController {
 		var user = (User) auth.getPrincipal();
 		var token = tokenService.generateToken(user);
 
-		return ResponseEntity.ok(new LoginResponseDTO(token, user.getLogin(), user.getName()));
+		return ResponseEntity.ok(new LoginResponseDTO(token, user.getId(), user.getLogin(), user.getName()));
 	}
 
 	@Value("${admin.secret}")
