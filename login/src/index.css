@@ -1431,13 +1431,28 @@ input[placeholder="Pesquisar..."],
 
 .course-container {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* ou flex-start */
+  padding: 20px;
+}
+
+.course-card {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 600px;
-  margin-left: 80px;
-  border-radius: 20px;
-  background-color: #709E3E3D;
-  border: 2px solid #02440e ;
+  align-items: center;
+}
+
+.image-course img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 
@@ -1450,7 +1465,7 @@ input[placeholder="Pesquisar..."],
 .title-course {
   display: flex;
   align-items: center;
-  justify-content: center;display: flex;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -1461,11 +1476,10 @@ input[placeholder="Pesquisar..."],
 }
 
 .descricao-course {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px ;
+  flex: 1; 
+  margin-bottom: 20px;
 }
+
 
 .descricao-course p {
   color: #000;
@@ -1476,8 +1490,6 @@ input[placeholder="Pesquisar..."],
 
 .button-curso {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .button-curso button {
@@ -1485,5 +1497,33 @@ input[placeholder="Pesquisar..."],
   height: 50px;
   font-weight: bold;
 }
+
+.botaoAdicionar {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 80px;
+}
+
+.botaoAdicionar button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+}
+
+.cabecalhoCursos {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 80px;
+  margin-top: 40px;
+}
+
+.cabecalhoCursos h1 {
+  font-size: 25px;
+  font-weight: 100;
+  color: #000;
+}
+
 
 
