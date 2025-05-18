@@ -1238,6 +1238,25 @@ h2 {
   margin-bottom: 20px;
 }
 
+.questionary-container input[type = "text"]{
+  border: 1px solid rgb(140, 140, 140);
+  margin-top: 10px;
+  color: gray;
+  font-weight: bold;
+  font-size: 13px;
+  padding-left: 10px;
+}
+
+select {
+  border: 1px solid #808080;
+  margin-left: 10px;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  color: #000;
+  background-color: transparent;
+}
+
 /* Labels e inputs */
 label {
   display: block;
@@ -1420,7 +1439,7 @@ input[type="text"],
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 16px;
-  background-color: #9bada2;
+  background-color: transparent;
 }
 
 input[placeholder="Pesquisar..."],
