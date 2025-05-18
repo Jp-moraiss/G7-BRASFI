@@ -8,6 +8,8 @@ interface User {
   id?: string;
   name?: string;
   email?: string;
+  cpf?: string;
+  phone?: string;
   role?: string;
 }
 
@@ -15,6 +17,9 @@ const EditProfile: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
+  const [telefone, setTelefone] = useState(""); // This state wasn't being used correctly
+  const [cpf, setCpf] = useState("");
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
@@ -24,104 +29,101 @@ const EditProfile: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Tenta obter dados do usuário do localStorage
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        console.log("Dados do usuário do localStorage:", parsedUser);
-        
-        // Tenta obter o ID do usuário autenticado
-        Axios.get(`${API_URL}/users/me`, {
-          headers: {
-            // Adicione headers de autenticação se necessário
-            // 'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        })
-          .then(response => {
-            if (response.data && response.data.id) {
-              const updatedUser = {
-                ...parsedUser,
-                id: response.data.id
-              };
-              localStorage.setItem("user", JSON.stringify(updatedUser));
-              
-              setUser({
-                id: response.data.id,
-                name: response.data.name || parsedUser.name || "",
-                email: response.data.email || parsedUser.email || parsedUser.login || "",
-                role: response.data.role || parsedUser.role
-              });
-              
-              setName(response.data.name || parsedUser.name || "");
-              setEmail(response.data.email || parsedUser.email || parsedUser.login || "");
-              setIsLoading(false);
-            } else {
-              throw new Error("ID do usuário não encontrado na resposta da API");
-            }
-          })
-          .catch(err => {
-            console.error("Erro ao buscar usuário atual:", err);
-            
-            const userEmail = parsedUser.email || parsedUser.login;
-            
-            setUser({
-              id: parsedUser.id, 
-              name: parsedUser.name || "",
-              email: userEmail || "",
-              role: parsedUser.role,
-            });
-            
-            setName(parsedUser.name || "");
-            setEmail(userEmail || "");
-            
-            if (!parsedUser.id) {
-              setError("Não foi possível obter o ID do usuário. Por favor, faça login novamente.");
-            }
-            
-            setIsLoading(false);
-          });
-      } catch (e) {
-        console.error("Erro ao processar dados do usuário:", e);
-        setError("Erro ao carregar dados do usuário.");
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    try {
+      const parsedUser = JSON.parse(storedUser);
+      console.log("Dados do usuário do localStorage:", parsedUser);
+
+      const userId = parsedUser.id;
+
+      if (!userId) {
+        setError("ID do usuário não encontrado. Por favor, faça login novamente.");
         setIsLoading(false);
+        return;
       }
-    } else {
-      setError("Usuário não encontrado no localStorage. Por favor, faça login novamente.");
+
+      Axios.get(`${API_URL}/users/${userId}`)
+        .then(response => {
+          console.log("API response data:", response.data);
+          const updatedUser = {
+            ...parsedUser,
+            id: response.data.id,
+            cpf: response.data.cpf,
+            phone: response.data.phone
+          };
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+
+          setUser({
+            id: response.data.id,
+            name: response.data.name || parsedUser.name || "",
+            email: response.data.email || parsedUser.email || parsedUser.login || "",
+            cpf: response.data.cpf || parsedUser.cpf || "",
+            phone: response.data.phone || parsedUser.phone || "",
+            role: response.data.role || parsedUser.role
+          });
+
+          setName(response.data.name || parsedUser.name || "");
+          setEmail(response.data.email || parsedUser.email || parsedUser.login || "");
+          setCpf(response.data.cpf || parsedUser.cpf || "");
+          setTelefone(response.data.phone || parsedUser.phone || "");
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.error("Erro ao buscar usuário atual:", err);
+
+          setUser({
+            id: parsedUser.id,
+            name: parsedUser.name || "",
+            email: parsedUser.email || parsedUser.login || "",
+            cpf: parsedUser.cpf || "",
+            phone: parsedUser.phone || "",
+            role: parsedUser.role
+          });
+
+          setName(parsedUser.name || "");
+          setEmail(parsedUser.email || parsedUser.login || "");
+          setCpf(parsedUser.cpf || "");
+          setTelefone(parsedUser.phone || "");
+          setIsLoading(false);
+        });
+
+    } catch (e) {
+      console.error("Erro ao processar dados do usuário:", e);
+      setError("Erro ao carregar dados do usuário.");
       setIsLoading(false);
     }
-  }, []);
+  } else {
+    setError("Usuário não encontrado no localStorage. Por favor, faça login novamente.");
+    setIsLoading(false);
+  }
+}, []);
 
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    
     setIsLoading(true);
     
     try {
-      // Se temos um ID de usuário, usamos ele para atualizar
-      if (user?.id) {
-        console.log(`Enviando atualização para usuário ID: ${user.id}`);
-        await Axios.put(`${API_URL}/users/${user.id}`, {
-          name: name,
-          email: email
-        });
-      } 
-      // Se não temos ID, tentamos atualizar usando o endpoint do usuário atual
-      else {
-
-        await Axios.put(`${API_URL}/users/${user?.id}`, {
-          name: name,
-          email: email
-        });
+      // Validate that we have an ID before attempting update
+      if (!user?.id) {
+        throw new Error("ID do usuário não encontrado. Por favor, faça login novamente.");
       }
+      
+      console.log(`Enviando atualização para usuário ID: ${user.id}`);
+      await Axios.put(`${API_URL}/users/${user.id}`, {
+        name: name,
+        email: email,
+        phone: telefone // Include phone in the update request
+      });
 
       // Atualiza os dados no localStorage mantendo o ID se existir
       const updatedUser = { 
         ...user, 
         name: name, 
-        email: email 
+        email: email,
+        phone: telefone // Make sure to update phone in the local state too
       };
       
       localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -161,40 +163,90 @@ const EditProfile: React.FC = () => {
         <form className="edit-form" onSubmit={handleUpdate}>
           <div className="edit-form-group">
             <p>Nome *</p>
-            <input
-              className="input-edit"
-              name="name"
-              type="text"
-              placeholder={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                setError("");
-                setSuccessMessage("");
-              }}
-            />
-            {error.includes("Nome") && (
-              <span className="form-error">Nome é obrigatório</span>
-            )}
+            <div className="icons-input">
+              <input
+                className="input-edit"
+                name="name"
+                type="text"
+                placeholder={name}
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setError("");
+                  setSuccessMessage("");
+                }}
+              />
+              {error.includes("Nome") && (
+                <span className="form-error">Nome é obrigatório</span>
+              )}
+              <i className="fa-solid fa-user"></i>
+            </div>
           </div>
 
           <div className="edit-form-group">
             <p>E-mail *</p>
-            <input
-              className="input-edit"
-              name="email"
-              type="text"
-              placeholder={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setError("");
-                setSuccessMessage("");
-              }}
-            />
-            {error.includes("Email") && (
-              <span className="form-error">
-                {error.includes("inválido") ? "Email inválido" : "Email é obrigatório"}
-              </span>
-            )}
+            <div className="icons-input">
+              <input
+                className="input-edit"
+                name="email"
+                type="text"
+                placeholder={email}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError("");
+                  setSuccessMessage("");
+                }}
+              />
+              {error.includes("Email") && (
+                <span className="form-error">
+                  {error.includes("inválido") ? "Email inválido" : "Email é obrigatório"}
+                </span>
+              )}
+              <i className="fa-solid fa-envelope"></i>
+            </div>
+          </div>
+
+          <div className="edit-form-group">
+            <p>CPF</p>
+            <div className="icons-input">
+              <input
+                className="input-edit"
+                name="cpf"
+                type="text"
+                placeholder={cpf}
+                value={cpf}
+                onChange={(e) => {
+                  setCpf(e.target.value);
+                  setError("");
+                  setSuccessMessage("");
+                }}
+                readOnly
+              />
+              <i className="fa-solid fa-lock"></i>
+            </div>
+          </div>
+
+          <div className="edit-form-group">
+            <p>Telefone *</p>
+            <div className="icons-input">
+              <input
+                className="input-edit"
+                name="telefone"
+                type="text"
+                placeholder={telefone}
+                value={telefone}
+                onChange={(e) => {
+                  setTelefone(e.target.value); // Fixed: was incorrectly setting email
+                  setError("");
+                  setSuccessMessage("");
+                }}
+              />
+              {error.includes("Telefone") && (
+                <span className="form-error">Telefone é obrigatório</span>
+              )}
+              <i className="fa-solid fa-phone"></i>
+            </div>
           </div>
 
           <button className="register-button" type="submit" disabled={isLoading}>

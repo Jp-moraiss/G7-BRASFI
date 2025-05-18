@@ -1583,5 +1583,18 @@ input[placeholder="Pesquisar..."],
   border: none;
 }
 
+.input-edit[readonly] {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.icons-input {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+
 
 
