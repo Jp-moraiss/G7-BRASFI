@@ -1380,7 +1380,12 @@ button:hover {
   height: 450px;
   background-color: white;
   border: 1px solid black;
-  padding: 20px;
+  
+}
+
+.video-container iframe {
+  width: 850px;
+  height: 100%;
 }
 
 .video-options{

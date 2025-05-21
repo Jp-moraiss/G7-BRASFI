@@ -1,6 +1,7 @@
 package com.g7.brasfi.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import com.g7.brasfi.repositories.CursoRepository;
 @Service
 public class CursoService {
 	
-	private final CursoRepository cursoRepository;
+	private CursoRepository cursoRepository;
 
 	public CursoService(CursoRepository cursoRepository) {
 		this.cursoRepository = cursoRepository;
@@ -18,6 +19,10 @@ public class CursoService {
 	
 	public Curso salvar(Curso curso) {
 		return cursoRepository.save(curso);
+	}
+
+	public Optional<Curso> findById(Long id) {
+		return cursoRepository.findById(id);
 	}
 	
 	public List<Curso> listarTodos(){
