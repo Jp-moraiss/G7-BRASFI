@@ -37,6 +37,8 @@ const Header = () => {
               {isAuthenticated && (
                 <>
                   <li><a href="/Profile">Perfil</a></li>
+                  <li><a href="/cursos">Cursos</a></li>
+
 
                   <li className={`menu-item ${openSubmenu === 'chat' ? 'open' : ''}`}>
                     <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('chat'); }}>

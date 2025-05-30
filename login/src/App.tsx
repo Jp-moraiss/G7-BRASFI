@@ -16,6 +16,9 @@ import { CursoPagina } from './components/CursoPagina.js';
 import CoursesPage from './components/CoursesPage.js';
 import EditProfile from './components/EditProfile.js';
 import AdicionarCurso from './components/AdicionarCurso.js';
+import EditarCurso from './components/AdicionarCapitulos.js';
+import AdicionarCapitulos from './components/AdicionarCapitulos.js';
+import AdicionarVideos from './components/AdicionarVideos.js';
 
 
 const App = () => {
@@ -38,6 +41,8 @@ const App = () => {
         <Route path="/Curso/:id" element={<CursoPagina/>} />
         <Route path="/Cursos" element={<CoursesPage />} />
         <Route path="/AdicionarCurso" element={<AdicionarCurso />} />
+        <Route path="/AdicionarCapitulos" element={<AdicionarCapitulos />} />
+        <Route path="/AdicionarVideos" element={<AdicionarVideos />} />
         <Route path="/Chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>

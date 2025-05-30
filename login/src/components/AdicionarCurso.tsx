@@ -36,7 +36,7 @@ const AdicionarCurso = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/Curso', {
+      const response = await fetch('http://localhost:8080/cursos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

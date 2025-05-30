@@ -1521,6 +1521,21 @@ input[placeholder="Pesquisar..."],
   font-weight: bold;
 }
 
+.button-curso-editar {
+  display: flex;
+}
+
+.button-curso-editar button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+  background-color: #007bff;
+}
+
+.cursos-bottoes {
+  display: flex;
+}
+
 .botaoAdicionar {
   display: flex;
   align-items: center;
@@ -1532,6 +1547,20 @@ input[placeholder="Pesquisar..."],
   width: 200px;
   height: 50px;
   font-weight: bold;
+}
+
+.botaoEditar {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 80px;
+}
+
+.botaoEditar button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+  background-color: #0056b3;
 }
 
 .cabecalhoCursos {

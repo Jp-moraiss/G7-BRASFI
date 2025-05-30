@@ -44,9 +44,19 @@ const CoursesPage = () => {
       </div>
 
     if ({isAdmin}) {
-      <div className="botaoAdicionar">
-        <a href="/AdicionarCurso"><button>Adicionar Curso</button></a>
+      <div className="cursos-bottoes">
+          <div className="botaoAdicionar">
+            <a href="/AdicionarCurso"><button>Adicionar Curso</button></a>
+          </div>
+          <div className="botaoEditar">
+            <a href="/AdicionarCapitulos"><button>Editar Curso</button></a>
+          </div>
+          <div className="botaoEditar">
+            <a href="/AdicionarVideos"><button>Adicionar Video</button></a>
+          </div>
       </div>
+      
+      
     }
       
       <div className="course-container">
@@ -62,9 +72,13 @@ const CoursesPage = () => {
             <div className="descricao-course">
               <p>{curso.descricao}</p>z
             </div>
-            <div className="button-curso">
-              <button>ASSISTIR AGORA!</button>
+            <div className="botoes-cursos">
+                <div className="button-curso">
+                  <button>ASSISTIR AGORA!</button>
+                </div>
+                
             </div>
+           
           </div>
         ))}
       </div>
