@@ -4,10 +4,13 @@ const AdicionarCapitulos = () => {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
   const [id, setId] = useState('');
+  const [mensagem, setMensagem] = useState<string | null>(null);
+  const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
 
   const handleSubmit = async () => {
     if (!titulo || !descricao || !id) {
-      alert('Preencha todos os campos!');
+      setMensagem('Preencha todos os campos!');
+      setTipoMensagem('erro');
       return;
     }
 
@@ -32,10 +35,12 @@ const AdicionarCapitulos = () => {
 
       const data = await response.json();
       console.log('Capitulo cadastrado:', data);
-      alert('Capitulo cadastrado com sucesso!');
+      setMensagem('Capitulo cadastrado com sucesso!');
+      setTipoMensagem('sucesso');
     } catch (error) {
       console.error('Erro:', error);
-      alert('Falha ao cadastrar o Capitulo.');
+      setMensagem('Erro ao Cadastrar Capitulo!');
+      setTipoMensagem('erro');
     }
   };
 
@@ -74,6 +79,12 @@ const AdicionarCapitulos = () => {
           </div>
           
         </div>
+
+        {mensagem && (
+          <div className={`mensagem ${tipoMensagem}`}>
+            {mensagem}
+          </div>
+        )}        
         <button className="register-button" onClick={handleSubmit}>
           SALVAR
         </button>

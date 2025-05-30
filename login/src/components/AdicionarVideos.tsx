@@ -4,10 +4,13 @@ const AdicionarVideos = () => {
   const [titulo, setTitulo] = useState('');
   const [url, setUrl] = useState('');
   const [id, setId] = useState('');
+  const [mensagem, setMensagem] = useState<string | null>(null);
+  const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
 
   const handleSubmit = async () => {
     if (!titulo || !url || !id) {
-      alert('Preencha todos os campos!');
+      setMensagem('Preencha todos os campos!');
+      setTipoMensagem('erro');
       return;
     }
 
@@ -32,10 +35,12 @@ const AdicionarVideos = () => {
 
       const data = await response.json();
       console.log('Video cadastrado:', data);
-      alert('Video cadastrado com sucesso!');
+      setMensagem('Video adicionado com sucesso!');
+      setTipoMensagem('sucesso');
     } catch (error) {
       console.error('Erro:', error);
-      alert('Falha ao cadastrar o Video.');
+      setMensagem('Falha ao Adicionar Video!');
+      setTipoMensagem('erro');
     }
   };
 
@@ -74,6 +79,11 @@ const AdicionarVideos = () => {
           </div>
           
         </div>
+        {mensagem && (
+          <div className={`mensagem ${tipoMensagem}`}>
+            {mensagem}
+          </div>
+        )}
         <button className="register-button" onClick={handleSubmit}>
           SALVAR
         </button>

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSection, faVideo, faBook } from '@fortawesome/free-solid-svg-icons';
+
 
 const CoursesPage = () => {
   const [cursos, setCursos] = useState([]);
@@ -45,14 +48,29 @@ const CoursesPage = () => {
 
     if ({isAdmin}) {
       <div className="cursos-bottoes">
-          <div className="botaoAdicionar">
-            <a href="/AdicionarCurso"><button>Adicionar Curso</button></a>
+          <div className="botaoEditar">
+            <a href="/AdicionarCurso">
+            <button>
+              <FontAwesomeIcon icon={faBook} style={{color: "#ffffff", marginRight: '8px'}} />
+              Adicionar Curso
+              </button>
+            </a>
           </div>
           <div className="botaoEditar">
-            <a href="/AdicionarCapitulos"><button>Editar Curso</button></a>
+            <a href="/AdicionarCapitulos">
+              <button>
+              <FontAwesomeIcon icon={faSection} style={{color: "#ffffff", marginRight: '8px'}} />
+                 Capitulos
+                </button>
+                </a>
           </div>
           <div className="botaoEditar">
-            <a href="/AdicionarVideos"><button>Adicionar Video</button></a>
+            <a href="/AdicionarVideos">
+              <button>
+                <FontAwesomeIcon icon={faVideo} style={{ marginRight: '8px' }} />
+                Adicionar Vídeo
+              </button>
+            </a>
           </div>
       </div>
       

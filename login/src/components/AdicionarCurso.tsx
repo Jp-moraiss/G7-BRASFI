@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const AdicionarCurso = () => {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
   const [imagem, setImagem] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [mensagem, setMensagem] = useState<string | null>(null);
+  const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -22,17 +24,18 @@ const AdicionarCurso = () => {
   };
 
   const handleSubmit = async () => {
+    setMensagem(null);
+
     if (!titulo || !descricao || !imagem) {
-      alert('Preencha todos os campos!');
+      setMensagem('Preencha todos os campos!');
+      setTipoMensagem('erro');
       return;
     }
 
-    // Aqui estamos simulando um upload da imagem para obter uma URL
-    // Em produção, você precisaria enviar `imagem` para um backend ou serviço de storage
     const curso = {
       titulo,
       descricao,
-      urlImage: 'Imagem' // substitua com a URL real da imagem se estiver usando upload real
+      urlImage: 'Imagem'
     };
 
     try {
@@ -48,10 +51,13 @@ const AdicionarCurso = () => {
 
       const data = await response.json();
       console.log('Curso cadastrado:', data);
-      alert('Curso cadastrado com sucesso!');
+
+      setMensagem('Curso cadastrado com sucesso!');
+      setTipoMensagem('sucesso');
     } catch (error) {
       console.error('Erro:', error);
-      alert('Falha ao cadastrar o curso.');
+      setMensagem('Falha ao cadastrar o curso.');
+      setTipoMensagem('erro');
     }
   };
 
@@ -62,6 +68,7 @@ const AdicionarCurso = () => {
           <h1>Adicionar Curso</h1>
           <p>Preencha os dados para criar um curso</p>
         </div>
+
         <div className="input-curso-area">
           <div className="input-titulo-box">
             <p>Título *</p>
@@ -86,6 +93,11 @@ const AdicionarCurso = () => {
             {preview && <img src={preview} alt="Prévia da imagem" width="200" />}
           </div>
         </div>
+        {mensagem && (
+          <div className={`mensagem ${tipoMensagem}`}>
+            {mensagem}
+          </div>
+        )}
         <button className="register-button" onClick={handleSubmit}>
           SALVAR
         </button>
