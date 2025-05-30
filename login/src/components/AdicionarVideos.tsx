@@ -52,11 +52,11 @@ const AdicionarVideos = () => {
           <p>Preencha os dados para adicionar um video em um capitulo</p>
         </div>
         <div className="input-curso-area">
-          <div className="input-titulo-box">
+          <div className="input-descrição-box">
             <p>Título *</p>
             <input
+              type='text'
               placeholder="Digite o Título do Video"
-              type="text"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
             />
@@ -64,6 +64,7 @@ const AdicionarVideos = () => {
           <div className="input-descrição-box">
             <p>Url do Video *</p>
             <input
+              type='text'
               placeholder="Digite a Url do Video"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
@@ -72,6 +73,7 @@ const AdicionarVideos = () => {
           <div className="input-descrição-box">
             <p>Id do Capitulo *</p>
             <input
+              type='text'
               placeholder="Digite o Id do Capitulo"
               value={id}
               onChange={(e) => setId(e.target.value)}

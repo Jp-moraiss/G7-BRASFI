@@ -70,11 +70,11 @@ const AdicionarCurso = () => {
         </div>
 
         <div className="input-curso-area">
-          <div className="input-titulo-box">
+          <div className="input-descrição-box">
             <p>Título *</p>
             <input
+              type='text'
               placeholder="Digite o Título"
-              type="text"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
             />
@@ -82,6 +82,7 @@ const AdicionarCurso = () => {
           <div className="input-descrição-box">
             <p>Descrição *</p>
             <input
+              type='text'
               placeholder="Digite a Descrição"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}

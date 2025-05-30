@@ -1371,6 +1371,11 @@ button:hover {
   border: 1px solid black;
 }
 
+.input-descrição-box input[type = 'text']{
+  border: 1px solid gray;
+  background-color: transparent;
+}
+
 .video-container {
   display: flex;
   flex-direction: column;       /* Alinha os elementos em coluna */
@@ -1445,6 +1450,7 @@ input[type="text"],
   border-radius: 15px;
   font-size: 16px;
   background-color: transparent;
+  color: #000;
 }
 
 input[placeholder="Pesquisar..."],

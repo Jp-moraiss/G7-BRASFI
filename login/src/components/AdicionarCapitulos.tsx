@@ -52,11 +52,11 @@ const AdicionarCapitulos = () => {
           <p>Preencha os dados para adicionar um capitulo em um curso</p>
         </div>
         <div className="input-curso-area">
-          <div className="input-titulo-box">
+          <div className="input-descrição-box">
             <p>Título *</p>
             <input
+              type='text'
               placeholder="Digite o Título"
-              type="text"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
             />
@@ -64,6 +64,7 @@ const AdicionarCapitulos = () => {
           <div className="input-descrição-box">
             <p>Descrição *</p>
             <input
+              type='text'
               placeholder="Digite a Descrição"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
@@ -72,6 +73,7 @@ const AdicionarCapitulos = () => {
           <div className="input-descrição-box">
             <p>Id do Curso *</p>
             <input
+              type='text'
               placeholder="Digite o Id do Curso"
               value={id}
               onChange={(e) => setId(e.target.value)}
