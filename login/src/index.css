@@ -2,32 +2,24 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #ffffff;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 body {
-  /* background-image: url('../../image/background.jpg'); /* Caminho da imagem */
-  background-size: cover;       /* A imagem cobre toda a tela */
-  background-position: center;  /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Não repete a imagem */
+  background-size: cover;       
+  background-position: center;  
+  background-repeat: no-repeat; 
 }
-
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
-
-/* Reset */
-/* Seletor Universal */
 * {
   padding: 0;
   margin: 0;
@@ -36,13 +28,10 @@ a {
   border: none;
   list-style: none;
 }
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -52,9 +41,6 @@ h1 {
     background-color: #f9f9f9;
   }
 }
-
-/* Login */
-
 .login-container {
   display: flex;
   justify-content: right;
@@ -62,7 +48,6 @@ h1 {
   height: 100vh;
   margin-right: 150px;
 }
-
 .questionario-container {
   display: flex;
   justify-content: center;
@@ -70,22 +55,18 @@ h1 {
   height: 100vh;
   margin-right: 150px;
 }
-
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
- 
 }
-
 .password-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-
 .login-box {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
@@ -98,7 +79,6 @@ h1 {
   color: #333; 
   box-sizing: border-box; 
 }
-
 .questionario-box {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
@@ -111,7 +91,6 @@ h1 {
   color: #333; 
   box-sizing: border-box; 
 }
-
 .register-box {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
@@ -124,7 +103,6 @@ h1 {
   color: #333; 
   box-sizing: border-box; 
 }
-
 .password-box {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
@@ -137,7 +115,6 @@ h1 {
   color: #333; 
   box-sizing: border-box; 
 }
-
 .form-error-box {
   margin-top: 1rem;
   padding: 0.75rem 1rem;
@@ -148,70 +125,56 @@ h1 {
   font-weight: 500;
   text-align: center;
 }
-
 .genero_text{
   color: #000;
   font-weight: bold;
 }
-
 .login-form-group p {
   color: black;
   font-size: 15px;
   margin-bottom: 5px;
   font-weight: bold;
 }
-
 .cabecalho-text {
   margin-bottom: 15px;
 }
-
 .cabecalho-text-register h1 {
   font-size: 30px;
 }
-
 .cabecalho-edit-text {
   margin-bottom: 15px;
 }
-
 .cabecalho-edit-text h1 {
   font-size: 20px;
 }
-
 .cabecalho-icon {
   display: flex;
   justify-content: right;
 }
-
 .cabecalho-icon img {
   width: 50px;
 }
-
 .cabecalho-text-register p {
   margin-bottom: 10px;
   font-size: 15px;
 }
-
 .cabecalho-img {
   align-items: center;
   justify-content: center;
   margin: auto;
   padding-right: 200px; 
 }
-
 .cabecalho-img img {
   width: 500px;
 }
-
 .cabecalho-edit-img {
   display: flex;
   justify-content: right;
   margin: auto;
 }
-
 .cabecalho-edit-img img {
   width: 100px;
 }
-
 .form-input {
   width: 100%;
   height: 48px;
@@ -221,24 +184,20 @@ h1 {
   font-size: 16px;
   box-sizing: border-box;
 }
-
 .form-input:focus {
   border-color: #4caf50;
   outline: none;
   box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
 }
-
 .form-row {
   display: flex;
   gap: 24px;
   margin-bottom: 16px;
 }
-
 .form-column {
   flex: 1;
-  min-width: 0; /* Ensures columns don't overflow */
+  min-width: 0; 
 }
-
 .cabecalho-login h1{
   font-size: 25px;
   text-align: left;
@@ -246,24 +205,20 @@ h1 {
   font-weight: bold;
   margin-bottom: 5px;
 }
-
 .cabecalho-login p {
   font-size: 13px;
   color: black;
   text-align: left;
 }
-
 .options-login{
   display: flex;
   margin: 10px;
   justify-content: space-between;
 }
-
 .options-login p {
   color: black;
   border-bottom: 1px solid black;
 }
-
 .options-login label input{
   margin-right: 10px;
   border-radius: 10px;
@@ -272,7 +227,6 @@ h1 {
   color: red;
   font-weight: bold;
 }
-
 input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
@@ -283,12 +237,9 @@ input[type="radio"] {
   cursor: pointer;
   position: relative;
 }
-
 input[type="radio"]:checked {
-  background-color: #474747; /* Verde */
-  
+  background-color: #474747; 
 }
-
 .google-button {
   display: flex;
   border: 1px solid black;
@@ -298,14 +249,12 @@ input[type="radio"]:checked {
   font-weight: bold;
   align-items: center;
 }
-
 .google {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px; 
 }
-
 .register-link {
   color: black;
   justify-content: center;
@@ -313,14 +262,9 @@ input[type="radio"]:checked {
   text-align: center;
   margin-top: 40px;
 }
-
 .register-link a {
   color: #000;
 }
-
-
-/* Divider */
-
 .divider {
   display: flex;
   align-items: center;
@@ -328,23 +272,18 @@ input[type="radio"]:checked {
   color: #000000;
   margin: 20px 0;
 }
-
 .divider::before,
 .divider::after {
   content: '';
   flex: 1;
   border-bottom: 1px solid #000000;
 }
-
 .divider::before {
   margin-right: 10px;
 }
-
 .divider::after {
   margin-left: 10px;
 }
-
-/* Divider Admin */
 .divider-admin {
   display: flex;
   align-items: center;
@@ -353,55 +292,44 @@ input[type="radio"]:checked {
   margin: -10px;
   width: 200px;
 }
-
 .divider-admin::before,
 .divider-admin::after {
   content: '';
   flex: 1;
   border-bottom: 1px solid gray;
 }
-
 .login-form {
   display: flex;
   flex-direction: column;
 }
-
 .login-form-group {
   position: relative;
   margin-bottom: 20px;
   text-align: left;  
 }
-
 .edit-form-group {
   position: relative;
   margin-bottom: 20px;
   text-align: left;  
 }
-
 .form-group label p {
   display: inline;
   font-weight: bold;
 }
-
 .edit-form-group p {
   display: inline;
   font-weight: bold;
 }
-
 .login-form-group i {
   position: absolute;
   left: 10px;
   top: 12px;
   color: #777;
 }
-
-
 .edit-form-group input[type="text"] {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
-
 }
-
 .edit-form-group input[placeholder]{
   font-size: 10px;
   letter-spacing: 2px;
@@ -409,11 +337,9 @@ input[type="radio"]:checked {
   opacity: 0.8;
   font-family:sans-serif;
 }
-
 .input-edit{
   padding-left: 10px;
 }
-
 .form-field {
   width: 100%;
   padding: 12px 10px 12px 35px;
@@ -425,48 +351,39 @@ input[type="radio"]:checked {
   font-size: 14px;
   box-sizing: border-box;
 }
-
 .radio-input {
   margin-right: 8px;
   cursor: pointer;
-  /* Os botões de rádio garantem seleção única - apenas uma opção pode ser escolhida */
   appearance: radio;
   width: 16px;
   height: 16px;
 }
-
 .form-field::placeholder {
   color: #999999;
 }
-
 .form-error {
   color: #ff6b6b;
   font-size: 12px;
   margin-top: 5px;
   display: block;
 }
-
 .remember-forgot {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
   font-size: 14px;
 }
-
 .remember-forgot label {
   display: flex;
   align-items: center;
 }
-
 .remember-forgot input[type="checkbox"] {
   margin-right: 5px;
 }
-
 .forgot-link {
   color: white;
   text-decoration: none;
 }
-
 .login-button {
   background: linear-gradient(135deg, #146e24, #02440e);
   color: white;
@@ -480,11 +397,9 @@ input[type="radio"]:checked {
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
-
 .login-button:hover {
   background: linear-gradient(135deg, #146e24, #02440e);
 }
-
 .register-button {
   background: linear-gradient(135deg, #146e24, #02440e);
   color: white;
@@ -499,24 +414,17 @@ input[type="radio"]:checked {
   margin-bottom: 10px;
   width: 100%;
 }
-
 .register-button:hover {
   background: linear-gradient(135deg, #146e24, #02440e);
 }
-
-
 .register-text h2{
   color: white;
 }
-
-
 #register-form {
   margin-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 20px;
 }
-
-/* Responsividade */
 @media screen and (min-width: 1024px) {
   .login-box {
     width: 550px;
@@ -524,29 +432,23 @@ input[type="radio"]:checked {
     margin-right: 100px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .login-box {
     padding: 20px;
   }
-  
   .options-login {
     flex-direction: column;
     gap: 10px;
   }
-  
   .login-button, 
   .google-button {
     padding: 10px;
     font-size: 14px;
   }
-  
   .form-field {
     padding: 10px;
   }
 }
-
-/* Profile */
 .profile-container {
   display: flex;
   align-items: center;
@@ -559,7 +461,6 @@ input[type="radio"]:checked {
   margin-left: 100px;
   flex-direction: column;
 }
-
 .profile-informations {
   display: flex;
   align-items: center;
@@ -567,55 +468,45 @@ input[type="radio"]:checked {
   flex-direction: column;
   margin-bottom: 50px;
   gap: 50px;
-
 }
-
 .profile-informacoes {
   text-align: center;
   align-items: center;
   justify-content: center;
 }
-
 .profile-avatar {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .profile-avatar img {
   width: 150px;
 }
-
 .profile-informacoes h1 {
   font-size: 20px;
   font-weight: bolder;
   margin-bottom: 10px;
 }
-
 .profile-achievements {
   display: flex;
   margin-top: 150px;
   gap: 20px;
 }
-
 .course-achievements {
   display: flex;
   padding: 20px;
   gap: 20px;
 }
-
 .achievements-text h1 {
   font-size: 15px;
   padding: 20px;
 }
-
 .box-achievements {
   width: 60px;
   height: 60px;
   background-color: #000;
   border-radius: 15px;
 }
-
 .achievements-container {
   display: flex;
   padding: 30px;
@@ -627,17 +518,14 @@ input[type="radio"]:checked {
   background-color: #3E9E49;
   flex-direction: column;
 }
-
 .achivements-header {
   display: flex;
   justify-content: left;
 }
-
 .achivements-header h1 {
   font-size: 20px;
   text-align: left;
 }
-
 .achievements-box {
   display: flex;
   gap: 100px;
@@ -646,60 +534,47 @@ input[type="radio"]:checked {
   margin-top: 190px;
   text-align: center;
 }
-
 .achievements-box h1 {
   font-weight: 400;
   font-size: 25px;
 }
-
 .profile-layout {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* espaçamento entre as colunas */
-  align-items: flex-start; /* alinha ao topo */
+  gap: 2rem; 
+  align-items: flex-start; 
 }
-
 .main-profile{
   display: flex;
   flex-direction: row;
-  gap: 3rem; /* espaçamento entre as colunas */
+  gap: 3rem; 
   align-items: flex-start;
 }
-
 .modulos-section {
   margin-top: 80px;
 }
-
 .buttons-profile {
   display: flex;
   gap: 20px;
 }
-
 .button-logout button{
   width: 50px;
   height: 50px;
   background-color: red;
   transition: 0.4s all ease-in-out;
 }
-
 .button-logout button:hover{
   background-color: rgb(255, 109, 109);
 }
-
 .button-edit button{
   width: 50px;
   height: 50px;
   background-color: rgb(31, 46, 255);
   transition: 0.4s all ease-in-out;
 }
-
 .button-edit button:hover{
   background-color: rgb(100, 111, 255);
 }
-
-
-/* Course Box */
-
 .box-modules {
   display: flex;
   margin-top: 20px;
@@ -709,36 +584,29 @@ input[type="radio"]:checked {
   background-color: #3E9E49;
   flex-direction: column;
 }
-
 .course-informations{
   display: flex;
   padding: 40px;
   gap: 20px;
 }
-
 .course-image-module img {
   width: 100px;
   border-radius: 20px;
 }
-
 .box-informations-course {
   margin-top: 15px;
 }
-
 .box-informations-course h1 {
   font-size: 15px;
 }
-
 .module-text-course {
   font-size: 12px;
   margin-bottom: 5px;
 }
-
 .description-text-course {
   font-size: 12px;
   text-align: inherit;
 }
-
 .bar-progress {
   display: flex;
   width: 460px;
@@ -750,47 +618,34 @@ input[type="radio"]:checked {
   align-items: center;
   justify-content: end;
 }
-
 .bar-progress p {
   display: flex;
   font-size: 12px;
   margin-right: 10px;
 }
-
-
 .btn-edit  {
   background-color: #13167e;
   transition: background-color 0.3s;
 }
-
 .btn-edit a {
   color: white;
 }
-
 .btn-edit:hover {
   background-color: #2f6ed3;
 }
-
 .btn-logout {
   background-color: #f44336;
   color: white;
   transition: background-color 0.3s;
 }
-
 .btn-logout:hover {
   background-color: #d32f2f;
 }
-
-/* Botões */
 .profile-actions {
   display: flex;
   gap: 15px;
   margin-top: 20px;
 }
-
-/* Chat */
-
-/* Container centralizado na tela */
 .chat-container {
   min-height: 100vh;
   display: flex;
@@ -798,8 +653,6 @@ input[type="radio"]:checked {
   align-items: center;
   background-color: white;
 }
-
-/* Caixa principal */
 .chat-box {
   background-color: rgb(255, 255, 255);
   border: 1px solid #374151;
@@ -809,29 +662,21 @@ input[type="radio"]:checked {
   width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-/* Conteúdo da caixa */
 .chat-content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-
-/* Título */
 .chat-title {
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
   color: white;
 }
-
-/* Grupo de inputs */
 .chat-input-group {
   display: flex;
   flex-direction: column;
 }
-
 .chat-input-group label {
   display: flex;
   font-weight: 500;
@@ -840,7 +685,6 @@ input[type="radio"]:checked {
   justify-content: center;
   color: rgb(0, 0, 0);
 }
-
 .chat-input-group input {
   padding: 0.5rem 1rem;
   border-radius: 9999px;
@@ -850,19 +694,15 @@ input[type="radio"]:checked {
   color: white;
   transition: box-shadow 0.2s;
 }
-
 .chat-input-group input:focus {
   box-shadow: 0 0 0 2px #3b82f6;
 }
-
-/* Botões */
 .chat-buttons {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
 }
-
 .chat-buttons button {
   padding: 0.5rem 1rem;
   border-radius: 9999px;
@@ -871,32 +711,23 @@ input[type="radio"]:checked {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .join-btn {
   background-color: #3b82f6;
 }
-
 .join-btn:hover {
   background-color: #1e40af;
 }
-
 .create-btn {
   background-color: #f97316;
 }
-
 .create-btn:hover {
   background-color: #c2410c;
 }
-
-/* Layout base */
 .chatpage-container {
   background-color: #ffffff;
   color: white;
   font-family: Arial, sans-serif;
 }
-
-
-/* Main Chat */
 .chat-main {
   flex: 1;
   padding: 6rem 2rem;
@@ -904,66 +735,51 @@ input[type="radio"]:checked {
   overflow-y: auto;
   background-color: #ffffff;
 }
-
-/* Message box */
 .message-row {
   display: flex;
   margin: 0.5rem 0;
 }
-
 .align-right {
   justify-content: flex-end;
 }
-
 .align-left {
   justify-content: flex-start;
 }
-
 .message-box {
   padding: 0.5rem;
   border-radius: 0.5rem;
   max-width: 300px;
 }
-
 .own-message {
   background-color: #16a34a;
 }
-
 .other-message {
   background-color: #1f2937;
 }
-
 .message-content {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
 }
-
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 9999px;
 }
-
 .message-text {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
-
 .sender-name {
   font-size: 0.85rem;
   font-weight: bold;
 }
-
-/* Input Area */
-
 .chat-input-container {
   position: fixed;
   bottom: 0.5rem;
   width: 100%;
 }
-
 .chat-input-wrapper {
   display: flex;
   align-items: center;
@@ -975,7 +791,6 @@ input[type="radio"]:checked {
   border-radius: 9999px;
   gap: 1rem;
 }
-
 .chat-input {
   flex-grow: 1;
   padding: 0.5rem 1rem;
@@ -987,30 +802,22 @@ input[type="radio"]:checked {
   outline: none;
   border: 4px solid rgb(129, 150, 129);
 }
-
 .chat-actions {
   display: flex;
   gap: 0.5rem;
 }
-
 .action-chat-button{
   background-color: transparent;
 }
-
 .action-chat-button i {
   color: #000000;
 }
-
 .action-chat-button:hover {
   background-color: #b6e6be;
 }
-
-
 .icon-button {
   border-radius: 9999px;
 }
-
-
 .chat-image {
   display: flex;
   max-width: 80px;
@@ -1018,32 +825,24 @@ input[type="radio"]:checked {
   margin-top: 5px;
   justify-content: center;
 }
-
 .chat-image img {
   width: 80px;
 }
-
 .chat-file {
   color: #2b6cb0;
   text-decoration: underline;
   margin-top: 5px;
   display: inline-block;
-  
 }
-
-/* Rooms */
-
 .chat-wrapper {
   display: flex;
   height: 100vh;
 }
-
 .roomslist {
-  width: 150px; /* ajuste conforme necessário */
+  width: 150px; 
   background-color: #ffffff;
   padding: 1rem;
 }
-
 .roomslist{
   display: flex;
   align-items: center;
@@ -1051,7 +850,6 @@ input[type="radio"]:checked {
   justify-content: center;
   border-right: 1px solid rgb(107, 107, 107);
 }
-
 .roombox {
   display: flex;
   width: 70px;
@@ -1062,18 +860,16 @@ input[type="radio"]:checked {
   background-color: #666666;
   border-radius: 10px
 }
-
 .optionslist {
   display: flex;
   align-items: center;
   flex-direction: column; 
   justify-content: center;
   border-right: 1px solid rgb(107, 107, 107);
-  width: 200px; /* ajuste conforme necessário */
+  width: 200px; 
   background-color: #ffffff;
   padding: 1rem;
 }
-
 .box-textos-chat {
   display: flex;
   flex-direction: column; 
@@ -1083,18 +879,14 @@ input[type="radio"]:checked {
   color: #000;
   margin-bottom: 700px;
 }
-
 .box-textos-chat li ul a i {
   padding-left: 50px;
   padding-top: 10px;
 }
-
-
 .box-textos-chat a {
   color: gray;
   border-bottom: 1px solid gray;
 }
-
 .box-textos-chat ul {
   list-style: none;
   margin: 0;
@@ -1102,16 +894,12 @@ input[type="radio"]:checked {
   display: flex;
   gap: 2rem;
 }
-
 .box-textos-chat h1{
   font-size: 15px;
 }
-
 .box-textos-chat .admin-title {
   border-bottom: 1px solid black;
-  
 }
-
 .roombox-logout {
   display: flex;
   width: 70px;
@@ -1122,18 +910,13 @@ input[type="radio"]:checked {
   background-color: #ff5e5e;
   border-radius: 10px
 }
-
-/* Header */
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Signika:wght@300..700&display=swap');
-
 .site-header {
   background-color: white;
   color: rgb(0, 0, 0);
   padding: 1rem 0;
   border-bottom: 1px solid gray;
 }
-
 .container {
   width: 90%;
   max-width: 1200px;
@@ -1142,23 +925,19 @@ input[type="radio"]:checked {
   justify-content: space-between;
   align-items: center;
 }
-
 .logo {
   margin: 0 auto;
   display: flex;
   justify-content: start;
   align-items: start;
 }
-
 .container .logo img{
   width: 120px;
 }
-
 .logo {
   margin: 0;
   font-size: 1.5rem;
 }
-
 .menu ul {
   list-style: none;
   margin: 0;
@@ -1166,7 +945,6 @@ input[type="radio"]:checked {
   display: flex;
   gap: 2rem;
 }
-
 .menu a {
   color: rgb(0, 0, 0);
   text-decoration: none;
@@ -1175,32 +953,24 @@ input[type="radio"]:checked {
   font-family: "Poppins", sans-serif;
   transition: 0.2s all ease-in-out; 
 }
-
 .menu a:hover {
   border-bottom: 1px solid gray;
 }
-
 .submenu {
   display: none;
 }
-
 .menu-item.open .submenu {
   display: block;
 }
-
 .menu-item .arrow {
   font-size: 12px;
   margin-left: 4px;
 }
-
 .avatar-header {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-/* Questionario ESG */
-
 .questionary-container {
   display: flex;
   flex-direction: column;
@@ -1210,12 +980,9 @@ input[type="radio"]:checked {
   background-color: #f4f6f8;
   min-height: 100vh;
 }
-
 h2 {
   color: #2c3e50;
 }
-
-/* Caixa do questionário */
 .box-questionario {
   background-color: #ffffff;
   border-radius: 12px;
@@ -1224,20 +991,16 @@ h2 {
   max-width: 600px;
   width: 100%;
 }
-
-/* Títulos */
 .box-questionario h1 {
   font-size: 28px;
   color: #2c3e50;
   margin-bottom: 10px;
 }
-
 .box-questionario h2 {
   font-size: 22px;
   color: #34495e;
   margin-bottom: 20px;
 }
-
 .questionary-container input[type = "text"]{
   border: 1px solid rgb(140, 140, 140);
   margin-top: 10px;
@@ -1246,7 +1009,6 @@ h2 {
   font-size: 13px;
   padding-left: 10px;
 }
-
 select {
   border: 1px solid #808080;
   margin-left: 10px;
@@ -1256,17 +1018,14 @@ select {
   color: #000;
   background-color: transparent;
 }
-
-/* Labels e inputs */
 label {
   display: block;
   margin-bottom: 15px;
   font-weight: 500;
   color: #333;
 }
-
-/*input[type="text"],
-/*select {
+input[type="text"],
+select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -1276,14 +1035,11 @@ label {
   box-sizing: border-box;
   background-color: #68987a;
 }
-
-/* Botão de cadastro */
 .button-questionary {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
 }
-
 .button-questionary button,
 button {
   background-color: #2ecc71;
@@ -1295,12 +1051,9 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 button:hover {
   background-color: #27ae60;
 }
-
-/* Perguntas */
 #perguntasContainer {
   margin-top: 30px;
   padding: 20px;
@@ -1308,57 +1061,46 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
-
 #perguntasContainer label {
   font-weight: bold;
   color: #2c3e50;
 }
-
-/* Plataforma Curso */
-
 .container-curso {
   width: 200px;
   height: 100vh;
   background-color: #ffffff;
   border-top: 1px solid black;
 }
-
 .box-texts-curso{
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 70px;
 }
-
 .box-texts-curso ul li {
   margin-top: 10px;
   border-bottom: 1px solid rgb(116, 116, 116);
 }
-
 .box-texts-curso ul li a{
   color: gray;
   font-size: 15px;
   text-decoration: none;
 }
-
 .box-texts-curso h1{
   font-size: 15px;
   color: #000;
   cursor: pointer;
 }
-
 .body-curso {
   display: flex;
   background-color: #81d4be;
 }
-
 .conteudo-principal {
   display: flex;
   flex-direction: column;
   flex: 1;
   padding: 50px;
 }
-
 .box-video {         
   display: flex;
   align-items: center;
@@ -1370,29 +1112,24 @@ button:hover {
   border-radius: 20px;
   border: 1px solid black;
 }
-
 .input-descrição-box input[type = 'text']{
   border: 1px solid gray;
   background-color: transparent;
 }
-
 .video-container {
   display: flex;
-  flex-direction: column;       /* Alinha os elementos em coluna */
-  align-items: center;          /* Centraliza na horizontal */
-  justify-content: center;      /* Centraliza na vertical */
+  flex-direction: column;       
+  align-items: center;          
+  justify-content: center;      
   width: 850px;
   height: 450px;
   background-color: white;
   border: 1px solid black;
-  
 }
-
 .video-container iframe {
   width: 850px;
   height: 100%;
 }
-
 .video-options{
   display: flex;
   gap: 40px;
@@ -1401,7 +1138,6 @@ button:hover {
   margin-left: 500px;
   color: #000;
 }
-
 .descricao-curso {
   display: flex;
   flex-direction: column; 
@@ -1410,22 +1146,15 @@ button:hover {
   color: #000;
   gap: 10px;
 }
-
 .descricao-curso h1 {
   color: #000;
   font-size: 15px;
   margin-top: 25px;
-  
 }
-
 .descricao-curso p {
   font-size: 12px;
   width: 600px;
-  
 }
-
-/* Paginas de Cursos */
-
 .cursos-serach {
   display: flex;
   align-items: center;
@@ -1433,12 +1162,9 @@ button:hover {
   padding: 80px;
   gap: 20px;
 }
-
 .cursos-serach h1 {
   font-size: 35px;
-  
 }
-
 input[type="text"],
 .cursos-bar select {
   display: flex;
@@ -1452,21 +1178,18 @@ input[type="text"],
   background-color: transparent;
   color: #000;
 }
-
 input[placeholder="Pesquisar..."],
 .cursos-bar select {
  padding: 10px;
  font-weight: bold;
 }
-
 .course-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center; /* ou flex-start */
+  justify-content: center; 
   padding: 20px;
 }
-
 .course-card {
   width: 300px;
   border: 1px solid #ccc;
@@ -1478,77 +1201,63 @@ input[placeholder="Pesquisar..."],
   flex-direction: column;
   align-items: center;
 }
-
 .image-course img {
   width: 100%;
   height: auto;
   border-radius: 8px;
 }
-
-
 .image-course img{
   width: 100%;
   border-radius: 20px;
   margin-bottom: 20px;
 }
-
 .title-course {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
 }
-
 .title-course h1 {
   font-size: 20px;
   text-align: center;
   color: #000;
 }
-
 .descricao-course {
   flex: 1; 
   margin-bottom: 20px;
 }
-
 .descricao-course p {
   color: #000;
   font-size: 12px;
   width: 260px;
   text-align: center;
 }
-
 .button-curso {
   display: flex;
 }
-
 .button-curso button {
   width: 200px;
   height: 50px;
   font-weight: bold;
 }
-
 .button-curso-editar {
   display: flex;
 }
-
 .button-curso-editar button {
   width: 200px;
   height: 50px;
   font-weight: bold;
   background-color: #007bff;
 }
-
 .cursos-bottoes {
   display: flex;
 }
-
 .botaoEditar {
   display: flex;
   align-items: center;
   justify-content: left;
   padding-left: 80px;
 }
-
 .botaoEditar button {
   width: 200px;
   height: 50px;
@@ -1556,13 +1265,10 @@ input[placeholder="Pesquisar..."],
   background-color: #0056b3;
   transition: 0.5s all ease-in-out;
 }
-
 .botaoEditar button:hover {
   transform: scale(1.1);
   background-color: #3675b9;
 }
-
-
 .cabecalhoCursos {
   display: flex;
   align-items: center;
@@ -1570,22 +1276,18 @@ input[placeholder="Pesquisar..."],
   padding-left: 80px;
   margin-top: 40px;
 }
-
 .cabecalhoCursos h1 {
   font-size: 25px;
   font-weight: 100;
   color: #000;
 }
-
 .cabecalho-adicionar-curso h1 {
   font-size: 30px;
 }
-
 .cabecalho-adicionar-curso p {
   font-size: 15px;
   margin-top: 10px;
 }
-
 .box-adicionar-curso {
   display: flex;
   flex-direction: column;
@@ -1597,21 +1299,17 @@ input[placeholder="Pesquisar..."],
   color: #000;
   margin-top: 50px;
 }
-
 .input-curso-area {
   display: flex;
   flex-direction: column;
   justify-content: left;
   gap: 20px;
 }
-
 .input-titulo-box input {
   padding-left: 10px;
   font-size: 12px;
   color: #000;
 }
-
-
 .input-curso-area input{
   display: flex;
   align-items: center;
@@ -1625,62 +1323,49 @@ input[placeholder="Pesquisar..."],
   padding-left: 10px;
   background-color: #9bada2;
 } 
-
 .input-curso-area p {
   margin-bottom: 10px;
   font-weight: bold;
 }
-
 .input-imagem-box input {
   background-color: transparent;
   border: none;
 }
-
 .input-edit[readonly] {
   background-color: #f0f0f0;
   cursor: not-allowed;
 }
-
 .icons-input {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
-/* Estilos para os capítulos e vídeos */
 .capitulo-item {
   margin-bottom: 15px;
-
   padding-left: 10px;
 }
-
 .capitulo-header {
   margin-bottom: 8px;
 }
-
 .capitulo-header a {
   font-weight: bold;
   color: #007bff;
   text-decoration: none;
   font-size: 16px;
 }
-
 .capitulo-header a:hover {
   text-decoration: underline;
   color: #0056b3;
 }
-
 .videos-list {
   list-style: none;
   padding-left: 15px;
   margin: 0;
 }
-
 .video-item {
   margin-bottom: 5px;
   padding: 3px 0;
 }
-
 .video-link {
   color: #6c757d;
   text-decoration: none;
@@ -1690,46 +1375,36 @@ input[placeholder="Pesquisar..."],
   border-radius: 4px;
   transition: all 0.2s ease;
 }
-
 .video-link:hover {
   background-color: #f8f9fa;
   color: #007bff;
   text-decoration: none;
   transform: translateX(5px);
 }
-
 .video-link:before {
   content: "▶ ";
   color: #007bff;
   margin-right: 5px;
 }
-
-/* Melhorias no menu existente */
 .submenu {
   max-height: 400px;
   overflow-y: auto;
   padding-right: 5px;
 }
-
 .submenu::-webkit-scrollbar {
   width: 6px;
 }
-
 .submenu::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
 }
-
 .submenu::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 3px;
 }
-
 .submenu::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
-
-/* Erro Mensagens */
 .mensagem {
   margin: 1em 0;
   padding: 0.75em;
@@ -1745,9 +1420,3 @@ input[placeholder="Pesquisar..."],
   background-color: #f8d7da;
   color: #721c24;
 }
-
-
-
-
-
-
