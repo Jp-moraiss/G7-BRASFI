@@ -25,21 +25,22 @@ public class CapituloController {
     }
 
     @GetMapping("/curso/{cursoId}")
-    public ResponseEntity<List<Capitulo>> listarPorCurso(@PathVariable Long cursoId) {
+    public ResponseEntity<List<Capitulo>> listarPorCurso(@PathVariable String cursoId) {
         return ResponseEntity.ok(capituloService.listarPorCurso(cursoId));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Capitulo> atualizar(@PathVariable Long id, @RequestBody Capitulo capitulo) {
+    public ResponseEntity<Capitulo> atualizar(@PathVariable String id, @RequestBody Capitulo capitulo) {
         return ResponseEntity.ok(capituloService.atualizar(id, capitulo));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
         capituloService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
+
 

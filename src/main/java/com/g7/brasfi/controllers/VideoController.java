@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.g7.brasfi.domain.Video;
@@ -17,59 +18,47 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
 
-    // Listar todos os vídeos
     @GetMapping
-    public List<Video> listarTodos() {
-        return videoService.listarTodos();
+    public ResponseEntity<List<Video>> listarTodos() {
+        List<Video> videos = videoService.listarTodos();
+        return videos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(videos);
     }
 
-    // Buscar vídeo por id
     @GetMapping("/{id}")
-    public ResponseEntity<Video> buscarPorId(@PathVariable Long id) {
-        Optional<Video> video = videoService.buscarPorId(id);
-        if (video.isPresent()) {
-            return ResponseEntity.ok(video.get());
+    public ResponseEntity<Video> buscarPorId(@PathVariable String id) {
+        return videoService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Video> salvar(@RequestBody Video video) {
+        return ResponseEntity.ok(videoService.salvar(video));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Video> atualizar(@PathVariable String id, @RequestBody Video videoDetalhes) {
+        return videoService.atualizar(id, videoDetalhes)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
+        if (videoService.excluir(id)) {
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    // Salvar um vídeo novo
-    @PostMapping
-    public Video salvar(@RequestBody Video video) {
-        return videoService.salvar(video);
-    }
-
-    // Atualizar um vídeo existente
-    @PutMapping("/{id}")
-    public ResponseEntity<Video> atualizar(@PathVariable Long id, @RequestBody Video videoDetalhes) {
-        Optional<Video> videoOptional = videoService.buscarPorId(id);
-        if (!videoOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Video video = videoOptional.get();
-        video.setTitulo(videoDetalhes.getTitulo());
-        video.setUrl(videoDetalhes.getUrl());
-
-        Video videoAtualizado = videoService.salvar(video);
-        return ResponseEntity.ok(videoAtualizado);
-    }
-
-    // Deletar um vídeo pelo id
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        Optional<Video> video = videoService.buscarPorId(id);
-        if (!video.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        videoService.excluir(id);
-        return ResponseEntity.noContent().build();
-    }
-    
     @DeleteMapping
-    public ResponseEntity<Void> deletarTodos(){
-    	videoService.excluirTodos();
-    	return ResponseEntity.noContent().build();
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deletarTodos() {
+        videoService.excluirTodos();
+        return ResponseEntity.noContent().build();
     }
 }

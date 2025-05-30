@@ -19,11 +19,12 @@ public class CapituloService {
         return capituloRepository.save(capitulo);
     }
 
-    public List<Capitulo> listarPorCurso(Long cursoId) {
+    public List<Capitulo> listarPorCurso(String cursoId) {
         return capituloRepository.findByCursoId(cursoId);
     }
 
-    public Capitulo atualizar(Long id, Capitulo atualizado) {
+
+    public Capitulo atualizar(String id, Capitulo atualizado) {
         Capitulo existente = capituloRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Capítulo não encontrado"));
         existente.setTitulo(atualizado.getTitulo());
@@ -31,7 +32,7 @@ public class CapituloService {
         return capituloRepository.save(existente);
     }
 
-    public void deletar(Long id) {
+    public void deletar(String id) {
         capituloRepository.deleteById(id);
     }
 }

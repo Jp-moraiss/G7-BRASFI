@@ -21,9 +21,20 @@ public class CursoService {
 		return cursoRepository.save(curso);
 	}
 
-	public Optional<Curso> findById(Long id) {
+	public void deletar(String id) {
+		if (!cursoRepository.existsById(id)) {
+			throw new RuntimeException("Curso não encontrado com o ID: " + id);
+		}
+		cursoRepository.deleteById(id);
+	}
+
+
+	
+
+	public Optional<Curso> findById(String id) {
 		return cursoRepository.findById(id);
 	}
+
 	
 	public List<Curso> listarTodos(){
 		return cursoRepository.findAll();

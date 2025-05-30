@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.g7.brasfi.domain.Video;
 
 @Repository
-public interface VideoRepository extends JpaRepository<Video, Long> {
+public interface VideoRepository extends JpaRepository<Video, String> {
 }
 

@@ -15,23 +15,41 @@ public class VideoService {
     @Autowired
     private VideoRepository videoRepository;
 
+    // Listar todos os vídeos
     public List<Video> listarTodos() {
         return videoRepository.findAll();
     }
 
+    // Salvar um vídeo novo ou atualizar
     public Video salvar(Video video) {
         return videoRepository.save(video);
     }
 
-    public void excluir(Long id) {
-        videoRepository.deleteById(id);
-    }
-
-    public Optional<Video> buscarPorId(Long id) {
+    // Buscar vídeo por ID
+    public Optional<Video> buscarPorId(String id) {
         return videoRepository.findById(id);
     }
-    
-    public void excluirTodos() {
-    	videoRepository.deleteAll();
+
+    // Atualizar vídeo existente
+    public Optional<Video> atualizar(String id, Video videoDetalhes) {
+        return videoRepository.findById(id).map(video -> {
+            video.setTitulo(videoDetalhes.getTitulo());
+            video.setUrl(videoDetalhes.getUrl());
+            return videoRepository.save(video);
+        });
     }
+
+    // Excluir vídeo por ID com verificação
+    public boolean excluir(String id) {
+        return videoRepository.findById(id).map(video -> {
+            videoRepository.deleteById(id);
+            return true;
+        }).orElse(false);
+    }
+
+    // Excluir todos os vídeos
+    public void excluirTodos() {
+        videoRepository.deleteAll();
+    }
+
 }

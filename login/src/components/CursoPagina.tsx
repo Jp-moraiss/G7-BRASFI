@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+interface Video {
+  id: string;
+  titulo: string;
+  url: string;
+}
+
+interface Capitulo {
+  id: string;
+  titulo: string;
+  descricao: string;
+  videos: Video[];
+}
+
 interface Curso {
-  id: number;
+  id: string;
   titulo: string;
   descricao: string;
   urlImage: string;
+  capitulos: Capitulo[];
 }
 
 export const CursoPagina = () => {
-  const { id } = useParams<{ id: string }>(); // Pega o ID da URL
+  const { id } = useParams<{ id: string }>();
   const [curso, setCurso] = useState<Curso | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,8 +36,7 @@ export const CursoPagina = () => {
       return;
     }
 
-    // Busca o curso específico pelo ID
-    fetch(`http://localhost:8080/Curso/${id}`)
+    fetch(`http://localhost:8080/cursos/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Curso não encontrado');
@@ -46,11 +59,7 @@ export const CursoPagina = () => {
   };
 
   if (loading) {
-    return (
-      <div className="loading-container">
-        <p>Carregando curso...</p>
-      </div>
-    );
+    return <div className="loading-container"><p>Carregando curso...</p></div>;
   }
 
   if (error) {
@@ -76,32 +85,56 @@ export const CursoPagina = () => {
       {/* Menu lateral */}
       <div className="container-curso">
         <div className="box-texts-curso">
-          <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
+          <li className={`menu-item ${openSubmenu === 'capitulos' ? 'open' : ''}`}>
             <h1
               onClick={(e) => {
                 e.preventDefault();
-                toggleSubmenu('aulas');
+                toggleSubmenu('capitulos');
               }}
               style={{ cursor: 'pointer' }}
             >
               {curso.titulo}{' '}
-              <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
+              <span className="arrow">
+                {openSubmenu === 'capitulos' ? '^' : '˅'}
+              </span>
             </h1>
-            {openSubmenu === 'aulas' && (
+
+            {openSubmenu === 'capitulos' && (
               <ul className="submenu">
-                <li>
-                  <a href={`/Curso/${curso.id}/aula/1`}>Aula 1</a>
-                </li>
-                <li>
-                  <a href={`/Curso/${curso.id}/aula/2`}>Aula 2</a>
-                </li>
+                {curso.capitulos.map((capitulo) => (
+                  <li key={capitulo.id} className="capitulo-item">
+                    <div className="capitulo-header">
+                      <a href="#">
+                        {capitulo.titulo}
+                      </a>
+                    </div>
+                    
+                    {/* Lista de vídeos do capítulo */}
+                    {capitulo.videos && capitulo.videos.length > 0 && (
+                      <ul className="videos-list">
+                        {capitulo.videos.map((video) => (
+                          <li key={video.id} className="video-item">
+                            <a 
+                              href={video.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="video-link"
+                            >
+                              {video.titulo}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               </ul>
             )}
           </li>
         </div>
       </div>
 
-      {/* Conteúdo principal (vídeo + descrição) */}
+      {/* Conteúdo principal */}
       <div className="conteudo-principal">
         <div className="box-video">
           <div className="video-container">
@@ -114,18 +147,10 @@ export const CursoPagina = () => {
           </div>
         </div>
         <div className="descricao-curso">
-          <h1>Resumo da Aula 1 - {curso.titulo}</h1>
+          <h1>Resumo do Curso - {curso.titulo}</h1>
           <p>{curso.descricao}</p>
-          <p>
-            A aula aborda os princípios e práticas das Finanças Solidárias, um modelo que
-            prioriza a inclusão social, a cooperação e o desenvolvimento sustentável, em
-            contraposição às dinâmicas tradicionais do mercado financeiro. São exploradas
-            experiências como bancos comunitários, fundos rotativos solidários, cooperativas de
-            crédito e clubes de troca, que visam democratizar o acesso a recursos financeiros e
-            fortalecer economias locais.
-          </p>
         </div>
       </div>
     </div>
   );
-};
+}

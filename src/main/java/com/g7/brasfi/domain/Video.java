@@ -1,67 +1,48 @@
 package com.g7.brasfi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Video {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	
-	private String titulo;
-	private String url;
-	
-	// adicionar manytoOne capitulos depois
-	
-	public Video() {
-		
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    private String titulo;
+    private String url;
 
-	public Video(long id, String titulo, String url) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.url = url;
-	}
+    @ManyToOne
+    @JoinColumn(name = "capitulo_id")
+    private Capitulo capitulo;
 
-	public String getTitulo() {
-		return titulo;
-	}
+    public Video(String titulo, String url) {
+        this.titulo = titulo;
+        setUrl(url);
+    }
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-	    if (url != null) {
-	        if (url.contains("watch?v=")) {
-	            this.url = url.replace("watch?v=", "embed/");
-	        } else if (url.contains("youtu.be")) {
-	            // extrair o ID do vídeo
-	            String id = url.substring(url.lastIndexOf("/") + 1);
-	            if (id.contains("?")) {
-	                id = id.substring(0, id.indexOf("?"));
-	            }
-	            this.url = "https://www.youtube.com/embed/" + id;
-	        } else {
-	            this.url = url;
-	        }
-	    }
-	}
-
-
-	public long getId() {
-		return id;
-	}
-	
-	
-	
+    public void setUrl(String url) {
+        if (url != null) {
+            if (url.contains("watch?v=")) {
+                this.url = url.replace("watch?v=", "embed/");
+            } else if (url.contains("youtu.be")) {
+                String id = url.substring(url.lastIndexOf("/") + 1);
+                if (id.contains("?")) {
+                    id = id.substring(0, id.indexOf("?"));
+                }
+                this.url = "https://www.youtube.com/embed/" + id;
+            } else {
+                this.url = url;
+            }
+        }
+    }
 }

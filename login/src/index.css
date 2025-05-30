@@ -1618,6 +1618,88 @@ input[placeholder="Pesquisar..."],
   gap: 20px;
 }
 
+/* Estilos para os capítulos e vídeos */
+.capitulo-item {
+  margin-bottom: 15px;
+
+  padding-left: 10px;
+}
+
+.capitulo-header {
+  margin-bottom: 8px;
+}
+
+.capitulo-header a {
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.capitulo-header a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.videos-list {
+  list-style: none;
+  padding-left: 15px;
+  margin: 0;
+}
+
+.video-item {
+  margin-bottom: 5px;
+  padding: 3px 0;
+}
+
+.video-link {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.video-link:hover {
+  background-color: #f8f9fa;
+  color: #007bff;
+  text-decoration: none;
+  transform: translateX(5px);
+}
+
+.video-link:before {
+  content: "▶ ";
+  color: #007bff;
+  margin-right: 5px;
+}
+
+/* Melhorias no menu existente */
+.submenu {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.submenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.submenu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.submenu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.submenu::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
 
 
 

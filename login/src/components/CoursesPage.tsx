@@ -8,7 +8,7 @@ const CoursesPage = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:8080/Curso')
+    fetch('http://localhost:8080/cursos')
       .then((response) => response.json())
       .then((data) => setCursos(data))
       .catch((error) => console.error('Erro ao buscar cursos:', error));
@@ -60,7 +60,7 @@ const CoursesPage = () => {
               <h1>Curso {i + 1}: {curso.titulo}</h1>
             </div>
             <div className="descricao-course">
-              <p>{curso.descricao}</p>
+              <p>{curso.descricao}</p>z
             </div>
             <div className="button-curso">
               <button>ASSISTIR AGORA!</button>
