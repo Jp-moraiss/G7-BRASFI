@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+
 interface Video {
   id: string;
   titulo: string;
@@ -28,6 +29,8 @@ export const CursoPagina = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [videoAtual, setVideoAtual] = useState<string | null>(null);
+
 
   useEffect(() => {
     if (!id) {
@@ -104,9 +107,7 @@ export const CursoPagina = () => {
                 {curso.capitulos.map((capitulo) => (
                   <li key={capitulo.id} className="capitulo-item">
                     <div className="capitulo-header">
-                      <a href="#">
-                        {capitulo.titulo}
-                      </a>
+                        <h1>{capitulo.titulo}</h1>
                     </div>
                     
                     {/* Lista de vídeos do capítulo */}
@@ -115,13 +116,16 @@ export const CursoPagina = () => {
                         {capitulo.videos.map((video) => (
                           <li key={video.id} className="video-item">
                             <a 
-                              href={video.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
+                              href="#" 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setVideoAtual(video.url);
+                              }}
                               className="video-link"
                             >
                               {video.titulo}
                             </a>
+
                           </li>
                         ))}
                       </ul>
@@ -139,7 +143,7 @@ export const CursoPagina = () => {
         <div className="box-video">
           <div className="video-container">
             <iframe
-              src=""
+              src={videoAtual ?? ''}
               allow="autoplay; encrypted-media"
               allowFullScreen
               title="YouTube video"

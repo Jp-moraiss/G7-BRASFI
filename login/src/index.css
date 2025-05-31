@@ -1098,6 +1098,8 @@ button:hover {
 .conteudo-principal {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   padding: 50px;
 }
