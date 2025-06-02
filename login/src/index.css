@@ -1070,6 +1070,7 @@ button:hover {
   height: 100vh;
   background-color: #ffffff;
   border-top: 1px solid black;
+  border-right: 1px solid black;
 }
 .box-texts-curso{
   display: flex;
@@ -1093,7 +1094,7 @@ button:hover {
 }
 .body-curso {
   display: flex;
-  background-color: #81d4be;
+  background-color: #B3BFAA78;
 }
 .conteudo-principal {
   display: flex;
@@ -1103,14 +1104,15 @@ button:hover {
   flex: 1;
   padding: 50px;
 }
+
 .box-video {         
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 900px;
-  height: 500px;
+  width: 1400px;
+  height: 700px;
   margin-left: 100px;
-  background-color: #c4c4c4;
+  background-color: #ffffff;
   border-radius: 20px;
   border: 1px solid black;
 }
@@ -1123,13 +1125,13 @@ button:hover {
   flex-direction: column;       
   align-items: center;          
   justify-content: center;      
-  width: 850px;
-  height: 450px;
+  width: 1400px;
+  height: 700px;
   background-color: white;
   border: 1px solid black;
 }
 .video-container iframe {
-  width: 850px;
+  width: 1400px;
   height: 100%;
 }
 .video-options{
