@@ -92,7 +92,9 @@ const CoursesPage = () => {
             </div>
             <div className="botoes-cursos">
                 <div className="button-curso">
-                  <button>ASSISTIR AGORA!</button>
+                  <a href={`http://localhost:5173/cursos/${curso.id}`}>
+                    <button>ASSISTIR AGORA!</button>
+                  </a>
                 </div>
                 
             </div>
