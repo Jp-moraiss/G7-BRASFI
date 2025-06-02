@@ -30,7 +30,7 @@ const ChatPage = () => {
         const email = parsedUser.email || parsedUser.login || "";
         setUserEmail(email);
         setIsAuthenticated(true);
-        setIsAdmin(parsedUser.role === "ADMIN");
+        setIsAdmin(parsedUser.role === "admin");
       } catch (error) {
         console.error("Erro ao carregar dados do usuário:", error);
       }
@@ -105,7 +105,7 @@ const ChatPage = () => {
         sender: userEmail.split('@')[0],
         content: input.trim(),
         timeStamp: new Date(),
-        role: isAdmin ? "ADMIN" : "USER" // <- adicionado
+        role: isAdmin ? "admin" : "USER" 
       };
 
       stompClient.send(`/app/sendMessage/${roomId}`, {}, JSON.stringify(chatMessage));
@@ -146,6 +146,7 @@ const ChatPage = () => {
       const isImage = file.type.startsWith("image/");
       const message = {
         sender: userEmail.split("@")[0],
+        role: isAdmin ? "admin" : "USER",
         content: base64Data as string,
         fileName: file.name,
         type: isImage ? "image" : "file",
@@ -223,7 +224,7 @@ const ChatPage = () => {
                 <img className="avatar" src={`https://avatar.iran.liara.run/public/${(index + message.sender.length) % 30}`} alt="" />
                 <div className="message-text">
                 <p className="sender-name">
-                  {message.sender} - {message.role === "ADMIN" ? "Admin" : "Estudante"}
+                  {message.sender} - {message.role === "admin" ? "Admin" : "Estudante"}
                 </p>
 
                 <p>{message.content}</p>

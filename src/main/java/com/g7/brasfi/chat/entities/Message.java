@@ -3,6 +3,7 @@ package com.g7.brasfi.chat.entities;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.g7.brasfi.domain.user.UserRole;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class Message {
     private String id;
     
     private String sender;
+    private UserRole role;
     private String content;
     private LocalDateTime timeStamp;
     

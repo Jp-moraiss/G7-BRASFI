@@ -14,6 +14,8 @@ import com.g7.brasfi.chat.entities.Room;
 import com.g7.brasfi.chat.playload.MessageRequest;
 import com.g7.brasfi.chat.repositories.MessageRepository;
 import com.g7.brasfi.chat.repositories.RoomRepository;
+import com.g7.brasfi.domain.user.User;
+import com.g7.brasfi.domain.user.UserRole;
 import com.g7.brasfi.services.exceptions.ResourceNotFoundException;
 
 @Controller
@@ -35,10 +37,12 @@ public class ChatController {
         System.out.println("MENSAGEM RECEBIDA NO BACKEND");
         System.out.println("Sala: " + roomId);
         System.out.println("Remetente: " + request.getSender());
+        System.out.println("Função: " + UserRole.fromValue(request.getRole()));
         System.out.println("Conteúdo: " + request.getContent());
         System.out.println("============================================");
 
         Room room = roomRepository.findByRoomId(roomId);
+    
 
         if (room == null) {
             System.out.println("❌ ERRO: Sala não encontrada!");
@@ -48,6 +52,7 @@ public class ChatController {
         Message message = new Message();
         message.setContent(request.getContent());
         message.setSender(request.getSender());
+        message.setRole(UserRole.fromValue(request.getRole()));
         message.setTimeStamp(LocalDateTime.now());
         message.setRoom(room);
 

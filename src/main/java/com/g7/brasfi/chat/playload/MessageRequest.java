@@ -15,5 +15,6 @@ public class MessageRequest {
 
 	private String content;
 	private String sender;
+	private String role;
 	private String roomId;
 }

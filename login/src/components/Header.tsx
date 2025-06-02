@@ -46,36 +46,12 @@ const Header = () => {
                     </a>
                     {openSubmenu === 'chat' && (
                       <ul className="submenu">
-                        <li><a href="/video">Vídeo-chamada</a></li>
+                        <li><a href="/Chatmain">Entrar/Criar chat</a></li>
                         <li><a href="/palestra">Palestra ao vivo</a></li>
                       </ul>
                     )}
                   </li>
 
-                  <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
-                    <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }}>
-                      Aulas <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
-                    </a>
-                    {openSubmenu === 'aulas' && (
-                      <ul className="submenu">
-                        <li><a href="/aulas/gravadas">Gravadas</a></li>
-                        <li><a href="/aulas/ao-vivo">Ao vivo</a></li>
-                      </ul>
-                    )}
-                  </li>
-
-                  <li className={`menu-item ${openSubmenu === 'jornadas' ? 'open' : ''}`}>
-                    <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('jornadas'); }}>
-                      Jornada <span className="arrow">{openSubmenu === 'jornadas' ? '^' : '˅'}</span>
-                    </a>
-                    {openSubmenu === 'jornadas' && (
-                      <ul className="submenu">
-                        <li><a href="/jornadas/etapa1">Etapa 1</a></li>
-                        <li><a href="/jornadas/etapa2">Etapa 2</a></li>
-                      </ul>
-                    )}
-                  </li>
-                  <li><a href="">???</a></li>
                   <div className="avatar-header">
                     <img className="avatar" src="https://avatar.iran.liara.run/public/28" alt="" />
                   </div>
