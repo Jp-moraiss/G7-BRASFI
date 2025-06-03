@@ -16,16 +16,16 @@ const QuestionarioESG = () => {
 
       const data = await response.json();
       setEmpresaSalva(data);
-      buscarPerguntas(data.tamanho);
+      buscarPerguntas();
     } catch (error) {
       console.error('Erro ao cadastrar empresa:', error);
       setEmpresaStatus('Erro ao cadastrar empresa.');
     }
   };
 
-  const buscarPerguntas = async (tamanho) => {
+  const buscarPerguntas = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/perguntas/por-tamanho/${tamanho}`);
+      const response = await fetch(`http://localhost:8080/perguntas`);
       const data = await response.json();
       setPerguntas(data);
     } catch (error) {
@@ -85,6 +85,7 @@ const QuestionarioESG = () => {
         <br />
         <div className="button-questionary">
           <button onClick={cadastrarEmpresa}>Cadastrar</button>
+          <a href="/AdicionarPerguntas"><button>Cadastrar Perguntas</button></a>
         </div>
       </div>
       <p>{empresaStatus}</p>

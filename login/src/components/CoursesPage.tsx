@@ -25,14 +25,13 @@ const CoursesPage = () => {
         setUserEmail(parsedUser.email || parsedUser.login || '');
         setUser(parsedUser.name);
         setIsAuthenticated(true);
-        setIsAdmin(parsedUser.role === 'admin');
+        setIsAdmin(parsedUser.role === 'ADMIN');
       } catch (error) {
         console.error('Erro ao carregar dados do usuário:', error);
       }
     }
   }, []);
 
-  // 🔍 Filtrando os cursos pelo título
   const cursosFiltrados = cursos.filter((curso) =>
     curso.titulo.toLowerCase().includes(filtro.toLowerCase())
   );

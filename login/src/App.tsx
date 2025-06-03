@@ -19,6 +19,7 @@ import AdicionarCurso from './components/AdicionarCurso.js';
 import EditarCurso from './components/AdicionarCapitulos.js';
 import AdicionarCapitulos from './components/AdicionarCapitulos.js';
 import AdicionarVideos from './components/AdicionarVideos.js';
+import AdicionarPerguntas from './components/AdicionarPerguntas.js';
 
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
         <Route path="/AdicionarCurso" element={<AdicionarCurso />} />
         <Route path="/AdicionarCapitulos" element={<AdicionarCapitulos />} />
         <Route path="/AdicionarVideos" element={<AdicionarVideos />} />
+        <Route path="/AdicionarPerguntas" element={<AdicionarPerguntas />} />
         <Route path="/Chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>

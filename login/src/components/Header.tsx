@@ -39,6 +39,7 @@ const Header = () => {
                   <li><a href="/Profile">Perfil</a></li>
                   <li><a href="/cursos">Cursos</a></li>
                   <li><a href="/chat">Chat</a></li>
+                  <li><a href="/QuestionarioESG">Questionario</a></li>
                   <div className="avatar-header">
                     <img className="avatar" src="https://avatar.iran.liara.run/public/28" alt="" />
                   </div>
