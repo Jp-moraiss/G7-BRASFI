@@ -37,7 +37,7 @@ const CoursesPage = () => {
   );
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
       <div className="cabecalhoCursos">
         <h1>Bem Vindo, <strong>{user}</strong></h1>
       </div>

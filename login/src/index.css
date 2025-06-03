@@ -4,7 +4,7 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color:white;
+  background-color: #0F230A;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -549,6 +549,7 @@ input[type="radio"]:checked {
   flex-direction: row;
   gap: 3rem; 
   align-items: flex-start;
+  background-color: white;
 }
 .modulos-section {
   margin-top: 80px;
@@ -1737,12 +1738,13 @@ input[placeholder="Pesquisar..."],
   align-items: center;
   justify-content: left;
   padding-left: 80px;
-  margin-top: 40px;
+  
 }
 .cabecalhoCursos h1 {
   font-size: 25px;
   font-weight: 100;
   color: #000;
+  margin-top: 40px;
 }
 .cabecalho-adicionar-curso h1 {
   font-size: 30px;
@@ -1889,8 +1891,6 @@ input[placeholder="Pesquisar..."],
 
 /* Home */
 
-
-
 .homeContainer {
   position: relative;
   width: 100%;
@@ -1915,6 +1915,7 @@ input[placeholder="Pesquisar..."],
   height: 100%;
   object-fit: cover;
   display: block;
+  z-index: 0;
 }
 
 .initialText {
@@ -1960,7 +1961,7 @@ input[placeholder="Pesquisar..."],
 }
 
 .historiaTexts {
-  width: 400px;
+  width: 550px;
   align-items: center;
   justify-content: center;
 }
@@ -1974,14 +1975,32 @@ input[placeholder="Pesquisar..."],
   margin-top: 10px;
 }
 
+.leiamais{
+  display: flex;
+  align-items: center;
+}
+
+.leiamais i {
+  margin-left: 10px;
+}
+
+.leiamais h4  {
+  margin-top: 15px;
+  color: #FFC847;
+  cursor: pointer;
+}
+
 .historiaBox {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 100px;
+  gap: 100px;
 }
+
 .historiaImage img {
-  width: 200px;
+  width: 300px;
+  height: 100%;
   margin-left: 50px;
 }
 
