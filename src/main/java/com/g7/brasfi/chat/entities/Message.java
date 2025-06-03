@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.g7.brasfi.domain.user.UserRole;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,12 +31,16 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    
+
     private String sender;
+
     private UserRole role;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
+
     private LocalDateTime timeStamp;
-    
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     @JsonBackReference

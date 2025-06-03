@@ -1007,6 +1007,41 @@ input[type="radio"]:checked {
 }
 
 /* Modal Header */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Header */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -1082,7 +1117,7 @@ input[type="radio"]:checked {
   border: 1px solid #fecaca;
 }
 
-/* Criar Sala */
+/* Modal Footer */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -1149,6 +1184,183 @@ input[type="radio"]:checked {
   .btn {
     width: 100%;
   }
+}
+
+/* Estilos para arquivos no chat */
+.image-message {
+  margin-top: 8px;
+}
+
+.image-message img {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.image-message img:hover {
+  transform: scale(1.02);
+}
+
+.file-name {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.file-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.file-message i {
+  font-size: 1.25rem;
+  color: #6b7280;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-info .file-name {
+  font-weight: 500;
+  color: #374151;
+  margin: 0;
+}
+
+.file-info .file-size {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+/* Estilos para a seção de arquivos */
+.files-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+}
+
+.files-wrapper i.fa-bars {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.docs, .photos {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: 1px solid #e5e7eb;
+}
+
+.docs:hover, .photos:hover {
+  background-color: #f3f4f6;
+}
+
+.docs i, .photos i {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.docs span, .photos span {
+  font-size: 0.8rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Modal de arquivos */
+.files-modal {
+  max-width: 600px;
+  max-height: 80vh;
+}
+
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.file-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #fafafa;
+  transition: box-shadow 0.2s;
+}
+
+.file-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  min-height: 120px;
+}
+
+.file-preview-doc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-preview-doc i {
+  font-size: 2rem;
+  color: #6b7280;
+}
+
+.file-preview-doc .file-info {
+  text-align: center;
+}
+
+.file-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.file-sender {
+  font-weight: 500;
+  color: #374151;
+}
+
+.no-files {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  color: #9ca3af;
+}
+
+.no-files i {
+  font-size: 3rem;
+}
+
+.no-files p {
+  margin: 0;
+  font-size: 1rem;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Signika:wght@300..700&display=swap');

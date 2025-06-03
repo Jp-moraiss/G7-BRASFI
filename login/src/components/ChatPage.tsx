@@ -23,6 +23,10 @@ const ChatPage = () => {
   const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
   const [newRoomId, setNewRoomId] = useState('');
   const [createRoomError, setCreateRoomError] = useState('');
+  
+  // Estados para filtrar arquivos
+  const [showFiles, setShowFiles] = useState(false);
+  const [fileType, setFileType] = useState(''); // 'docs' ou 'photos'
 
   const toggleSubmenu = (menuName: string | null) => {
     setOpenSubmenu(prev => (prev === menuName ? null : menuName));
@@ -220,6 +224,57 @@ const ChatPage = () => {
     navigate('/chatmain');
   };
 
+  // Função para filtrar e obter arquivos
+  const getFilteredFiles = (type: 'photos' | 'docs') => {
+    return messages.filter(message => {
+      if (type === 'photos') {
+        return message.type === 'image';
+      } else if (type === 'docs') {
+        return message.type === 'document' || (message.type === 'file' && message.fileName);
+      }
+      return false;
+    });
+  };
+
+  // Função para abrir modal de arquivos
+  const handleShowFiles = (type: 'photos' | 'docs') => {
+    setFileType(type);
+    setShowFiles(true);
+  };
+
+  // Função para fechar modal de arquivos
+  const handleCloseFiles = () => {
+    setShowFiles(false);
+    setFileType('');
+  };
+
+  // Função para renderizar preview de arquivo
+  const renderFilePreview = (message) => {
+    if (message.type === 'image') {
+      return (
+        <img 
+          src={message.content} 
+          alt={message.fileName} 
+          style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px' }}
+        />
+      );
+    } else {
+      return (
+        <div className="file-preview-doc">
+          <i className="fa-solid fa-file"></i>
+          <div className="file-info">
+            <span className="file-name">{message.fileName}</span>
+            {message.fileSize && (
+              <span className="file-size">
+                ({(message.fileSize / 1024 / 1024).toFixed(2)} MB)
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    }
+  };
+
   // Controle do input file escondido
   const fileInputRef = useRef(null);
 
@@ -232,29 +287,58 @@ const ChatPage = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    
     const stompClient = stompClientRef.current;
     if (!stompClient || !roomId) return;
+
+    const isImage = file.type.startsWith("image/");
+    const isDocument = file.type.includes("pdf") || 
+                     file.type.includes("document") || 
+                     file.type.includes("text") ||
+                     file.type.includes("sheet") ||
+                     file.type.includes("presentation") ||
+                     file.name.match(/\.(doc|docx|pdf|txt|xls|xlsx|ppt|pptx)$/i);
 
     const reader = new FileReader();
 
     reader.onload = () => {
-      const base64Data = reader.result;
-      const isImage = file.type.startsWith("image/");
+      const base64Data = reader.result as string;
       const message = {
         sender: userEmail.split("@")[0],
         role: isAdmin ? "admin" : "USER",
-        content: base64Data as string,
+        content: isImage || isDocument ? base64Data : `Arquivo: ${file.name}`,
         fileName: file.name,
-        type: isImage ? "image" : "file",
+        fileSize: file.size,
+        type: isImage ? "image" : isDocument ? "document" : "file",
         roomId: roomId,
         timeStamp: new Date(),
       };
 
       stompClient.send(`/app/sendMessage/${roomId}`, {}, JSON.stringify(message));
-      setMessages((prev) => [...prev, message]);
+      
+      // Não adicionar diretamente às mensagens, deixar o WebSocket fazer isso
+      event.target.value = ''; // Limpar o input
     };
 
-    reader.readAsDataURL(file);
+    // Ler como base64 apenas para imagens e documentos pequenos (< 5MB)
+    if ((isImage || isDocument) && file.size < 5 * 1024 * 1024) {
+      reader.readAsDataURL(file);
+    } else {
+      // Para arquivos grandes ou outros tipos, enviar apenas informações
+      const message = {
+        sender: userEmail.split("@")[0],
+        role: isAdmin ? "admin" : "USER",
+        content: `📎 ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`,
+        fileName: file.name,
+        fileSize: file.size,
+        type: "file",
+        roomId: roomId,
+        timeStamp: new Date(),
+      };
+
+      stompClient.send(`/app/sendMessage/${roomId}`, {}, JSON.stringify(message));
+      event.target.value = '';
+    }
   };
 
   if (!isAuthenticated) {
@@ -325,7 +409,30 @@ const ChatPage = () => {
                     <p className="sender-name">
                       {message.sender} - {message.role === "admin" ? "Admin" : "Estudante"}
                     </p>
-                    <p>{message.content}</p>
+                    {message.type === 'image' ? (
+                      <div className="image-message">
+                        <img 
+                          src={message.content} 
+                          alt={message.fileName} 
+                          style={{ maxWidth: '300px', maxHeight: '300px', borderRadius: '8px' }}
+                        />
+                        {message.fileName && <p className="file-name">{message.fileName}</p>}
+                      </div>
+                    ) : message.type === 'document' || message.type === 'file' ? (
+                      <div className="file-message">
+                        <i className="fa-solid fa-file"></i>
+                        <div className="file-info">
+                          <span className="file-name">{message.fileName}</span>
+                          {message.fileSize && (
+                            <span className="file-size">
+                              ({(message.fileSize / 1024 / 1024).toFixed(2)} MB)
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <p>{message.content}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -333,16 +440,56 @@ const ChatPage = () => {
           ))}
         </main>
 
-        <div className="chat-wrapper">
-          <i className="fa-solid fa-bars"></i>
-          <div className="docs">
-            // todos os documentos
+        <div className="files-wrapper">
+          <div className="docs" onClick={() => handleShowFiles('docs')}>
+            <i className="fa-solid fa-file-text"></i>
+            <span>Documentos ({getFilteredFiles('docs').length})</span>
           </div>
-          <div className="photos">
-            // todos as fotos
+          <div className="photos" onClick={() => handleShowFiles('photos')}>
+            <i className="fa-solid fa-image"></i>
+            <span>Fotos ({getFilteredFiles('photos').length})</span>
           </div>
         </div>
       </div>
+
+      {/* Modal para visualizar arquivos */}
+      {showFiles && (
+        <div className="modal-overlay">
+          <div className="modal-content files-modal">
+            <div className="modal-header">
+              <h2>{fileType === 'photos' ? 'Fotos da Sala' : 'Documentos da Sala'}</h2>
+              <button className="modal-close-btn" onClick={handleCloseFiles}>
+                <MdClose />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              <div className="files-grid">
+                {getFilteredFiles(fileType).length === 0 ? (
+                  <div className="no-files">
+                    <i className={`fa-solid ${fileType === 'photos' ? 'fa-image' : 'fa-file'}`}></i>
+                    <p>Nenhum {fileType === 'photos' ? 'foto' : 'documento'} encontrado</p>
+                  </div>
+                ) : (
+                  getFilteredFiles(fileType).map((message, index) => (
+                    <div key={index} className="file-item">
+                      <div className="file-preview">
+                        {renderFilePreview(message)}
+                      </div>
+                      <div className="file-details">
+                        <span className="file-sender">{message.sender}</span>
+                        <span className="file-date">
+                          {new Date(message.timeStamp).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal para criar sala */}
       {showCreateRoomModal && (
@@ -397,21 +544,18 @@ const ChatPage = () => {
             onKeyDown={handleKeyDown}
             ref={inputRef}
           />
-          <div className="chat-actions">
-            {/* Input file escondido */}
-            <input
-              type="file"
-              style={{ display: 'none' }}
-              ref={fileInputRef}
-              onChange={handleFileChange}
-            />
-            <button className='action-chat-button' onClick={handleAttachButtonClick}>
-              <MdAttachFile />
-            </button>
-            <button className='action-chat-button' onClick={sendMessage}>
-              <MdSend />
-            </button>
-          </div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+          <button className="attach-btn" onClick={handleAttachButtonClick}>
+            <MdAttachFile />
+          </button>
+          <button className="send-btn" onClick={sendMessage}>
+            <MdSend />
+          </button>
         </div>
       </div>
     </div>
