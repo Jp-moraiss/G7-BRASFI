@@ -207,9 +207,7 @@ const ChatPage = () => {
             <div
               key={room.roomId}
               className="roombox"
-              onClick={() => handleJoinRoom(room.roomId)}
-              style={{ cursor: 'pointer', backgroundColor: room.roomId === roomId ? '#d0e6ff' : '#666666' }}
-            >
+              onClick={() => handleJoinRoom(room.roomId)}>
               <h1>{room.roomId}</h1>
             </div>
           ))}
@@ -221,40 +219,25 @@ const ChatPage = () => {
         <div className="optionslist">
           <div className="box-textos-chat">
             <h1>Sala: {roomId}</h1>
-            <h1>ADMINISTRADORES <i className="fa-solid fa-angle-right"></i></h1>
-            <div className="divider-admin" />
-
-            <ul> {/* Coloquei ul para as li */}
-              <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
+            <ul>
+              <li className={`menu-item ${openSubmenu === 'admins' ? 'open' : ''}`}>
                 <h1
-                  onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }}
+                  onClick={(e) => { e.preventDefault(); toggleSubmenu('admins'); }}
                   className="menu-title"
                 >
-                  Reuniões <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
+                  Administradores <span className="arrow">{openSubmenu === 'admins' ? '^' : '˅'}</span>
                 </h1>
-                {openSubmenu === 'aulas' && (
+                {openSubmenu === 'admins' && (
                   <ul className="submenu">
-                    <li><a href="">Geral <i className="fa-solid fa-phone-volume"></i></a></li>
-                    <li><a href="">Dúvidas 1 <i className="fa-solid fa-phone-volume"></i></a></li>
+                    {[...new Set(messages.filter(msg => msg.role === "admin").map(msg => msg.sender))].map((admin, idx) => (
+                      <li key={idx}>
+                        <p>{admin}</p>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </li>
-
-              <li className={`menu-item ${openSubmenu === 'bate-papos' ? 'open' : ''}`}>
-                <h1
-                  onClick={(e) => { e.preventDefault(); toggleSubmenu('bate-papos'); }}
-                  className="menu-title"
-                >
-                  Bate-Papos <span className="arrow">{openSubmenu === 'bate-papos' ? '^' : '˅'}</span>
-                </h1>
-                {openSubmenu === 'bate-papos' && (
-                  <ul className="submenu">
-                    <li><a href="">Duvidas <i className="fa-solid fa-message"></i></a></li>
-                    <li><a href="">Documentos 1 <i className="fa-solid fa-message"></i></a></li>
-                  </ul>
-                )}
-              </li>
-            </ul>
+            </ul>   
           </div>
         </div>
 
