@@ -1,6 +1,7 @@
 package com.g7.brasfi.chat.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +89,14 @@ public class RoomController {
         return ResponseEntity.ok(paginatedMessages);
 
     }
+    
+    @GetMapping
+    public ResponseEntity<List<RoomDTO>> getAllRooms() {
+        List<RoomDTO> rooms = roomRepository.findAll().stream()
+            .map(room -> new RoomDTO(room.getRoomId()))
+            .collect(Collectors.toList());
 
+        return ResponseEntity.ok(rooms);
+    }
 
 }
