@@ -1,5 +1,9 @@
 import Divider from "./Divider";
+import HubDeNetwork from "./HubDeNetwork";
+import HubDeProjeto from "./HubDeProjeto";
 import LeiaMais from "./LeiaMais";
+import Secction from "./secction";
+import SecctionTurmas from "./SecctionTurmas";
 
 
 const Home = () => {
@@ -21,25 +25,37 @@ const Home = () => {
                         <h1>DESENVOLVENDO LIDERES E VIABILIZANDO SOLUÇÕES ! </h1>
                         <p>Role para baixo <i className="fa-solid fa-angle-down"></i></p>
                     </div>
-                    
                 </div>
             </div>
         </div>
 
+        <div className="sessoes">
+
         <div className="historiaBox">
-             <div className="historiaTexts">
-                <p>Historia</p>
-                <h1>Como surgiu a brasfi ?</h1>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus finibus, neque vitae lacinia hendrerit, augue libero volutpat nisi, sed bibendum nisi nulla eu mi. Integer sagittis, nibh non tincidunt cursus, sapien nisl volutpat elit, ut finibus lectus velit ut nulla. Proin vitae nunc non elit facilisis tincidunt. Morbi tincidunt, massa ac malesuada.</h3>
-                <LeiaMais />
-            </div>
-            <div className="historiaImage">
-                <img src="/images/historia.jpg" alt="" />
-            </div>
-           
+            <Secction />
+                <div className="historiaImage">
+                    <img src="/images/historia.jpg" alt="" />
+                </div>
         </div>
 
-       </div>
+        <div className="historiaBox">
+            <div className="sessoesImage">
+                <img src="/images/background2.jpg" alt="" />
+            </div>
+            <div className="hubBrasfi">
+                <HubDeProjeto />
+                <HubDeNetwork />
+            </div>        
+        </div>
+
+        <div className="historiaBox">
+            <SecctionTurmas />
+                <div className="historiaImage">
+                    <img src="/images/background3.png" alt="" />
+                </div>
+            </div>
+        </div>     
+    </div>        
     );
 };
 

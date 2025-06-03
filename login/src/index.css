@@ -1994,12 +1994,18 @@ input[placeholder="Pesquisar..."],
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
-  gap: 100px;
+  margin-top: 50px;
+  gap: 200px;
 }
 
 .historiaImage img {
-  width: 300px;
+  width: 500px;
+  height: 100%;
+  margin-left: 50px;
+}
+
+.sessoesImage img {
+  width: 500px;
   height: 100%;
   margin-left: 50px;
 }
