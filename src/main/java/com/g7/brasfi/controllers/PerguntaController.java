@@ -4,10 +4,14 @@ package com.g7.brasfi.controllers;
 import com.g7.brasfi.domain.empresa.TamanhoEmpresa;
 import com.g7.brasfi.domain.pergunta.Pergunta;
 import com.g7.brasfi.services.PerguntaService;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/perguntas")
@@ -48,5 +52,14 @@ public class PerguntaController {
     	return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/por-id/{id}")
+    public ResponseEntity<Void> excluirPorID(@PathVariable UUID id) {
+        try {
+            perguntaService.excluirByID(id);
+            return ResponseEntity.noContent().build(); // 204 - Sucesso sem corpo
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();  // 404 - Não encontrado
+        }
+    }
 
 }
