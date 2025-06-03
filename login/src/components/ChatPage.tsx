@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MdAttachFile, MdSend } from 'react-icons/md';
+import { MdAttachFile, MdSend, MdClose } from 'react-icons/md';
 import Profile from './Profile';
 import { useNavigate } from 'react-router-dom';
 import SockJS from 'sockjs-client';
@@ -18,6 +18,11 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [availableRooms, setAvailableRooms] = useState([]);
+  
+  // Estados para o modal de criar sala
+  const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+  const [newRoomId, setNewRoomId] = useState('');
+  const [createRoomError, setCreateRoomError] = useState('');
 
   const toggleSubmenu = (menuName: string | null) => {
     setOpenSubmenu(prev => (prev === menuName ? null : menuName));
@@ -32,17 +37,14 @@ const ChatPage = () => {
         const email = parsedUser.email || parsedUser.login || "";
         setUserEmail(email);
         setIsAuthenticated(true);
-        setIsAdmin(parsedUser.role === "admin");
+        setIsAdmin(parsedUser.role === "admin" || parsedUser.role === "ADMIN");
       } catch (error) {
         console.error("Erro ao carregar dados do usuário:", error);
       }
     }
 
     // Buscar salas disponíveis
-    fetch("http://localhost:8080/api/v1/rooms")
-      .then(res => res.json())
-      .then(data => setAvailableRooms(data))
-      .catch(err => console.error("Erro ao buscar salas:", err));
+    fetchAvailableRooms();
 
     // Conectar à sala armazenada (se existir)
     const storedRoomId = localStorage.getItem("roomId");
@@ -61,6 +63,13 @@ const ChatPage = () => {
     };
   }, [navigate]);
 
+  const fetchAvailableRooms = () => {
+    fetch("http://localhost:8080/api/v1/rooms")
+      .then(res => res.json())
+      .then(data => setAvailableRooms(data))
+      .catch(err => console.error("Erro ao buscar salas:", err));
+  };
+
   // Função para entrar em uma sala
   const handleJoinRoom = (selectedRoomId: string) => {
     if (selectedRoomId === roomId) return; // se já estiver na mesma sala, não faz nada
@@ -75,6 +84,59 @@ const ChatPage = () => {
     setMessages([]); // limpa mensagens da sala anterior
     fetchMessages(selectedRoomId);
     connectToWebsocket(selectedRoomId);
+  };
+
+  // Função para abrir o modal de criar sala
+  const handleOpenCreateRoomModal = () => {
+    if (!isAdmin) {
+      alert('Apenas administradores podem criar salas');
+      return;
+    }
+    setShowCreateRoomModal(true);
+    setNewRoomId('');
+    setCreateRoomError('');
+  };
+
+  // Função para fechar o modal
+  const handleCloseCreateRoomModal = () => {
+    setShowCreateRoomModal(false);
+    setNewRoomId('');
+    setCreateRoomError('');
+  };
+
+  // Função para criar uma nova sala
+  const handleCreateRoom = async () => {
+    if (!newRoomId.trim()) {
+      setCreateRoomError('Por favor, insira um ID de sala válido');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/rooms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: newRoomId
+      });
+
+      if (response.ok) {
+        // Atualizar lista de salas
+        fetchAvailableRooms();
+        
+        // Entrar na nova sala
+        handleJoinRoom(newRoomId);
+        
+        // Fechar modal
+        handleCloseCreateRoomModal();
+      } else {
+        const errorData = await response.text();
+        setCreateRoomError(errorData || 'Erro ao criar sala. Tente outro ID.');
+      }
+    } catch (error) {
+      console.error("Erro ao criar sala:", error);
+      setCreateRoomError('Erro ao conectar ao servidor. Tente novamente mais tarde.');
+    }
   };
 
   const connectToWebsocket = (roomId: string) => {
@@ -211,6 +273,11 @@ const ChatPage = () => {
               <h1>{room.roomId}</h1>
             </div>
           ))}
+
+          <div className="roombox-add" onClick={handleOpenCreateRoomModal}>
+            <i className="fa-solid fa-plus"></i>
+          </div>
+
           <div className="roombox-logout" onClick={leaveRoom}>
             <i className="fa-solid fa-right-from-bracket"></i>
           </div>
@@ -265,7 +332,59 @@ const ChatPage = () => {
             </div>
           ))}
         </main>
+
+        <div className="chat-wrapper">
+          <i className="fa-solid fa-bars"></i>
+          <div className="docs">
+            // todos os documentos
+          </div>
+          <div className="photos">
+            // todos as fotos
+          </div>
+        </div>
       </div>
+
+      {/* Modal para criar sala */}
+      {showCreateRoomModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2>Criar Nova Sala</h2>
+              <button className="modal-close-btn" onClick={handleCloseCreateRoomModal}>
+                <MdClose />
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              {createRoomError && (
+                <div className="error-message">{createRoomError}</div>
+              )}
+              
+              <div className="input-group">
+                <label htmlFor="newRoomId">ID da Nova Sala</label>
+                <input
+                  type="text"
+                  id="newRoomId"
+                  value={newRoomId}
+                  onChange={(e) => setNewRoomId(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleCreateRoom()}
+                  placeholder="Digite o ID da sala"
+                  autoFocus
+                />
+              </div>
+            </div>
+            
+            <div className="modal-footer">
+              <button className="btn btn-cancel" onClick={handleCloseCreateRoomModal}>
+                Cancelar
+              </button>
+              <button className="btn btn-create" onClick={handleCreateRoom}>
+                Criar Sala
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="chat-input-container">
         <div className="chat-input-wrapper">
