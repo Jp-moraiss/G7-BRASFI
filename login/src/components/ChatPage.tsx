@@ -12,17 +12,19 @@ const ChatPage = () => {
   const stompClientRef = useRef(null);
   const [roomId, setRoomId] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState();
-  const [isAdmin, setIsAdmin] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
-  const [openSubmenu, setOpenSubmenu] = useState(null); // novo estado
-  
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [availableRooms, setAvailableRooms] = useState([]);
+
   const toggleSubmenu = (menuName: string | null) => {
-      setOpenSubmenu(prev => (prev === menuName ? null : menuName));
+    setOpenSubmenu(prev => (prev === menuName ? null : menuName));
   };
 
   useEffect(() => {
+    // Carregar usuário
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
@@ -36,6 +38,13 @@ const ChatPage = () => {
       }
     }
 
+    // Buscar salas disponíveis
+    fetch("http://localhost:8080/api/v1/rooms")
+      .then(res => res.json())
+      .then(data => setAvailableRooms(data))
+      .catch(err => console.error("Erro ao buscar salas:", err));
+
+    // Conectar à sala armazenada (se existir)
     const storedRoomId = localStorage.getItem("roomId");
     if (storedRoomId) {
       setRoomId(storedRoomId);
@@ -52,10 +61,25 @@ const ChatPage = () => {
     };
   }, [navigate]);
 
-  const connectToWebsocket = (roomId) => {
+  // Função para entrar em uma sala
+  const handleJoinRoom = (selectedRoomId: string) => {
+    if (selectedRoomId === roomId) return; // se já estiver na mesma sala, não faz nada
+
+    // desconecta do stomp antigo
+    if (stompClientRef.current) {
+      stompClientRef.current.disconnect();
+    }
+
+    setRoomId(selectedRoomId);
+    localStorage.setItem("roomId", selectedRoomId);
+    setMessages([]); // limpa mensagens da sala anterior
+    fetchMessages(selectedRoomId);
+    connectToWebsocket(selectedRoomId);
+  };
+
+  const connectToWebsocket = (roomId: string) => {
     const socket = new SockJS('http://localhost:8080/ws');
     const client = Stomp.over(socket);
-
     client.debug = (msg) => console.log('[STOMP]', msg);
 
     client.connect({}, () => {
@@ -66,7 +90,7 @@ const ChatPage = () => {
     });
   };
 
-  const fetchMessages = async (roomId) => {
+  const fetchMessages = async (roomId: string) => {
     try {
       const response = await fetch(`http://localhost:8080/api/v1/rooms/${roomId}/messages`);
       if (response.ok) {
@@ -82,30 +106,29 @@ const ChatPage = () => {
   };
 
   const onMessageReceived = (payload) => {
-  const message = JSON.parse(payload.body);
+    const message = JSON.parse(payload.body);
 
-  setMessages(prevMessages => {
-    const last = prevMessages[prevMessages.length - 1];
-    const same = last &&
-      last.sender === message.sender &&
-      last.content === message.content &&
-      new Date(last.timeStamp).getTime() === new Date(message.timeStamp).getTime();
+    setMessages(prevMessages => {
+      const last = prevMessages[prevMessages.length - 1];
+      const same = last &&
+        last.sender === message.sender &&
+        last.content === message.content &&
+        new Date(last.timeStamp).getTime() === new Date(message.timeStamp).getTime();
 
-    return same ? prevMessages : [...prevMessages, message];
-  });
+      return same ? prevMessages : [...prevMessages, message];
+    });
 
-  scrollToBottom();
-};
-
+    scrollToBottom();
+  };
 
   const sendMessage = () => {
-      const stompClient = stompClientRef.current;
-      if (stompClient && input.trim() !== "" && roomId) {
+    const stompClient = stompClientRef.current;
+    if (stompClient && input.trim() !== "" && roomId) {
       const chatMessage = {
         sender: userEmail.split('@')[0],
         content: input.trim(),
         timeStamp: new Date(),
-        role: isAdmin ? "admin" : "USER" 
+        role: isAdmin ? "admin" : "USER"
       };
 
       stompClient.send(`/app/sendMessage/${roomId}`, {}, JSON.stringify(chatMessage));
@@ -115,7 +138,7 @@ const ChatPage = () => {
 
   const handleInputChange = (e) => setInput(e.target.value);
 
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       sendMessage();
     }
@@ -135,9 +158,20 @@ const ChatPage = () => {
     navigate('/chatmain');
   };
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Controle do input file escondido
+  const fileInputRef = useRef(null);
+
+  const handleAttachButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file || !stompClient || !connected) return;
+    if (!file) return;
+    const stompClient = stompClientRef.current;
+    if (!stompClient || !roomId) return;
 
     const reader = new FileReader();
 
@@ -151,13 +185,10 @@ const ChatPage = () => {
         fileName: file.name,
         type: isImage ? "image" : "file",
         roomId: roomId,
+        timeStamp: new Date(),
       };
 
-      stompClient.publish({
-        destination: `/app/sendMessage/${roomId}`,
-        body: JSON.stringify(message),
-      });
-
+      stompClient.send(`/app/sendMessage/${roomId}`, {}, JSON.stringify(message));
       setMessages((prev) => [...prev, message]);
     };
 
@@ -171,27 +202,34 @@ const ChatPage = () => {
   return (
     <div className="chatpage-container">
       <div className="chat-wrapper">
-          <div className="roomslist">
-            <div className="roombox">
-              <h1>{roomId}</h1>
+        <div className="roomslist">
+          {availableRooms.map((room) => (
+            <div
+              key={room.roomId}
+              className="roombox"
+              onClick={() => handleJoinRoom(room.roomId)}
+              style={{ cursor: 'pointer', backgroundColor: room.roomId === roomId ? '#d0e6ff' : '#666666' }}
+            >
+              <h1>{room.roomId}</h1>
             </div>
-            <div className="roombox">
-              <h1>{roomId}</h1>
-            </div>
-            <div className="roombox-logout" onClick={leaveRoom}>
-              <i class="fa-solid fa-right-from-bracket"></i>
-            </div>
+          ))}
+          <div className="roombox-logout" onClick={leaveRoom}>
+            <i className="fa-solid fa-right-from-bracket"></i>
           </div>
+        </div>
 
-          <div className="optionslist">
-            <div className="box-textos-chat">
-              <h1>Sala: {roomId}</h1>
-              <h1>ADMINISTRADORES <i class="fa-solid fa-angle-right"></i></h1>
-               <div className="divider-admin">
-               </div>
+        <div className="optionslist">
+          <div className="box-textos-chat">
+            <h1>Sala: {roomId}</h1>
+            <h1>ADMINISTRADORES <i className="fa-solid fa-angle-right"></i></h1>
+            <div className="divider-admin" />
 
+            <ul> {/* Coloquei ul para as li */}
               <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
-                <h1 onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }} className="menu-title">
+                <h1
+                  onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }}
+                  className="menu-title"
+                >
                   Reuniões <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
                 </h1>
                 {openSubmenu === 'aulas' && (
@@ -202,54 +240,75 @@ const ChatPage = () => {
                 )}
               </li>
 
-               <li className={`menu-item ${openSubmenu === 'aulas' ? 'open' : ''}`}>
-                <h1 onClick={(e) => { e.preventDefault(); toggleSubmenu('aulas'); }} className="menu-title">
-                  Bate-Papos <span className="arrow">{openSubmenu === 'aulas' ? '^' : '˅'}</span>
+              <li className={`menu-item ${openSubmenu === 'bate-papos' ? 'open' : ''}`}>
+                <h1
+                  onClick={(e) => { e.preventDefault(); toggleSubmenu('bate-papos'); }}
+                  className="menu-title"
+                >
+                  Bate-Papos <span className="arrow">{openSubmenu === 'bate-papos' ? '^' : '˅'}</span>
                 </h1>
-                {openSubmenu === 'aulas' && (
+                {openSubmenu === 'bate-papos' && (
                   <ul className="submenu">
-                    <li><a href="">Duvidas <i class="fa-solid fa-message"></i></a></li>
-                    <li><a href="">Documentos 1 <i class="fa-solid fa-message"></i></a></li>
+                    <li><a href="">Duvidas <i className="fa-solid fa-message"></i></a></li>
+                    <li><a href="">Documentos 1 <i className="fa-solid fa-message"></i></a></li>
                   </ul>
                 )}
               </li>
-
-            </div>
+            </ul>
           </div>
-      <main className="chat-main" ref={chatBoxRef}>
-        {messages.map((message, index) => (
-          <div key={index} className={`message-row ${message.sender === userEmail.split('@')[0] ? 'align-right' : 'align-left'}`}>
-            <div className={`message-box ${message.sender === userEmail.split('@')[0] ? 'own-message' : 'other-message'}`}>
-              <div className="message-content">
-                <img className="avatar" src={`https://avatar.iran.liara.run/public/${(index + message.sender.length) % 30}`} alt="" />
-                <div className="message-text">
-                <p className="sender-name">
-                  {message.sender} - {message.role === "admin" ? "Admin" : "Estudante"}
-                </p>
+        </div>
 
-                <p>{message.content}</p>
-              </div>
+        <main className="chat-main" ref={chatBoxRef}>
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message-row ${message.sender === userEmail.split('@')[0] ? 'align-right' : 'align-left'}`}
+            >
+              <div className={`message-box ${message.sender === userEmail.split('@')[0] ? 'own-message' : 'other-message'}`}>
+                <div className="message-content">
+                  <img
+                    className="avatar"
+                    src={`https://avatar.iran.liara.run/public/${(index + message.sender.length) % 30}`}
+                    alt=""
+                  />
+                  <div className="message-text">
+                    <p className="sender-name">
+                      {message.sender} - {message.role === "admin" ? "Admin" : "Estudante"}
+                    </p>
+                    <p>{message.content}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </main>
-       </div>
+          ))}
+        </main>
+      </div>
 
       <div className="chat-input-container">
         <div className="chat-input-wrapper">
-          <input 
-            type="text" 
-            placeholder="Digite sua mensagem" 
-            className="chat-input" 
+          <input
+            type="text"
+            placeholder="Digite sua mensagem"
+            className="chat-input"
             value={input}
             onChange={handleInputChange}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             ref={inputRef}
           />
           <div className="chat-actions">
-            <button className='action-chat-button' onClick={handleFileChange}><i className="fa-solid fa-paperclip"></i></button>
-            <button className='action-chat-button' onClick={sendMessage}><i className="fa-solid fa-paper-plane"></i></button>
+            {/* Input file escondido */}
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
+            <button className='action-chat-button' onClick={handleAttachButtonClick}>
+              <MdAttachFile />
+            </button>
+            <button className='action-chat-button' onClick={sendMessage}>
+              <MdSend />
+            </button>
           </div>
         </div>
       </div>
