@@ -38,19 +38,10 @@ const Header = () => {
                 <>
                   <li><a href="/Profile">Perfil</a></li>
                   <li><a href="/cursos">Cursos</a></li>
+                  <li><a href="/chat">Chat</a></li>
 
 
-                  <li className={`menu-item ${openSubmenu === 'chat' ? 'open' : ''}`}>
-                    <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('chat'); }}>
-                      Chat <span className="arrow">{openSubmenu === 'chat' ? '^' : '˅'}</span>
-                    </a>
-                    {openSubmenu === 'chat' && (
-                      <ul className="submenu">
-                        <li><a href="/Chatmain">Entrar/Criar chat</a></li>
-                        <li><a href="/palestra">Palestra ao vivo</a></li>
-                      </ul>
-                    )}
-                  </li>
+              
 
                   <div className="avatar-header">
                     <img className="avatar" src="https://avatar.iran.liara.run/public/28" alt="" />
