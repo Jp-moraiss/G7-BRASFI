@@ -3,6 +3,7 @@ package com.g7.brasfi.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.g7.brasfi.domain.empresa.TamanhoEmpresa;
 import com.g7.brasfi.domain.pergunta.Pergunta;
 import com.g7.brasfi.repositories.PerguntaRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PerguntaService {
@@ -38,5 +41,13 @@ public class PerguntaService {
     	perguntaRepository.deleteAll();
     }
     
+    public void excluirByID(UUID id) {
+    	if(perguntaRepository.existsById(id)) {
+        	perguntaRepository.deleteById(id);
+    	}
+    	else {
+    		throw new EntityNotFoundException("Pergunta não encontrada com o ID: " + id);
+    	}
+    }
 
 }
