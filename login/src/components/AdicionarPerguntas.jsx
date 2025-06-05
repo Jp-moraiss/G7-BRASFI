@@ -5,7 +5,7 @@ const AdicionarPerguntas = () => {
   const [texto, setTexto] = useState('');
   const [publicoAlvo, setpublicoAlvo] = useState('');
   const [peso, setPeso] = useState(Number);
-  const [mensagem, setMensagem] = useState<string | null>(null);
+  const [mensagem, setMensagem] = useState();
   const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
 
   

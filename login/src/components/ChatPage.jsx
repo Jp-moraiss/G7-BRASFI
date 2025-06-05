@@ -16,7 +16,7 @@ const ChatPage = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [openSubmenu, setOpenSubmenu] = useState();
   const [availableRooms, setAvailableRooms] = useState([]);
   
   // Estados para o modal de criar sala
