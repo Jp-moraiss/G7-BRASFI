@@ -6,19 +6,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 // URL da API
 const API_URL = "http://localhost:8080";
 
-// Interface da pergunta
-interface Question {
-  id: string;
-  texto: string;
-  categoria: string;
-  peso: number;
-  tamanhosPermitidos: string[];
-  publicoAlvo: string;
-}
 
 const Questionario = () => {
-  const [question, setQuestion] = useState<Question | null>(null);
-  const [perguntas, setPerguntas] = useState<Question[]>([]);
+  const [perguntas, setPerguntas] = useState([]);
   const [error, setError] = useState<string>("");
 
   // Buscar perguntas da API ao montar o componente
