@@ -57,7 +57,7 @@ const ChatPage = () => {
       fetchMessages(storedRoomId);
       connectToWebsocket(storedRoomId);
     } else {
-      navigate('/chatmain');
+      navigate('/chat');
     }
 
     return () => {
@@ -221,7 +221,7 @@ const ChatPage = () => {
       stompClientRef.current.disconnect();
     }
     localStorage.removeItem("roomId");
-    navigate('/chatmain');
+    navigate('/chat');
   };
 
   // Função para filtrar e obter arquivos
