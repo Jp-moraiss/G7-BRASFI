@@ -8,7 +8,7 @@ const QuestionarioESG = () => {
 
   const cadastrarEmpresa = async () => {
     try {
-      const response = await fetch('http://localhost:8080/empresas', {
+      const response = await fetch('https://g7-brasfi.onrender.com/empresas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(empresa),
@@ -25,7 +25,7 @@ const QuestionarioESG = () => {
 
   const buscarPerguntas = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/perguntas`);
+      const response = await fetch(`https://g7-brasfi.onrender.com/perguntas`);
       const data = await response.json();
       setPerguntas(data);
     } catch (error) {
@@ -39,7 +39,7 @@ const QuestionarioESG = () => {
         const input = document.querySelector(`input[name="resposta-${pergunta.id}"]`);
         const respostaTexto = input ? input.value : '';
 
-        await fetch('http://localhost:8080/respostas', {
+        await fetch('https://g7-brasfi.onrender.com/respostas', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

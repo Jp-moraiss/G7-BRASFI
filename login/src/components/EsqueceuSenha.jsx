@@ -8,7 +8,7 @@ import logo  from "../../image/logoBRASFI.png";
 
 
 // URL da API para o Railway
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL || "https://g7-brasfi.onrender.com/";
 
 // Criação do contexto de autenticação
 export const AuthContext = createContext();

@@ -68,7 +68,7 @@ const ChatPage = () => {
   }, [navigate]);
 
   const fetchAvailableRooms = () => {
-    fetch("http://localhost:8080/api/v1/rooms")
+    fetch("https://g7-brasfi.onrender.com/api/v1/rooms")
       .then(res => res.json())
       .then(data => setAvailableRooms(data))
       .catch(err => console.error("Erro ao buscar salas:", err));
@@ -116,7 +116,7 @@ const ChatPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/rooms', {
+      const response = await fetch('https://g7-brasfi.onrender.com/api/v1/rooms', {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain'
@@ -144,7 +144,7 @@ const ChatPage = () => {
   };
 
   const connectToWebsocket = (roomId) => {
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS('https://g7-brasfi.onrender.com/ws');
     const client = Stomp.over(socket);
     client.debug = (msg) => console.log('[STOMP]', msg);
 
@@ -158,7 +158,7 @@ const ChatPage = () => {
 
   const fetchMessages = async (roomId) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/rooms/${roomId}/messages`);
+      const response = await fetch(`https://g7-brasfi.onrender.com/api/v1/rooms/${roomId}/messages`);
       if (response.ok) {
         const data = await response.json();
         setMessages(data);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import logo from "../../image/logoBRASFI.png";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "https://g7-brasfi.onrender.com";
 
 
 const EditProfile = () => {

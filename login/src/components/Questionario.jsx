@@ -4,7 +4,7 @@ import Axios from "axios";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // URL da API
-const API_URL = "http://localhost:8080";
+const API_URL = "https://g7-brasfi.onrender.com";
 
 
 const Questionario = () => {

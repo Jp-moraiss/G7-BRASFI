@@ -26,7 +26,7 @@ const AdicionarPerguntas = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/perguntas', {
+      const response = await fetch('https://g7-brasfi.onrender.com/perguntas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -39,7 +39,7 @@ const AdicionarCurso = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/cursos', {
+      const response = await fetch('https://g7-brasfi.onrender.com/cursos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

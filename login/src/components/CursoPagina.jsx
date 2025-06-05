@@ -18,7 +18,7 @@ export const CursoPagina = () => {
       return;
     }
 
-    fetch(`http://localhost:8080/cursos/${id}`)
+    fetch(`https://g7-brasfi.onrender.com/cursos/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Curso não encontrado');

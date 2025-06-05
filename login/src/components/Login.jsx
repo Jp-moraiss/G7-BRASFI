@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import logo from "../../image/logoBRASFI.png";
 
 // URL da API
-const API_URL = "http://localhost:8080";
+const API_URL = "https://g7-brasfi.onrender.com";
 
 
 // Criação do contexto de autenticação

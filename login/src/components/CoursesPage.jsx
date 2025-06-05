@@ -11,7 +11,7 @@ const CoursesPage = () => {
   const [isAdmin, setIsAdmin] = useState();
 
   useEffect(() => {
-    fetch('http://localhost:8080/cursos')
+    fetch('https://g7-brasfi.onrender.com/cursos')
       .then((response) => response.json())
       .then((data) => setCursos(data))
       .catch((error) => console.error('Erro ao buscar cursos:', error));

@@ -23,7 +23,7 @@ const AdicionarVideos = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/videos', {
+      const response = await fetch('https://g7-brasfi.onrender.com/videos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

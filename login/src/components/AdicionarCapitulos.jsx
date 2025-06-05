@@ -23,7 +23,7 @@ const AdicionarCapitulos = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/capitulos', {
+      const response = await fetch('https://g7-brasfi.onrender.com/capitulos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

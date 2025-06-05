@@ -34,7 +34,7 @@ const JoinCreateChat = () => {
 
     try {
       // Check if the room exists
-      const response = await fetch(`http://localhost:8080/api/v1/rooms/${roomIdInput}`);
+      const response = await fetch(`https://g7-brasfi.onrender.com/api/v1/rooms/${roomIdInput}`);
       
       if (response.ok) {
         // Save roomId to localStorage and navigate to chat page
@@ -57,7 +57,7 @@ const JoinCreateChat = () => {
 
     try {
       // Create a new room
-      const response = await fetch('http://localhost:8080/api/v1/rooms', {
+      const response = await fetch('https://g7-brasfi.onrender.com/api/v1/rooms', {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain'
