@@ -10,5 +10,4 @@ public interface UserRepository extends JpaRepository<User, String>{
 	
 	UserDetails findByCpf(String cpf);
 	
-
 }
