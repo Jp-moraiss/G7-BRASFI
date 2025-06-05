@@ -7,21 +7,32 @@ import Profile from "./Profile";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import logo from "../../image/logoBRASFI.png";
 
-// URL da API
-const API_URL = "https://g7-brasfi.onrender.com";
+// URL da API - Configurar baseado no ambiente
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? "https://g7-brasfi.onrender.com" 
+  : "http://localhost:8080"; // ou a porta do seu backend local
 
+// Configurar Axios globalmente
+Axios.defaults.withCredentials = true;
+Axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 // Criação do contexto de autenticação
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState();
+  const [user, setUser] = useState(null); // Inicializar com null
+  const [loading, setLoading] = useState(false); // Inicializar com false
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Erro ao analisar dados do usuário:", error);
+        localStorage.removeItem('user');
+      }
     }
   }, []);
 
@@ -38,8 +49,8 @@ export const AuthProvider = ({ children }) => {
 };
 
 const Login = () => {
-  const [localUser, setLocalUser] = useState();
-  const [localLoading, setLocalLoading] = useState();
+  const [localUser, setLocalUser] = useState(null);
+  const [localLoading, setLocalLoading] = useState(false);
   const [error, setError] = useState("");
 
   // Contexto de autenticação
@@ -62,32 +73,62 @@ const Login = () => {
     setError("");
 
     try {
+      console.log("Tentando fazer login...", { email: values.email });
+      
       const response = await Axios.post(`${API_URL}/auth/login`, {
         login: values.email,
         password: values.password,
-        role: values.role
+        // Removido role se não for necessário
       });
 
-      if (response.data) {
-        const token = response.data.token;
-        const decoded = decodeJwtPayload(token);
-        const role = decoded?.role || "USER";
+      console.log("Resposta do login:", response.data);
 
-        const userData = {
-          id: response.data.id,
-          email: response.data.email,
-          name: response.data.name,
-          role: role,
-          authenticated: true,
-        };
+      if (response.data) {
+        let userData;
+        
+        // Verificar se há token na resposta
+        if (response.data.token) {
+          const decoded = decodeJwtPayload(response.data.token);
+          const role = decoded?.role || "USER";
+          
+          userData = {
+            id: response.data.id,
+            email: response.data.email,
+            name: response.data.name,
+            role: role,
+            token: response.data.token,
+            authenticated: true,
+          };
+        } else {
+          // Caso não tenha token
+          userData = {
+            id: response.data.id,
+            email: response.data.email,
+            name: response.data.name,
+            role: response.data.role || "USER",
+            authenticated: true,
+          };
+        }
 
         setUser(userData);
         localStorage.setItem("user", JSON.stringify(userData));
         return true;
       }
     } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      setError(error.response?.data?.message || "Credenciais inválidas");
+      console.error("Erro detalhado ao fazer login:", error);
+      
+      // Tratamento mais específico de erros
+      if (error.code === 'ERR_NETWORK') {
+        setError("Erro de conexão. Verifique sua internet e tente novamente.");
+      } else if (error.response) {
+        // Erro da API
+        const message = error.response.data?.message || 
+                       error.response.data?.error || 
+                       "Credenciais inválidas";
+        setError(message);
+      } else {
+        setError("Erro inesperado. Tente novamente.");
+      }
       return false;
     } finally {
       setLoading(false);
@@ -106,7 +147,9 @@ const Login = () => {
     }
   };
 
-  // Recupera usuário do localStorage
+  // Recupera usuário do localStorage - Remover este useEffect duplicado
+  // já está sendo feito no AuthProvider
+  /*
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -122,6 +165,7 @@ const Login = () => {
       }
     }
   }, [setUser]);
+  */
 
   // Redireciona para perfil se autenticado
   if (user && user.authenticated) {
@@ -145,14 +189,14 @@ const Login = () => {
         {error && <p className="error-message">{error}</p>}
 
         <Formik
-          initialValues={{ email: "", password: "", role: "" }}
+          initialValues={{ email: "", password: "" }} // Removido role se não necessário
           onSubmit={handleClickLogin}
           validationSchema={validationLogin}
         >
           <Form className="login-form">
             <div className="login-form-group">
               <p>E-mail *</p>
-              <Field name="email" className="form-field" />
+              <Field name="email" type="email" className="form-field" />
               <ErrorMessage component="span" name="email" className="form-error" />
             </div>
 
@@ -183,7 +227,7 @@ const Login = () => {
         </Formik>
 
         <div className="google">
-          <button className="google-button">
+          <button className="google-button" type="button">
             <img
               src="https://developers.google.com/identity/images/g-logo.png"
               alt="Google"
