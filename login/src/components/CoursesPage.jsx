@@ -5,7 +5,7 @@ import { faSection, faVideo, faBook } from '@fortawesome/free-solid-svg-icons';
 const CoursesPage = () => {
   const [cursos, setCursos] = useState([]);
   const [filtro, setFiltro] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState();
   const [userEmail, setUserEmail] = useState('');
   const [user, setUser] = useState('');
   const [isAdmin, setIsAdmin] = useState();

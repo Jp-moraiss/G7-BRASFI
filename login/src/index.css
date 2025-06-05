@@ -4,7 +4,7 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #0F230A;
+  background-color: white;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -175,6 +175,15 @@ h1 {
 .cabecalho-edit-img img {
   width: 100px;
 }
+.cabecalho-img-esqueceuSenha {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.cabecalho-img-esqueceuSenha img{
+  width: 150px;
+}
 .form-input {
   width: 100%;
   height: 48px;
@@ -248,6 +257,11 @@ input[type="radio"]:checked {
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: bold;
   align-items: center;
+  transition: 0.4s all ease-in-out;
+}
+
+.google-button:hover{
+  transform: scale(1.1);
 }
 .google {
   display: flex;
@@ -298,6 +312,28 @@ input[type="radio"]:checked {
   flex: 1;
   border-bottom: 1px solid gray;
 }
+
+
+.divider-login {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+  margin: 20px 0;
+}
+.divider-login::before,
+.divider-login::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #000000;
+}
+.divider-login::before {
+  margin-right: 10px;
+}
+.divider-login::after {
+  margin-left: 10px;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -397,9 +433,7 @@ input[type="radio"]:checked {
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
-.login-button:hover {
-  background: linear-gradient(135deg, #146e24, #02440e);
-}
+
 .register-button {
   background: linear-gradient(135deg, #146e24, #02440e);
   color: white;
@@ -414,9 +448,7 @@ input[type="radio"]:checked {
   margin-bottom: 10px;
   width: 100%;
 }
-.register-button:hover {
-  background: linear-gradient(135deg, #146e24, #02440e);
-}
+
 .register-text h2{
   color: white;
 }
@@ -1501,9 +1533,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-button:hover {
-  background-color: #27ae60;
-}
+
 #perguntasContainer {
   margin-top: 30px;
   padding: 20px;
@@ -1764,6 +1794,7 @@ input[placeholder="Pesquisar..."],
   gap: 20px;
   color: #000;
   margin-top: 50px;
+  background-color: w;
 }
 .perguntas-container{
   margin-top: 200px;
@@ -2697,4 +2728,129 @@ input[placeholder="Pesquisar..."],
     border-color: #777777;
   }
 }
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+    padding: 20px;
+  }
+
+  .login-box {
+    width: 100% !important;
+    min-width: unset;
+    height: auto;
+    padding: 20px;
+  }
+
+  .cabecalho-img {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cabecalho-img img {
+    width: 150px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .options-login {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .google-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .register-link p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 15px;
+  }
+
+  .cabecalho-login h1 {
+    font-size: 20px;
+  }
+
+  .cabecalho-login p,
+  .options-login p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .password-container {
+    flex-direction: column;
+    padding: 20px;
+    height: auto;
+  }
+
+  .password-box {
+    width: 100% !important;
+    min-width: unset;
+    padding: 20px;
+  }
+
+  .cabecalho-img-esqueceuSenha img {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+
+  .cabecalho-login h1 {
+    font-size: 22px;
+  }
+
+  .cabecalho-login p {
+    font-size: 14px;
+  }
+
+  .register-button {
+    width: 100%;
+  }
+
+  .register-link p {
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .password-box {
+    padding: 15px;
+  }
+
+  .cabecalho-login h1 {
+    font-size: 18px;
+  }
+
+  .cabecalho-login p {
+    font-size: 12px;
+  }
+
+  .form-field {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .register-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+
 

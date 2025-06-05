@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const QuestionarioESG = () => {
   const [empresa, setEmpresa] = useState({ nome: '', tamanho: 'MICRO' });
@@ -6,6 +6,8 @@ const QuestionarioESG = () => {
   const [empresaSalva, setEmpresaSalva] = useState(null);
   const [perguntas, setPerguntas] = useState([]);
   const [isAdmin, setIsAdmin] = useState();
+  const [userEmail, setUserEmail] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
   useEffect(() => {

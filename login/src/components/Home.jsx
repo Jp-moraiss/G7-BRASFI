@@ -9,7 +9,7 @@ import SecctionTurmas from "./SecctionTurmas";
 const Home = () => {
 
     return (
-       <div >
+       <div style={{backgroundColor: '#0F230A'}} >
         <div className="homeContainer">
          <div className="gradientOverlay"></div>
             <div className="initialText">

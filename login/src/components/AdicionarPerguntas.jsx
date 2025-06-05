@@ -49,8 +49,9 @@ const AdicionarPerguntas = () => {
   };
 
   return (
-    <div className='perguntas-container'>
-      <div className="box-adicionar-curso">
+    <div style={{backgroundColor: 'white'}}>
+    <div className='perguntas-container' >
+      <div className="box-adicionar-curso" >
         <div className="cabecalho-adicionar-curso">
           <h1>Adicionar Perguntas no Questionnario</h1>
           <p>Preencha os dados para adicionar perguntas</p>
@@ -109,6 +110,7 @@ const AdicionarPerguntas = () => {
           SALVAR
         </button>
       </div>
+    </div>
     </div>
   );
 };

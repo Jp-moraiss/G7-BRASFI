@@ -14,8 +14,8 @@ const API_URL = import.meta.env.VITE_API_URL || "https://g7-brasfi.onrender.com/
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -38,9 +38,9 @@ export const AuthProvider = ({ children }) => {
 
 const EsqueceuSenha = () => {
   // Estado local para controle do usuário
-  const [localUser, setLocalUser] = useState<User | null>(null);
-  const [localLoading, setLocalLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  const [localUser, setLocalUser] = useState();
+  const [localLoading, setLocalLoading] = useState(false);
+  const [error, setError] = useState('');
   
   // Tenta usar o contexto se disponível
   const authContext = useContext(AuthContext);
@@ -118,7 +118,7 @@ const EsqueceuSenha = () => {
     <div className="password-container">
       <div className="password-box">
         <div className="cabecalho-login">
-          <div className="cabecalho-img">
+          <div className="cabecalho-img-esqueceuSenha">
             <img src={logo} alt="" />
           </div>
           <div className="cabecalho-text">

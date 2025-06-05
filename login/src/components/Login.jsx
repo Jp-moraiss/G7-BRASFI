@@ -220,9 +220,10 @@ const Login = () => {
               {loading ? "Carregando..." : "LOGIN"}
             </button>
 
-            <div className="divider">
+            <div className="divider-login">
               <span>ou</span>
             </div>
+            
           </Form>
         </Formik>
 
