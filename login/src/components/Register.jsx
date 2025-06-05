@@ -184,16 +184,6 @@ const Register = () => {
       .replace(/(-\d{2})\d+?$/, '$1');
   };
 
-  // Função para formatar telefone
-  const formatPhone = (value) => {
-    return value
-      .replace(/\D/g, '')
-      .replace(/(\d{2})(\d)/, '($1) $2')
-      .replace(/(\d{4})(\d)/, '$1-$2')
-      .replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3')
-      .replace(/(-\d{4})\d+?$/, '$1');
-  };
-
   // Se o usuário já está autenticado, redireciona para o perfil
   if (user && user.authenticated) {
     return <Profile />;
@@ -254,10 +244,6 @@ const Register = () => {
                       id="phone" 
                       name="phone" 
                       className="form-field"
-                      onChange={(e) => {
-                        const formatted = formatPhone(e.target.value);
-                        setFieldValue('phone', formatted);
-                      }}
                       placeholder="(11) 99999-9999"
                     />
                     <ErrorMessage component="span" name="phone" className="form-error" />
