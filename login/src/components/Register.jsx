@@ -53,9 +53,6 @@ const validationRegisterFull = yup.object().shape({
   fullName: yup.string()
     .min(2, 'Nome deve ter pelo menos 2 caracteres')
     .required('Campo obrigatório'),
-  phone: yup.string()
-    .matches(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, 'Formato: (11) 99999-9999')
-    .required('Campo obrigatório'),
   cpf: yup.string()
     .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'Formato: 000.000.000-00')
     .required('Campo obrigatório'),
