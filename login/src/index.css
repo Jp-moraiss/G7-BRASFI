@@ -2852,5 +2852,80 @@ input[placeholder="Pesquisar..."],
   }
 }
 
+/* Responsividade para tablets e celulares */
+@media (max-width: 1024px) {
+  .chatpage-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chat-wrapper {
+    flex-direction: column;
+  }
+
+  .roomslist,
+  .optionslist,
+  .files-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .roombox,
+  .roombox-add,
+  .roombox-logout {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+
+  .chat-main {
+    flex: 1;
+    min-height: 300px;
+    padding: 10px;
+  }
+
+  .chat-input-wrapper {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .chat-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .chat-input-wrapper {
+    padding: 8px;
+  }
+
+  .chat-main {
+    padding: 5px;
+  }
+
+  .roomslist,
+  .optionslist,
+  .files-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: visible;
+  }
+
+  .roombox,
+  .roombox-add,
+  .roombox-logout {
+    margin-bottom: 8px;
+    margin-right: 0;
+  }
+
+  .attach-btn,
+  .send-btn {
+    width: 100%;
+  }
+}
 
 
