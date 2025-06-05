@@ -19,6 +19,7 @@ const Questionario = () => {
         setPerguntas(response.data);
       } catch (err) {
         console.error("Erro ao buscar perguntas:", err);
+        {isA}
         setError("Erro ao carregar perguntas.");
       }
     };

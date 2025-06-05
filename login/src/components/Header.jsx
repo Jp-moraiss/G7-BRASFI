@@ -34,6 +34,9 @@ const Header = () => {
           <nav className="menu">
             <ul>
               <li><a href="/">Início</a></li>
+              {!isAuthenticated && (
+                <li><a href="/login">Registrar</a></li>
+              )}
               {isAuthenticated && (
                 <>
                   <li><a href="/Profile">Perfil</a></li>

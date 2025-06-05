@@ -5,6 +5,24 @@ const QuestionarioESG = () => {
   const [empresaStatus, setEmpresaStatus] = useState('');
   const [empresaSalva, setEmpresaSalva] = useState(null);
   const [perguntas, setPerguntas] = useState([]);
+  const [isAdmin, setIsAdmin] = useState();
+
+
+  useEffect(() => {
+      // Carregar usuário
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          const email = parsedUser.email || parsedUser.login || "";
+          setUserEmail(email);
+          setIsAuthenticated(true);
+          setIsAdmin(parsedUser.role === "admin" || parsedUser.role === "ADMIN");
+        } catch (error) {
+          console.error("Erro ao carregar dados do usuário:", error);
+        }
+      }})
+      
 
   const cadastrarEmpresa = async () => {
     try {
@@ -85,7 +103,11 @@ const QuestionarioESG = () => {
         <br />
         <div className="button-questionary">
           <button onClick={cadastrarEmpresa}>Cadastrar</button>
-          <a href="/AdicionarPerguntas"><button>Cadastrar Perguntas</button></a>
+          
+          {isAdmin && (
+            <a href="/AdicionarPerguntas"><button>Cadastrar Perguntas</button></a>
+          )}
+          
         </div>
       </div>
       <p>{empresaStatus}</p>

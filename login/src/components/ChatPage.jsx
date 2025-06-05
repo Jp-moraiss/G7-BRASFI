@@ -13,7 +13,7 @@ const ChatPage = () => {
   const [roomId, setRoomId] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState();
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [openSubmenu, setOpenSubmenu] = useState();
