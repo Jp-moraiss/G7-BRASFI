@@ -7,6 +7,8 @@ import com.g7.brasfi.domain.empresa.Empresa;
 import com.g7.brasfi.domain.pergunta.Pergunta;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,8 +29,11 @@ public class Resposta {
     @ManyToOne
     @JoinColumn(name = "pergunta_id")
     private Pergunta pergunta;
-
-    private String respostaTexto;
+    
+    @Enumerated(EnumType.STRING)
+    private OpcaoResposta respostaOpcao; // SIM, NAO ou OUTRO
+    
+    private String respostaTexto; // SÓ USADO SE FOR OUTRO 
     
     // Construtor vazio obrigatório para JPA
     public Resposta() {
@@ -70,4 +75,10 @@ public class Resposta {
     public void setRespostaTexto(String respostaTexto) { 
     	this.respostaTexto = respostaTexto; 
     	}
+    public OpcaoResposta getRespostaOpcao() {
+        return respostaOpcao;
+    }
+    public void setRespostaOpcao(OpcaoResposta respostaOpcao) {
+        this.respostaOpcao = respostaOpcao;
+    }
 }
