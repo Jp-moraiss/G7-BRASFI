@@ -2,7 +2,7 @@ import Divider from "./Divider";
 import HubDeNetwork from "./HubDeNetwork";
 import HubDeProjeto from "./HubDeProjeto";
 import LeiaMais from "./LeiaMais";
-import Secction from "./secction";
+import Secction from "./Secction";
 import SecctionTurmas from "./SecctionTurmas";
 
 

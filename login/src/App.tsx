@@ -1,25 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Login from './components/Login';
-import Profile from './components/Profile';
-import Home from './components/Home';
-import Register from './components/Register';
-import EsqueceuSenha from './components/EsqueceuSenha.js';
-import Questionario from './components/Questionario';
-import JoinCreateChat from './components/JoinCreateChat';
-import ChatPage from './components/ChatPage';
+import Login from './components/Login.jsx';
+import Profile from './components/Profile.jsx';
+import Home from './components/Home.jsx';
+import Register from './components/Register.jsx';
+import EsqueceuSenha from './components/EsqueceuSenha.jsx';
+import Questionario from './components/Questionario.jsx';
+import JoinCreateChat from './components/JoinCreateChat.jsx';
+import ChatPage from './components/ChatPage.jsx';
 import { ChatProvider } from './context/ChatContext';
-import Header from './components/Header';
-import QuestionarioESG from './components/QuestionarioESG.js';
+import Header from './components/Header.jsx';
+import QuestionarioESG from './components/QuestionarioESG.jsx';
 
-import { CursoPagina } from './components/CursoPagina.js';
-import CoursesPage from './components/CoursesPage.js';
-import EditProfile from './components/EditProfile.js';
-import AdicionarCurso from './components/AdicionarCurso.js';
-import EditarCurso from './components/AdicionarCapitulos.js';
-import AdicionarCapitulos from './components/AdicionarCapitulos.js';
-import AdicionarVideos from './components/AdicionarVideos.js';
-import AdicionarPerguntas from './components/AdicionarPerguntas.js';
+import { CursoPagina } from './components/CursoPagina.jsx';
+import CoursesPage from './components/CoursesPage.jsx';
+import EditProfile from './components/EditProfile.jsx';
+import AdicionarCurso from './components/AdicionarCurso.jsx';
+import EditarCurso from './components/AdicionarCapitulos.jsx';
+import AdicionarCapitulos from './components/AdicionarCapitulos.jsx';
+import AdicionarVideos from './components/AdicionarVideos.jsx';
+import AdicionarPerguntas from './components/AdicionarPerguntas.jsx';
 
 
 const App = () => {
