@@ -2060,6 +2060,7 @@ input[placeholder="Pesquisar..."],
   .historiaTexts {
     width: 90%;
     text-align: center;
+    color: white;
   }
 
   .historiaTexts p {
@@ -2320,7 +2321,7 @@ input[placeholder="Pesquisar..."],
   max-width: 1200px;
   min-width: 320px;
   padding: 40px;
-  color: #333;
+  color: #000000;
   box-sizing: border-box;
   margin: 20px auto;
 }
@@ -2344,7 +2345,7 @@ input[placeholder="Pesquisar..."],
   margin: 0 0 8px 0;
   font-size: 2rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
 .cabecalho-text-register p {
