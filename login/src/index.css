@@ -2671,7 +2671,7 @@ input[placeholder="Pesquisar..."],
 /* Modo escuro */
 @media (prefers-color-scheme: light) {
   .register-box {
-    background-color: rgba(30, 30, 30, 0.95);
+    background-color: rgba(0, 0, 0, 0.95);
     color: #e0e0e0;
   }
   
