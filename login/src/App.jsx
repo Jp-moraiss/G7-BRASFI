@@ -8,7 +8,7 @@ import EsqueceuSenha from './components/EsqueceuSenha.jsx';
 import Questionario from './components/Questionario.jsx';
 import JoinCreateChat from './components/JoinCreateChat.jsx';
 import ChatPage from './components/ChatPage.jsx';
-import { ChatProvider } from './context/ChatContext';
+import { ChatProvider } from './context/ChatContext.jsx';
 import Header from './components/Header.jsx';
 import QuestionarioESG from './components/QuestionarioESG.jsx';
 
