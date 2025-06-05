@@ -7,8 +7,9 @@ const SecctionTurmas = () => {
       <div className="historiaBox">
              <div className="historiaTexts">
                 <p>FAÇA PARTE</p>
-                <h1>TURMAS JÁ FORMADAS</h1>
-                <h3>To start, print out the hiking guide and map. If it’s raining, throw them in a Zip-Lock bag. Read over the guide, study the map, and have a good idea of what to expect. I like to know what my next landmark is as I hike. For example, I’ll read the guide and know that say, in a mile, I make a right turn at the junction..</h3>
+                <h1>ENTRE NESSA JORNADA COM A GENTE</h1>
+                <h3>Acreditamos em pessoas que querem transformar o mundo com propósito. Na BRASFI, você pode aprender, se conectar e criar soluções reais.
+Estudante, investidor ou agente de mudança — tem espaço pra você aqui.</h3>
                 <LeiaMais />
             </div> 
         </div>

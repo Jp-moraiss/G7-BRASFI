@@ -6,8 +6,8 @@ const HubDeNetwork = () => {
     <div>
       <div className="historiaBox">
              <div className="historiaTexts">
-                <h1>Hub de Network</h1>
-                <h3>Disseminação de conhecimento e fortalicimento da rede de líders</h3>
+                <h1>Hub de Networking</h1>
+                <h3>Facilita a criação de um ecossistema entre profissionais e acadêmicos para o fortalecimento de uma rede de líderes e disseminação de conhecimentos em finanças e investimentos sustentáveis.</h3>
                 <LeiaMais />
             </div> 
         </div>

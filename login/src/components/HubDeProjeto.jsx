@@ -4,11 +4,11 @@ import LeiaMais from './LeiaMais'
 const HubDeProjeto = () => {
   return (
     <div>
+      
       <div className="historiaBox">
              <div className="historiaTexts">
-                <p>Como Atuamos ?</p>
                 <h1>Hub de Projetos</h1>
-                <h3>Desenvolve soluções práticas</h3>
+                <h3>Como eixo central para gerenciamento dos contratos de projetos formalizados com demais instituições, atua no desenvolvimento e estruturação de projetos da concepção à implementação.</h3>
                 <LeiaMais />
             </div> 
         </div>

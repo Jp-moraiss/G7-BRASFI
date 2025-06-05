@@ -18,6 +18,7 @@ import EditarCurso from './components/AdicionarCapitulos.jsx';
 import AdicionarCapitulos from './components/AdicionarCapitulos.jsx';
 import AdicionarVideos from './components/AdicionarVideos.jsx';
 import AdicionarPerguntas from './components/AdicionarPerguntas.jsx';
+import BrasfiFooter from './components/BrasfiFooter.jsx';
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>
+      <BrasfiFooter />
     </div>
   );
 };
