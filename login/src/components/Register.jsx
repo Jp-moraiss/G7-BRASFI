@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import icon from "../../image/icon.png";
 
 // URL da API para o Railway
-const API_URL = import.meta.env.VITE_API_URL || "https://g7-brasfi.onrender.com";
+const API_URL = "100.20.92.101" || "https://g7-brasfi.onrender.com";
 
 
 // Contexto de autenticação
