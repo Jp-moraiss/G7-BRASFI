@@ -3,10 +3,10 @@ import React, { useRef, useState } from 'react';
 const AdicionarCurso = () => {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [imagem, setImagem] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [mensagem, setMensagem] = useState<string | null>(null);
-  const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
+  const [imagem, setImagem] = useState();
+  const [preview, setPreview] = useState();
+  const [mensagem, setMensagem] = useState();
+  const [tipoMensagem, setTipoMensagem] = useState();
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];

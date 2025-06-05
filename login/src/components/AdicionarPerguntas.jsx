@@ -4,9 +4,9 @@ const AdicionarPerguntas = () => {
   const [categoria, setCategoria] = useState('');
   const [texto, setTexto] = useState('');
   const [publicoAlvo, setpublicoAlvo] = useState('');
-  const [peso, setPeso] = useState(Number);
+  const [peso, setPeso] = useState();
   const [mensagem, setMensagem] = useState();
-  const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
+  const [tipoMensagem, setTipoMensagem] = useState();
 
   
   const handleSubmit = async () => {

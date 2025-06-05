@@ -4,8 +4,8 @@ const AdicionarVideos = () => {
   const [titulo, setTitulo] = useState('');
   const [url, setUrl] = useState('');
   const [id, setId] = useState('');
-  const [mensagem, setMensagem] = useState<string | null>(null);
-  const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
+  const [mensagem, setMensagem] = useState();
+  const [tipoMensagem, setTipoMensagem] = useState();
 
   const handleSubmit = async () => {
     if (!titulo || !url || !id) {

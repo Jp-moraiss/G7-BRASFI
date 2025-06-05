@@ -1715,6 +1715,7 @@ input[placeholder="Pesquisar..."],
 }
 .cursos-bottoes {
   display: flex;
+  gap: 16px;
 }
 .botaoEditar {
   display: flex;
@@ -1894,7 +1895,7 @@ input[placeholder="Pesquisar..."],
 .homeContainer {
   position: relative;
   width: 100%;
-  height: 800px; /* ou o tamanho desejado da seção */
+  height: 800px;
   overflow: hidden;
   background-image: linear-gradient(#0B1D26, #0F230A);
 }
@@ -1906,7 +1907,7 @@ input[placeholder="Pesquisar..."],
   width: 100%;
   height: 100%;
   background: linear-gradient(#0B1D26, #0F230A);
-  opacity: 0.6; /* ajuste conforme necessário */
+  opacity: 0.6;
   z-index: 1;
 }
 
@@ -1921,7 +1922,7 @@ input[placeholder="Pesquisar..."],
 .initialText {
   position: relative;
   width: 100%;
-  height: 100%; 
+  height: 100%;
 }
 
 .boxBrasfi {
@@ -1939,14 +1940,13 @@ input[placeholder="Pesquisar..."],
 
 .dividerBrasfi p {
   color: #FFC847;
-  font-family: "Arial, Helvetica, sans-serif;"
+  font-family: "Arial, Helvetica, sans-serif";
 }
 
 .box-informacoes-brasfi p {
   margin-top: 20px;
 }
 
-/* Divider */
 .divider {
   width: 10%;
   background-color: #FFC847;
@@ -1975,7 +1975,7 @@ input[placeholder="Pesquisar..."],
   margin-top: 10px;
 }
 
-.leiamais{
+.leiamais {
   display: flex;
   align-items: center;
 }
@@ -1984,7 +1984,7 @@ input[placeholder="Pesquisar..."],
   margin-left: 10px;
 }
 
-.leiamais h4  {
+.leiamais h4 {
   margin-top: 15px;
   color: #FFC847;
   cursor: pointer;
@@ -1996,18 +1996,277 @@ input[placeholder="Pesquisar..."],
   justify-content: center;
   margin-top: 50px;
   gap: 200px;
+  flex-wrap: wrap;
+  padding: 1rem;
 }
 
-.historiaImage img {
-  width: 500px;
-  height: 100%;
-  margin-left: 50px;
-}
-
+.historiaImage img,
 .sessoesImage img {
-  width: 500px;
-  height: 100%;
-  margin-left: 50px;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-left: 0;
 }
 
+/* Responsividade */
+@media (max-width: 1024px) {
+  .boxBrasfi {
+    width: 90%;
+    top: 25%;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .dividerBrasfi {
+    justify-content: center;
+  }
+
+  .historiaBox {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .historiaTexts {
+    width: 90%;
+    text-align: center;
+  }
+
+  .historiaTexts p {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .homeContainer {
+    height: auto;
+  }
+
+  .boxBrasfi h1 {
+    font-size: 1.5rem;
+  }
+
+  .box-informacoes-brasfi p {
+    font-size: 1rem;
+  }
+
+  .divider {
+    width: 20%;
+  }
+
+  .historiaImage img,
+  .sessoesImage img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .historiaTexts p {
+    font-size: 20px;
+  }
+
+  .historiaTexts h3 {
+    font-size: 1rem;
+  }
+}
+
+
+/* CSS */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: transparent;
+  color: #000;
+  transition: 0.3s;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsividade */
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  .menu.open {
+    max-height: 500px;
+    padding: 1rem 0;
+  }
+
+  .menu ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .cabecalhoCursos h1 {
+    font-size: 1.5rem;
+  }
+
+  .cursos-serach {
+    flex-direction: column;
+  }
+
+  .botaoEditar button {
+    width: 100%;
+  }
+
+  .cursos-bottoes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-profile {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 20px;
+  }
+
+  .profile-layout {
+    align-items: center;
+    width: 100%;
+  }
+
+  .profile-container,
+  .achievements-container,
+  .box-modules {
+    width: 90%;
+    max-width: 500px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 40px;
+  }
+
+  .bar-progress {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .achievements-box {
+    gap: 40px;
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    height: auto;
+    padding: 20px;
+  }
+
+  .profile-informations {
+    gap: 30px;
+  }
+
+  .profile-avatar img {
+    width: 100px;
+  }
+
+  .achievements-container {
+    height: auto;
+    padding: 20px;
+  }
+
+  .achievements-box {
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .buttons-profile,
+  .profile-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .button-logout button,
+  .button-edit button {
+    width: 100%;
+  }
+
+  .box-modules {
+    height: auto;
+    padding: 20px;
+  }
+
+  .course-informations {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .course-image-module img {
+    width: 80px;
+  }
+
+  .bar-progress {
+    height: 20px;
+  }
+
+  .bar-progress p {
+    font-size: 10px;
+  }
+
+  .achivements-header h1 {
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-informacoes h1 {
+    font-size: 16px;
+  }
+
+  .achievements-text h1,
+  .box-informations-course h1 {
+    font-size: 13px;
+  }
+
+  .module-text-course,
+  .description-text-course {
+    font-size: 11px;
+  }
+
+  .bar-progress {
+    height: 18px;
+  }
+}
 
