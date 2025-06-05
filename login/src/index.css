@@ -2676,17 +2676,17 @@ input[placeholder="Pesquisar..."],
   }
   
   .cabecalho-text-register h1 {
-    color: #ffffff;
+    color: #000000;
   }
   
   .form-group label {
-    color: #e0e0e0;
+    color: #000000;
   }
   
   .form-field {
     background-color: #ffffff;
     border-color: #555555;
-    color: #ffffff;
+    color: #000000;
   }
   
   .form-field:focus {
