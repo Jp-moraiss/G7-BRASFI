@@ -2,6 +2,7 @@ package com.g7.brasfi.chat.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,8 @@ import com.g7.brasfi.chat.repositories.RoomRepository;
 @Service
 public class RoomService {
 
-    private final RoomRepository roomRepository;
-
-    public RoomService(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
-    }
+	@Autowired
+    private RoomRepository roomRepository;
 
     @Transactional
     public Room createRoom(String roomId) {
