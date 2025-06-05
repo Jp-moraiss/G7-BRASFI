@@ -2671,8 +2671,8 @@ input[placeholder="Pesquisar..."],
 /* Modo escuro */
 @media (prefers-color-scheme: light) {
   .register-box {
-    background-color: rgba(0, 0, 0, 0.95);
-    color: #e0e0e0;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000000;
   }
   
   .cabecalho-text-register h1 {
