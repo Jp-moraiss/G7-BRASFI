@@ -2270,3 +2270,431 @@ input[placeholder="Pesquisar..."],
   }
 }
 
+/* Estilos base para o container */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilos para a caixa de registro */
+.register-box {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
+  min-width: 320px;
+  padding: 40px;
+  color: #333;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+/* Cabeçalho do registro */
+.cabecalho-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 15px;
+}
+
+.cabecalho-icon img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.cabecalho-text-register h1 {
+  margin: 0 0 8px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.cabecalho-text-register p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+/* Formulário */
+.registration-form {
+  width: 100%;
+}
+
+/* Linhas do formulário */
+.form-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-column {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Grupos de formulário */
+.form-group {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-group label p {
+  display: inline;
+  margin: 0;
+}
+
+.required {
+  color: #e74c3c;
+  margin-left: 4px;
+}
+
+/* Campos de entrada */
+.form-field {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.form-field:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-field:hover {
+  border-color: #bdc3c7;
+}
+
+/* Opções de rádio */
+.options-login {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.options-login label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.radio-input {
+  width: auto;
+  margin: 0;
+  accent-color: #3498db;
+}
+
+.radio-label {
+  margin-left: 0;
+}
+
+/* Mensagens de erro */
+.form-error {
+  display: block;
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Dica para senha secreta */
+.form-hint {
+  display: block;
+  color: #7f8c8d;
+  font-size: 12px;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Mensagens de sucesso e erro */
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb;
+  text-align: center;
+  font-weight: 500;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Botão de registro */
+.register-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.register-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2980b9, #1f4e79);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.register-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Link de login */
+.register-link {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.register-link a {
+  text-decoration: none;
+  color: #7f8c8d;
+  transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+  color: #3498db;
+}
+
+.register-link p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.register-link strong {
+  color: #3498db;
+  font-weight: 600;
+}
+
+/* RESPONSIVIDADE */
+
+/* Tablets grandes e desktops pequenos */
+@media (max-width: 1024px) {
+  .register-box {
+    max-width: 900px;
+    padding: 35px;
+  }
+  
+  .cabecalho-text-register h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 15px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+  
+  .register-box {
+    max-width: 600px;
+    padding: 30px;
+    margin: 0 auto;
+  }
+  
+  .cabecalho-register {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .cabecalho-text-register h1 {
+    font-size: 1.6rem;
+  }
+  
+  .form-row {
+    gap: 16px;
+  }
+  
+  .options-login {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+}
+
+/* Smartphones grandes */
+@media (max-width: 600px) {
+  .register-container {
+    padding: 10px;
+    padding-top: 30px;
+  }
+  
+  .register-box {
+    padding: 25px;
+    border-radius: 8px;
+  }
+  
+  .cabecalho-icon img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .cabecalho-text-register h1 {
+    font-size: 1.4rem;
+  }
+  
+  .cabecalho-text-register p {
+    font-size: 0.9rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .options-login {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-field {
+    padding: 14px 16px;
+    font-size: 16px; /* Evita zoom no iOS */
+  }
+  
+  .register-button {
+    padding: 18px;
+    font-size: 16px;
+  }
+}
+
+/* Smartphones pequenos */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 8px;
+    padding-top: 20px;
+  }
+  
+  .register-box {
+    padding: 20px;
+    min-width: 280px;
+  }
+  
+  .cabecalho-text-register h1 {
+    font-size: 1.3rem;
+  }
+  
+  .cabecalho-text-register p {
+    font-size: 0.85rem;
+  }
+  
+  .form-field {
+    padding: 12px 14px;
+  }
+  
+  .register-button {
+    padding: 16px;
+  }
+  
+  .options-login label {
+    font-size: 14px;
+  }
+}
+
+/* Smartphones muito pequenos */
+@media (max-width: 360px) {
+  .register-box {
+    padding: 16px;
+    min-width: 300px;
+  }
+  
+  .cabecalho-text-register h1 {
+    font-size: 1.2rem;
+  }
+  
+  .form-field {
+    padding: 10px 12px;
+  }
+  
+  .register-button {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* Melhorias para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: light) {
+  .register-box {
+    background-color: rgba(30, 30, 30, 0.95);
+    color: #e0e0e0;
+  }
+  
+  .cabecalho-text-register h1 {
+    color: #ffffff;
+  }
+  
+  .form-group label {
+    color: #e0e0e0;
+  }
+  
+  .form-field {
+    background-color: #ffffff;
+    border-color: #555555;
+    color: #ffffff;
+  }
+  
+  .form-field:focus {
+    border-color: #3498db;
+  }
+  
+  .form-field:hover {
+    border-color: #777777;
+  }
+}
+
