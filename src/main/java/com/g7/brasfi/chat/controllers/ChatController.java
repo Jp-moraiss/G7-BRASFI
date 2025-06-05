@@ -10,7 +10,7 @@ import com.g7.brasfi.chat.playload.MessageRequest;
 import com.g7.brasfi.chat.services.ChatService;
 
 @Controller
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("https://g7-brasfi.onrender.com")
 public class ChatController {
 
 	@Autowired
