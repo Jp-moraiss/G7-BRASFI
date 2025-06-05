@@ -38,9 +38,9 @@ export const AuthProvider = ({ children }) => {
 };
 
 const Login = () => {
-  const [localUser, setLocalUser] = useState<User | null>(null);
-  const [localLoading, setLocalLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [localUser, setLocalUser] = useState();
+  const [localLoading, setLocalLoading] = useState();
+  const [error, setError] = useState("");
 
   // Contexto de autenticação
   const authContext = useContext(AuthContext);

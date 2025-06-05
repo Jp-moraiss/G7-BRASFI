@@ -61,8 +61,8 @@ const validationRegisterFull = yup.object().shape({
 
 // Componente de registro
 const Register = () => {
-  const [localUser, setLocalUser] = useState<User | null>(null);
-  const [localLoading, setLocalLoading] = useState<boolean>(false);
+  const [localUser, setLocalUser] = useState();
+  const [localLoading, setLocalLoading] = useState();
   const [error, setError] = useState<string>('');
 
   const authContext = useContext(AuthContext);
