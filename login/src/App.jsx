@@ -32,14 +32,13 @@ const App = () => {
         <Route path="/EsqueceuSenha" element={<EsqueceuSenha />} />
         <Route path="/Questionario" element={<Questionario />} />
         <Route path="/QuestionarioESG" element={<QuestionarioESG />} />
-        <Route path="/Chatmain" element={<JoinCreateChat />} />
         <Route path="/Cursos/:id" element={<CursoPagina />} />
         <Route path="/Cursos" element={<CoursesPage />} />
         <Route path="/AdicionarCurso" element={<AdicionarCurso />} />
         <Route path="/AdicionarCapitulos" element={<AdicionarCapitulos />} />
         <Route path="/AdicionarVideos" element={<AdicionarVideos />} />
         <Route path="/AdicionarPerguntas" element={<AdicionarPerguntas />} />
-        <Route path="/Chat" element={<ChatPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />
       </Routes>
     </div>
