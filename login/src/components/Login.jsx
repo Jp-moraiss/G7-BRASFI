@@ -10,27 +10,11 @@ import logo from "../../image/logoBRASFI.png";
 // URL da API
 const API_URL = "http://localhost:8080";
 
-// Tipos
-interface User {
-  id?: string;
-  name?: string;
-  email: string;
-  role?: string;
-  authenticated?: boolean;
-}
-
-interface AuthContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  signOut: () => void;
-}
 
 // Criação do contexto de autenticação
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -53,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-const Login: React.FC = () => {
+const Login = () => {
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -73,7 +57,7 @@ const Login: React.FC = () => {
   });
 
   // Lógica de login
-  const handleClickLogin = async (values: { email: string; password: string; role: string}) => {
+  const handleClickLogin = async (values) => {
     setLoading(true);
     setError("");
 
@@ -89,7 +73,7 @@ const Login: React.FC = () => {
         const decoded = decodeJwtPayload(token);
         const role = decoded?.role || "USER";
 
-        const userData: User = {
+        const userData = {
           id: response.data.id,
           email: response.data.email,
           name: response.data.name,
@@ -101,7 +85,7 @@ const Login: React.FC = () => {
         localStorage.setItem("user", JSON.stringify(userData));
         return true;
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao fazer login:", error);
       setError(error.response?.data?.message || "Credenciais inválidas");
       return false;
@@ -111,7 +95,7 @@ const Login: React.FC = () => {
   };
 
   // Decodifica payload do JWT
-  const decodeJwtPayload = (token: string) => {
+  const decodeJwtPayload = (token) => {
     try {
       const payloadBase64 = token.split(".")[1];
       const decodedPayload = atob(payloadBase64);

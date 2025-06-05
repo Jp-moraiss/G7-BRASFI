@@ -5,7 +5,7 @@ const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null); // novo estado
 
-  const toggleSubmenu = (menuName: string | null) => {
+  const toggleSubmenu = (menuName) => {
     setOpenSubmenu(prev => (prev === menuName ? null : menuName));
   };
 

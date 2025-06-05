@@ -4,16 +4,8 @@ import logo from "../../image/logoBRASFI.png";
 
 const API_URL = "http://localhost:8080";
 
-interface User {
-  id?: string;
-  name?: string;
-  email?: string;
-  cpf?: string;
-  phone?: string;
-  role?: string;
-}
 
-const EditProfile: React.FC = () => {
+const EditProfile = () => {
   const [user, setUser] = useState<User | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -100,7 +92,7 @@ const EditProfile: React.FC = () => {
 }, []);
 
 
-  const handleUpdate = async (e: React.FormEvent) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     
     setIsLoading(true);

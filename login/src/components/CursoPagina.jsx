@@ -2,29 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 
-interface Video {
-  id: string;
-  titulo: string;
-  url: string;
-}
-
-interface Capitulo {
-  id: string;
-  titulo: string;
-  descricao: string;
-  videos: Video[];
-}
-
-interface Curso {
-  id: string;
-  titulo: string;
-  descricao: string;
-  urlImage: string;
-  capitulos: Capitulo[];
-}
-
 export const CursoPagina = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const [curso, setCurso] = useState<Curso | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +36,7 @@ export const CursoPagina = () => {
       });
   }, [id]);
 
-  const toggleSubmenu = (menuName: string | null) => {
+  const toggleSubmenu = (menuName) => {
     setOpenSubmenu((prev) => (prev === menuName ? null : menuName));
   };
 

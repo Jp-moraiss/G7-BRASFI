@@ -28,7 +28,7 @@ const ChatPage = () => {
   const [showFiles, setShowFiles] = useState(false);
   const [fileType, setFileType] = useState(''); // 'docs' ou 'photos'
 
-  const toggleSubmenu = (menuName: string | null) => {
+  const toggleSubmenu = (menuName) => {
     setOpenSubmenu(prev => (prev === menuName ? null : menuName));
   };
 
@@ -75,7 +75,7 @@ const ChatPage = () => {
   };
 
   // Função para entrar em uma sala
-  const handleJoinRoom = (selectedRoomId: string) => {
+  const handleJoinRoom = (selectedRoomId) => {
     if (selectedRoomId === roomId) return; // se já estiver na mesma sala, não faz nada
 
     // desconecta do stomp antigo
@@ -143,7 +143,7 @@ const ChatPage = () => {
     }
   };
 
-  const connectToWebsocket = (roomId: string) => {
+  const connectToWebsocket = (roomId) => {
     const socket = new SockJS('http://localhost:8080/ws');
     const client = Stomp.over(socket);
     client.debug = (msg) => console.log('[STOMP]', msg);
@@ -156,7 +156,7 @@ const ChatPage = () => {
     });
   };
 
-  const fetchMessages = async (roomId: string) => {
+  const fetchMessages = async (roomId) => {
     try {
       const response = await fetch(`http://localhost:8080/api/v1/rooms/${roomId}/messages`);
       if (response.ok) {
@@ -225,7 +225,7 @@ const ChatPage = () => {
   };
 
   // Função para filtrar e obter arquivos
-  const getFilteredFiles = (type: 'photos' | 'docs') => {
+  const getFilteredFiles = (type) => {
     return messages.filter(message => {
       if (type === 'photos') {
         return message.type === 'image';
@@ -237,7 +237,7 @@ const ChatPage = () => {
   };
 
   // Função para abrir modal de arquivos
-  const handleShowFiles = (type: 'photos' | 'docs') => {
+  const handleShowFiles = (type) => {
     setFileType(type);
     setShowFiles(true);
   };
@@ -284,7 +284,7 @@ const ChatPage = () => {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
     
@@ -302,7 +302,7 @@ const ChatPage = () => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const base64Data = reader.result as string;
+      const base64Data = reader.result;
       const message = {
         sender: userEmail.split("@")[0],
         role: isAdmin ? "admin" : "USER",

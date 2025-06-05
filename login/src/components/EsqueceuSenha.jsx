@@ -10,26 +10,10 @@ import logo  from "../../image/logoBRASFI.png";
 // URL da API para o Railway
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-// Definição de tipos
-interface User {
-  id?: string;
-  name?: string;
-  email: string;
-  authenticated?: boolean;
-}
-
-interface AuthContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  signOut: () => void;
-}
-
 // Criação do contexto de autenticação
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -52,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-const EsqueceuSenha: React.FC = () => {
+const EsqueceuSenha = () => {
   // Estado local para controle do usuário
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
@@ -78,7 +62,7 @@ const EsqueceuSenha: React.FC = () => {
     confirmPassword: yup.string().oneOf([yup.ref("password"), null], "As senhas devem ser iguais").required("Campo obrigatório"),
   });
 
-  const handleClickLogin = async (values: { email: string; password: string }) => {
+  const handleClickLogin = async (values) => {
     setLoading(true);
     setError('');
 
@@ -96,7 +80,7 @@ const EsqueceuSenha: React.FC = () => {
         localStorage.setItem('user', JSON.stringify(userData));
         return true;
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao fazer login:", error);
       setError(error.response?.data?.message || 'Credenciais inválidas');
       return false;

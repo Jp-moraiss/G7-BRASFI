@@ -9,28 +9,12 @@ import icon from "../../image/icon.png";
 // URL da API para o Railway
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-// Tipagens
-interface User {
-  id?: string;
-  name?: string;
-  email: string;
-  authenticated?: boolean;
-  role?: string;
-}
-
-interface AuthContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  signOut: () => void;
-}
 
 // Contexto de autenticação
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 // Provedor de autenticação
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -76,7 +60,7 @@ const validationRegisterFull = yup.object().shape({
 });
 
 // Componente de registro
-const Register: React.FC = () => {
+const Register = () => {
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localLoading, setLocalLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -88,7 +72,7 @@ const Register: React.FC = () => {
   const setLoading = authContext?.setLoading || setLocalLoading;
 
   // Função para o registro do usuário
-  const handleClickRegister = async (values: any) => {
+  const handleClickRegister = async (values) => {
     setLoading(true);
     try {
       const requestData = {
@@ -124,7 +108,7 @@ const Register: React.FC = () => {
         setUser(savedUser);
       }
 
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao registrar:", error);
       setError("Erro ao registrar usuário: " + (error.response?.data?.error || error.message));
     } finally {

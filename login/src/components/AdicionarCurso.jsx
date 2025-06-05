@@ -8,13 +8,13 @@ const AdicionarCurso = () => {
   const [mensagem, setMensagem] = useState<string | null>(null);
   const [tipoMensagem, setTipoMensagem] = useState<'sucesso' | 'erro' | null>(null);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       setImagem(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result as string);
+        setPreview(reader.result);
       };
       reader.readAsDataURL(file);
     } else {
