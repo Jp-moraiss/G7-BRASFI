@@ -12,11 +12,35 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        
+        // Permitir múltiplas origens (desenvolvimento e produção)
+        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedOrigin("https://g7-brasfi.onrender.com");
-        configuration.addAllowedMethod("*");
+        
+        // Ou usar padrão mais permissivo para desenvolvimento (CUIDADO em produção)
+        // configuration.addAllowedOriginPattern("*");
+        
+        // Métodos HTTP permitidos
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+        configuration.addAllowedMethod("OPTIONS");
+        configuration.addAllowedMethod("PATCH");
+        
+        // Headers permitidos
         configuration.addAllowedHeader("*");
+        
+        // Permitir credenciais
         configuration.setAllowCredentials(true);
+        
+        // Cache preflight por 1 hora
         configuration.setMaxAge(3600L);
+        
+        // Headers expostos ao cliente
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Content-Type");
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
