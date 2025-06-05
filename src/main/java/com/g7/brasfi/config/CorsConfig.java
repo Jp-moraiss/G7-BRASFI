@@ -17,6 +17,7 @@ public class CorsConfig {
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedOrigin("https://g7-brasfi.onrender.com");
+        configuration.addAllowedOrigin("https://brasfi-bice.vercel.app");
         
         // Ou usar padrão mais permissivo para desenvolvimento (CUIDADO em produção)
         // configuration.addAllowedOriginPattern("*");

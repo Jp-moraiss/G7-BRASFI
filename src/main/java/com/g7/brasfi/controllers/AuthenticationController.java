@@ -24,7 +24,8 @@ import jakarta.validation.Valid;
     origins = {
         "http://localhost:3000", 
         "http://localhost:8080", 
-        "https://g7-brasfi.onrender.com"
+        "https://g7-brasfi.onrender.com",
+        "https://brasfi-bice.vercel.app"
     },
     allowCredentials = "true",
     maxAge = 3600,
