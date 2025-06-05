@@ -15,8 +15,8 @@ export const AuthContext = createContext();
 
 // Provedor de autenticação
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
