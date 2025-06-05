@@ -15,20 +15,13 @@ public class CorsConfig {
         
         // Permitir múltiplas origens (desenvolvimento e produção)
         configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("http://localhost:5173"); // Adicionado para Vite
         configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedOrigin("https://g7-brasfi.onrender.com");
         configuration.addAllowedOrigin("https://brasfi-bice.vercel.app");
         
-        // Ou usar padrão mais permissivo para desenvolvimento (CUIDADO em produção)
-        // configuration.addAllowedOriginPattern("*");
-        
         // Métodos HTTP permitidos
-        configuration.addAllowedMethod("GET");
-        configuration.addAllowedMethod("POST");
-        configuration.addAllowedMethod("PUT");
-        configuration.addAllowedMethod("DELETE");
-        configuration.addAllowedMethod("OPTIONS");
-        configuration.addAllowedMethod("PATCH");
+        configuration.addAllowedMethod("*"); // Mais simples que listar todos
         
         // Headers permitidos
         configuration.addAllowedHeader("*");

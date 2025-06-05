@@ -24,6 +24,7 @@ import jakarta.validation.Valid;
     origins = {
         "http://localhost:3000", 
         "http://localhost:8080", 
+        "http://localhost:5173",
         "https://g7-brasfi.onrender.com",
         "https://brasfi-bice.vercel.app"
     },
