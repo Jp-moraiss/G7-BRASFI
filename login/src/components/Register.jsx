@@ -11,7 +11,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 
 // Contexto de autenticação
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext();
 
 // Provedor de autenticação
 export const AuthProvider = ({ children }) => {

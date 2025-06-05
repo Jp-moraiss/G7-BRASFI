@@ -11,7 +11,7 @@ import logo  from "../../image/logoBRASFI.png";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 // Criação do contexto de autenticação
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
