@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 
 export const CursoPagina = () => {
   const { id } = useParams();
-  const [curso, setCurso] = useState<Curso | null>(null);
+  const [curso, setCurso] = useState();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [videoAtual, setVideoAtual] = useState<string | null>(null);
+  const [error, setError] = useState();
+  const [openSubmenu, setOpenSubmenu] = useState();
+  const [videoAtual, setVideoAtual] = useState();
 
 
   useEffect(() => {
