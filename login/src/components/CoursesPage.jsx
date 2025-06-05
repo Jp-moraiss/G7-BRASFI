@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSection, faVideo, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faSection, faVideo, faBook, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const CoursesPage = () => {
   const [cursos, setCursos] = useState([]);
@@ -35,6 +35,27 @@ const CoursesPage = () => {
   const cursosFiltrados = cursos.filter((curso) =>
     curso.titulo.toLowerCase().includes(filtro.toLowerCase())
   );
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Tem certeza que deseja deletar este curso?')) return;
+
+    try {
+      const response = await fetch(`https://g7-brasfi.onrender.com/cursos/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao deletar curso');
+      }
+
+      // Atualiza lista local removendo o curso deletado
+      setCursos((prevCursos) => prevCursos.filter((curso) => curso.id !== id));
+      alert('Curso deletado com sucesso!');
+    } catch (error) {
+      console.error(error);
+      alert('Falha ao deletar curso.');
+    }
+  };
 
   return (
     <div style={{ backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
@@ -95,13 +116,25 @@ const CoursesPage = () => {
             <div className="descricao-course">
               <p>{curso.descricao}</p>
             </div>
-            <div className="botoes-cursos">
+            <div className="botoes-cursos" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div className="button-curso">
                 <a href={`http://localhost:5173/cursos/${curso.id}`}>
                   <button>ASSISTIR AGORA!</button>
                 </a>
               </div>
+              {isAdmin && (
+                <div className="button-curso">
+                  <button
+                    style={{ backgroundColor: '#e74c3c', color: 'white', border: 'none', cursor: 'pointer' }}
+                    onClick={() => handleDelete(curso.id)}
+                    title="Deletar curso"
+                  >
+                    <FontAwesomeIcon icon={faTrash} /> Excluir
+                  </button>
+                </div>
+              )}
             </div>
+
           </div>
         ))}
       </div>
