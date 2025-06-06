@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // Adicionar import do Link
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSection, faVideo, faBook, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -78,28 +79,28 @@ const CoursesPage = () => {
       {isAdmin && (
         <div className="cursos-bottoes">
           <div className="botaoEditar">
-            <a href="/AdicionarCurso">
+            <Link to="/AdicionarCurso">
               <button>
                 <FontAwesomeIcon icon={faBook} style={{ color: '#fff', marginRight: '8px' }} />
                 Adicionar Curso
               </button>
-            </a>
+            </Link>
           </div>
           <div className="botaoEditar">
-            <a href="/AdicionarCapitulos">
+            <Link to="/AdicionarCapitulos">
               <button>
                 <FontAwesomeIcon icon={faSection} style={{ color: '#fff', marginRight: '8px' }} />
                 Capitulos
               </button>
-            </a>
+            </Link>
           </div>
           <div className="botaoEditar">
-            <a href="/AdicionarVideos">
+            <Link to="/AdicionarVideos">
               <button>
                 <FontAwesomeIcon icon={faVideo} style={{ marginRight: '8px' }} />
                 Adicionar Vídeo
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       )}
@@ -118,9 +119,10 @@ const CoursesPage = () => {
             </div>
             <div className="botoes-cursos" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div className="button-curso">
-                <a href={`https://g7-brasfi.onrender.com/curso/${curso.id}`}>
+                {/* CORREÇÃO PRINCIPAL: Usar Link do React Router em vez de href para API */}
+                <Link to={`/Cursos/${curso.id}`}>
                   <button>ASSISTIR AGORA!</button>
-                </a>
+                </Link>
               </div>
               {isAdmin && (
                 <div className="button-curso">
@@ -134,7 +136,6 @@ const CoursesPage = () => {
                 </div>
               )}
             </div>
-
           </div>
         ))}
       </div>
