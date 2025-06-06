@@ -2034,13 +2034,12 @@ input[placeholder="Pesquisar..."],
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   padding: 2rem;
   border-radius: 1rem;
   color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 1);
 }
 
 .questionario h1 {
@@ -3831,5 +3830,15 @@ input[placeholder="Pesquisar..."],
   font-size: 25px;
 }
 
+.quest_button{
+    background-color: #0F230A;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
 
+.quest_button:hover{
+    background-color: #277116;
+}
 

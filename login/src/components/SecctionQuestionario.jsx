@@ -4,10 +4,10 @@ const SecctionQuestionario = () => {
   return (
     <div className='blur'>
       <div className="questionario">
-        <h1>QUESTIONARIO</h1>
+        <h1>QUESTIONÁRIO</h1>
         <p>Queremos entender melhor o seu negócio para oferecer soluções alinhadas aos seus objetivos. Responda ao nosso questionário e nos ajude a identificar suas necessidades e desafios. Assim, podemos propor estratégias que realmente fazem a diferença.</p>
         <div className="quetionarioBotao">
-            <button>Ir para o Questionario</button>
+            <button class="quest_button">Ir para o Questionário</button>
         </div>
       </div>
     </div>
