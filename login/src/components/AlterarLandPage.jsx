@@ -33,7 +33,7 @@ const AlterarLandPage = () => {
 
   const buscarInformacoes = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/landpages`);
+      const response = await fetch(`https://g7-brasfi.onrender.com/landpages`);
       const data = await response.json();
       setLandpage(data);
     } catch (error) {
@@ -50,7 +50,7 @@ const AlterarLandPage = () => {
   const handleSubmit = async () => {
     try {
       for (const item of landpage) {
-        await fetch(`http://localhost:8080/landpages/${item.id}`, {
+        await fetch(`https://g7-brasfi.onrender.com/landpages/${item.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

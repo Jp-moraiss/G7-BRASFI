@@ -118,7 +118,7 @@ const CoursesPage = () => {
             </div>
             <div className="botoes-cursos" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <div className="button-curso">
-                <a href={`http://localhost:5173/cursos/${curso.id}`}>
+                <a href={`https://g7-brasfi.onrender.com/cursos/${curso.id}`}>
                   <button>ASSISTIR AGORA!</button>
                 </a>
               </div>

@@ -13,7 +13,7 @@ const Home = () => {
 
   const buscarInformacoes = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/landpages`);
+      const response = await fetch(`https://g7-brasfi.onrender.com/landpages`);
       const data = await response.json();
       setLandpage(data);
       console.log(data);

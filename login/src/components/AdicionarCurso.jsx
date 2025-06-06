@@ -50,7 +50,7 @@ const AdicionarCurso = () => {
     formData.append('file', imagem);
 
     try {
-      const response = await fetch('http://localhost:8080/upload/image', {
+      const response = await fetch('https://g7-brasfi.onrender.com/upload/image', {
         method: 'POST',
         body: formData,
       });
