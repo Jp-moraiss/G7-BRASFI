@@ -112,7 +112,7 @@ const Home = () => {
                         <h1>QUESTIONÁRIO</h1>
                         <p>{p.questionario}</p>
                         <div className="quetionarioBotao">
-                            <button class="quest_button">Ir para o Questionário</button>
+                            <a href="/QuestionarioESG"><button class="quest_button">Ir para o Questionário</button></a>
                         </div>
                     </div>
                 </div>

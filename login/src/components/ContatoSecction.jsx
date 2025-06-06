@@ -17,6 +17,7 @@ const ContatoSecction = () => {
                 <h2>E-mail</h2>
                 <input type="text" placeholder='(Campo Obrigatorio)' />
             </div>
+            <button>Enviar</button>
             
         </div>
       </div>
