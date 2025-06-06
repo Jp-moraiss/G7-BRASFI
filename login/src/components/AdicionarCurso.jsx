@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Home from './Home';
 
 const AdicionarCurso = () => {
   const [titulo, setTitulo] = useState('');
@@ -7,6 +8,27 @@ const AdicionarCurso = () => {
   const [preview, setPreview] = useState(null);
   const [mensagem, setMensagem] = useState(null);
   const [tipoMensagem, setTipoMensagem] = useState(null);
+   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState();
+  useEffect(() => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setIsAuthenticated(true);
+          setIsAdmin(parsedUser.role === 'ADMIN');
+          console.log("Dados do usuário carregados:", parsedUser);
+        } catch (error) {
+          console.error("Erro ao carregar dados do usuário:", error);
+        }
+      } else {
+        console.log("Nenhum usuário encontrado no localStorage");
+      }
+    }, []);
+
+    {!isAdmin && (
+      <Home />
+    )}
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];

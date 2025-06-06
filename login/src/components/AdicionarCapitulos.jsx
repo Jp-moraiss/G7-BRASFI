@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Home from './Home';
 
 const AdicionarCapitulos = () => {
   const [titulo, setTitulo] = useState('');
@@ -8,7 +9,28 @@ const AdicionarCapitulos = () => {
   const [tipoMensagem, setTipoMensagem] = useState();
   const [cursos, setCursos] = useState([]);
 
-  // 🔥 Pega os cursos ao carregar a página
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState();
+  useEffect(() => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setIsAuthenticated(true);
+          setIsAdmin(parsedUser.role === 'ADMIN');
+          console.log("Dados do usuário carregados:", parsedUser);
+        } catch (error) {
+          console.error("Erro ao carregar dados do usuário:", error);
+        }
+      } else {
+        console.log("Nenhum usuário encontrado no localStorage");
+      }
+    }, []);
+
+    {!isAdmin && (
+      <Home />
+    )}
+
   useEffect(() => {
     const fetchCursos = async () => {
       try {

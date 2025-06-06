@@ -3843,3 +3843,45 @@ input[placeholder="Pesquisar..."],
     background-color: #277116;
 }
 
+@media (max-width: 768px) {
+  .box-adicionar-curso {
+    width: 90%;
+    height: auto;
+    padding-left: 20px;
+    margin-top: 30px;
+    gap: 15px;
+  }
+
+  .input-curso-area input {
+    width: 100%;
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .input-descrição-box label select {
+    width: 100%;
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-adicionar-curso {
+    padding-left: 10px;
+    gap: 10px;
+  }
+
+  .input-curso-area {
+    gap: 15px;
+  }
+
+  .input-curso-area input {
+    font-size: 11px;
+  }
+
+  .input-descrição-box label select {
+    font-size: 13px;
+  }
+}
+
+

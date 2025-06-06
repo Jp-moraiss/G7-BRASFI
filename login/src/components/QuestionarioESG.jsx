@@ -9,7 +9,6 @@ const QuestionarioESG = () => {
   const [userEmail, setUserEmail] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // respostas separadas por ID de pergunta
   const [respostas, setRespostas] = useState({});
   const [respostasOutras, setRespostasOutras] = useState({});
 

@@ -4,7 +4,6 @@ import LeiaMais from './LeiaMais'
 const HubDeProjeto = () => {
   return (
     <div>
-      
       <div className="historiaBox">
              <div className="historiaTexts">
                 <h1>Hub de Projetos</h1>

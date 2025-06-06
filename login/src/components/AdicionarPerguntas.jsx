@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import Home from './Home';
 
 const AdicionarPerguntas = () => {
   const [categoria, setCategoria] = useState('');
@@ -7,7 +8,27 @@ const AdicionarPerguntas = () => {
   const [peso, setPeso] = useState();
   const [mensagem, setMensagem] = useState();
   const [tipoMensagem, setTipoMensagem] = useState();
+ const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState();
+  useEffect(() => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setIsAuthenticated(true);
+          setIsAdmin(parsedUser.role === 'ADMIN');
+          console.log("Dados do usuário carregados:", parsedUser);
+        } catch (error) {
+          console.error("Erro ao carregar dados do usuário:", error);
+        }
+      } else {
+        console.log("Nenhum usuário encontrado no localStorage");
+      }
+    }, []);
 
+    {!isAdmin && (
+      <Home />
+    )}
   
   const handleSubmit = async () => {
     setMensagem(null);

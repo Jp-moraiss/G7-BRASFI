@@ -4,6 +4,7 @@ import brasfiLogo from '../../image/logoBRASFI.png';
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -11,6 +12,7 @@ const Header = () => {
       try {
         const parsedUser = JSON.parse(storedUser);
         setIsAuthenticated(true);
+        setIsAdmin(parsedUser.role === 'ADMIN');
         console.log("Dados do usuário carregados:", parsedUser);
       } catch (error) {
         console.error("Erro ao carregar dados do usuário:", error);
@@ -41,6 +43,11 @@ const Header = () => {
             {!isAuthenticated && (
               <li><a href="/login">Registrar</a></li>
             )}
+             {isAdmin && (
+              <>
+              <li><a href="/AlterarLandPage">Alterar Land Page</a></li>
+              </>
+            )}
             {isAuthenticated && (
               <>
                 <li><a href="/Profile">Perfil</a></li>
@@ -52,6 +59,7 @@ const Header = () => {
                 </div>
               </>
             )}
+           
           </ul>
         </nav>
       </div>
