@@ -49,6 +49,16 @@ const BrasfiFooter = () => {
             </ul>
           </div>
 
+          <div className="footer-section">
+            <h3 className="section-title">
+              Redes Sociais
+              <div className="title-underline"></div>
+            </h3>
+            <ul className="footer-links">
+              <a href="https://www.instagram.com/brasfi_/" target='_blank'><i class="fa-brands fa-instagram"></i> Instagram</a>
+            </ul>
+          </div>
+
           {/* More About BRASFI Section */}
           <div className="footer-section">
             <h3 className="section-title">
