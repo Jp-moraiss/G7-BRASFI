@@ -3564,7 +3564,8 @@ input[placeholder="Pesquisar..."],
 }
 
 .hub h1 {
-  font-size: 60px;
+  font-size: 70px;
+  color: white;
 }
 
 .historiaTexts {
@@ -3619,7 +3620,8 @@ input[placeholder="Pesquisar..."],
   }
   
   .hub h1 {
-    font-size: 50px;
+    font-size: 70px;
+    color: white;
   }
   
   .historiaTexts {
@@ -3647,6 +3649,7 @@ input[placeholder="Pesquisar..."],
   
   .hub h1 {
     font-size: 45px;
+    color: white;
   }
   
   .historiaTexts {
@@ -3679,6 +3682,7 @@ input[placeholder="Pesquisar..."],
   
   .hub h1 {
     font-size: 40px;
+    color: white;
   }
   
   .historiaTexts {
@@ -3711,6 +3715,7 @@ input[placeholder="Pesquisar..."],
   
   .hub h1 {
     font-size: 35px;
+    color: white;
   }
   
   .historiaTexts {
@@ -3742,6 +3747,7 @@ input[placeholder="Pesquisar..."],
   
   .hub h1 {
     font-size: 28px;
+    color: white;
   }
   
   .historiaTexts {
@@ -3775,6 +3781,7 @@ input[placeholder="Pesquisar..."],
   
   .hub h1 {
     font-size: 24px;
+    color: white;
   }
   
   .historiaTexts {
@@ -3895,6 +3902,7 @@ input[placeholder="Pesquisar..."],
   .cabecalhoContato h1 {
     font-size: 1.5rem;
     text-align: center;
+    color: white;
   }
 
   .cabecalhoContato p {
@@ -3925,6 +3933,7 @@ input[placeholder="Pesquisar..."],
 @media (max-width: 480px) {
   .cabecalhoContato h1 {
     font-size: 1.2rem;
+    color: white;
   }
 
   .cabecalhoContato p {
